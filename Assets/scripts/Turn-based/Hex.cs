@@ -48,4 +48,12 @@ public class Hex
 
         return neighbors;
     }
+
+
+    // Metoda obliczaj¹ca dystans miêdzy dwoma heksami
+    public int HexDistance(Hex other)
+    {
+        return (Mathf.Abs(this.q - other.q) + Mathf.Abs(this.r - other.r) + Mathf.Abs(this.s - other.s)) / 2;
+    }
+
 }

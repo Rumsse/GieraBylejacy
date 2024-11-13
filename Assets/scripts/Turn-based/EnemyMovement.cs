@@ -13,6 +13,8 @@ public class EnemyMovement : MonoBehaviour
     public bool hasMoved = false; 
     private bool isMoving = false;
     public float yOffset = 1.2f;
+    public int maxMoveDistance = 3;  
+
 
     public HealthBar enemyHealthBar;
     public int maxHealth = 50;          
@@ -62,21 +64,35 @@ public class EnemyMovement : MonoBehaviour
     {
         Vector3Int playerHexPos = hexTilemap.WorldToCell(playerTransform.position);
         Vector3Int enemyHexPos = hexTilemap.WorldToCell(transform.position);
-        Vector3Int nextHexPos = GetNextStepTowards(playerHexPos, enemyHexPos);
 
-        Vector3 targetWorldPosition = hexTilemap.CellToWorld(nextHexPos) + hexTilemap.tileAnchor;
+        // Tworzymy obiekty Hex z pozycji przeciwnika i gracza
+        Hex enemyHex = new Hex(enemyHexPos.x, enemyHexPos.y);
+        Hex playerHex = new Hex(playerHexPos.x, playerHexPos.y);
 
-        if (!IsPositionOccupiedByPlayer(targetWorldPosition))  // SprawdŸ, czy pozycja nie jest zajêta
+        // SprawdŸ odleg³oœæ miêdzy przeciwnikiem a graczem
+        if (enemyHex.HexDistance(playerHex) <= maxMoveDistance)
         {
-            targetPosition = targetWorldPosition;
-            hasMoved = true;
-            isMoving = true;
+            Vector3Int nextHexPos = GetNextStepTowards(playerHexPos, enemyHexPos);
+            Vector3 targetWorldPosition = hexTilemap.CellToWorld(nextHexPos) + hexTilemap.tileAnchor;
+
+            if (!IsPositionOccupiedByPlayer(targetWorldPosition))  // SprawdŸ, czy pozycja nie jest zajêta
+            {
+                targetPosition = targetWorldPosition;
+                isMoving = true;
+                hasMoved = true;
+                Debug.Log("Przeciwnik zmierza do pozycji: " + targetPosition);
+            }
+            else
+            {
+                Debug.Log("Nie mo¿na poruszyæ siê na kafelek zajêty przez gracza.");
+            }
         }
         else
         {
-            Debug.Log("Nie mo¿na poruszyæ siê na kafelek zajêty przez gracza.");
+            Debug.Log("Gracz jest poza zasiêgiem ruchu przeciwnika.");
         }
     }
+
 
     bool IsPositionOccupiedByPlayer(Vector3 position)
     {
@@ -92,7 +108,8 @@ public class EnemyMovement : MonoBehaviour
         if (transform.position == targetPosition)
         {
             isMoving = false;
-            hasMoved = true; 
+            hasMoved = true;
+            Debug.Log("Przeciwnik dotar³ do docelowej pozycji.");
         }
     }
 

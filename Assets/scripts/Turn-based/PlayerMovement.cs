@@ -80,14 +80,27 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 targetWorldPosition = hexTilemap.CellToWorld(hexPosition) + hexTilemap.tileAnchor;
 
-            if (!IsPositionOccupiedByEnemy(targetWorldPosition))  // SprawdŸ, czy pozycja nie jest zajêta
+            // Tworzymy obiekty Hex z pozycji bie¿¹cej i docelowej
+            Hex playerHex = new Hex(hexTilemap.WorldToCell(transform.position).x, hexTilemap.WorldToCell(transform.position).y);
+            Hex targetHex = new Hex(hexPosition.x, hexPosition.y);
+
+            // SprawdŸ odleg³oœæ w heksach
+            int maxMoveDistance = 4; // Maksymalny zasiêg ruchu
+            if (playerHex.HexDistance(targetHex) <= maxMoveDistance)
             {
-                targetPosition = targetWorldPosition;
-                hasMoved = true;
+                if (!IsPositionOccupiedByEnemy(targetWorldPosition))  // SprawdŸ, czy pozycja nie jest zajêta
+                {
+                    targetPosition = targetWorldPosition;
+                    hasMoved = true;
+                }
+                else
+                {
+                    Debug.Log("Nie mo¿na poruszyæ siê na kafelek zajêty przez przeciwnika.");
+                }
             }
             else
             {
-                Debug.Log("Nie mo¿na poruszyæ siê na kafelek zajêty przez przeciwnika.");
+                Debug.Log("Pozycja jest poza zasiêgiem ruchu.");
             }
         }
         else
@@ -95,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.LogWarning("Klikniêto poza heksagonaln¹ siatk¹.");
         }
     }
+
 
     bool IsPositionOccupiedByEnemy(Vector3 position)
     {
