@@ -1715,7 +1715,7 @@ PrefabInstance:
       objectReference: {fileID: 564013837713909765, guid: 2d0242243661a3845ba245af1e73cbd6, type: 3}
     - target: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       propertyPath: yOffset
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       propertyPath: hexTilemap

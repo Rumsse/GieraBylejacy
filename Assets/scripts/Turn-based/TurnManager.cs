@@ -66,14 +66,15 @@ public class TurnManager : MonoBehaviour
     System.Collections.IEnumerator StartEnemyTurnWithDelay()
     {
         yield return new WaitForSeconds(enemyMoveDelay);
+        Debug.Log("OpóŸnienie zakoñczone, zaczynam turê przeciwnika.");
         StartEnemyTurn();
     }
 
     void StartEnemyTurn()
     {
+        Debug.Log("Tura przeciwnika");
         enemyMovement.ResetMovement();
         enemyMovement.MoveTowardsPlayer();
-        Debug.Log("Tura przeciwnika");
     }
 
     void EndEnemyTurn()

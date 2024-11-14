@@ -12,7 +12,7 @@ public class EnemyMovement : MonoBehaviour
     private Vector3 targetPosition;
     public bool hasMoved = false; 
     private bool isMoving = false;
-    public float yOffset = 1.2f;
+    public float yOffset = 0.3f;
     public int maxMoveDistance = 3;  
 
 
@@ -65,31 +65,23 @@ public class EnemyMovement : MonoBehaviour
         Vector3Int playerHexPos = hexTilemap.WorldToCell(playerTransform.position);
         Vector3Int enemyHexPos = hexTilemap.WorldToCell(transform.position);
 
+        Vector3Int nextHexPos = GetNextStepTowards(playerHexPos, enemyHexPos);
+        Vector3 targetWorldPosition = hexTilemap.CellToWorld(nextHexPos) + hexTilemap.tileAnchor + new Vector3(0, yOffset, 0);
+
         // Tworzymy obiekty Hex z pozycji przeciwnika i gracza
         Hex enemyHex = new Hex(enemyHexPos.x, enemyHexPos.y);
         Hex playerHex = new Hex(playerHexPos.x, playerHexPos.y);
 
-        // SprawdŸ odleg³oœæ miêdzy przeciwnikiem a graczem
-        if (enemyHex.HexDistance(playerHex) <= maxMoveDistance)
+        if (!IsPositionOccupiedByPlayer(targetWorldPosition))
         {
-            Vector3Int nextHexPos = GetNextStepTowards(playerHexPos, enemyHexPos);
-            Vector3 targetWorldPosition = hexTilemap.CellToWorld(nextHexPos) + hexTilemap.tileAnchor;
-
-            if (!IsPositionOccupiedByPlayer(targetWorldPosition))  // SprawdŸ, czy pozycja nie jest zajêta
-            {
-                targetPosition = targetWorldPosition;
-                isMoving = true;
-                hasMoved = true;
-                Debug.Log("Przeciwnik zmierza do pozycji: " + targetPosition);
-            }
-            else
-            {
-                Debug.Log("Nie mo¿na poruszyæ siê na kafelek zajêty przez gracza.");
-            }
+            targetPosition = targetWorldPosition;
+            isMoving = true;  // Ustaw isMoving na true, aby rozpocz¹æ ruch w Update
+            hasMoved = true;
+            Debug.Log("Przeciwnik zmierza do pozycji: " + targetPosition);
         }
         else
         {
-            Debug.Log("Gracz jest poza zasiêgiem ruchu przeciwnika.");
+            Debug.Log("Nie mo¿na poruszyæ siê na kafelek zajêty przez gracza.");
         }
     }
 
@@ -144,8 +136,8 @@ public class EnemyMovement : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            Destroy(gameObject);
             Debug.Log("Przeciwnik zosta³ pokonany!");
-            // Mo¿esz tutaj dodaæ logikê, np. usuniêcie przeciwnika ze sceny
         }
     }
 

@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
     private Vector3 targetPosition;
     public bool hasMoved = false;
-    public float yOffset = 0.2f;
+    public float yOffset = 0.3f;
     public EnemyMovement enemy;
 
     public HealthBar playerHealthBar;
@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (hexTilemap.HasTile(hexPosition))
         {
-            Vector3 targetWorldPosition = hexTilemap.CellToWorld(hexPosition) + hexTilemap.tileAnchor;
+            Vector3 targetWorldPosition = hexTilemap.CellToWorld(hexPosition) + hexTilemap.tileAnchor + new Vector3(0, yOffset, 0);
 
             // Tworzymy obiekty Hex z pozycji bie¿¹cej i docelowej
             Hex playerHex = new Hex(hexTilemap.WorldToCell(transform.position).x, hexTilemap.WorldToCell(transform.position).y);
@@ -141,6 +141,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            Destroy(gameObject);
             Debug.Log("Gracz zosta³ pokonany!");
         }
     }
