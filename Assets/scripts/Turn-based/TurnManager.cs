@@ -21,13 +21,15 @@ public class TurnManager : MonoBehaviour
         {
             enemyMovement = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyMovement>();
         }
+
+        StartPlayerTurn();
     }
 
     void Update()
     {
         if (isPlayerTurn)
         {
-            if (playerMovement.hasMoved)
+            if (playerMovement.hasMoved && Input.GetKeyDown(KeyCode.Space))
             {
                 EndPlayerTurn();
             }
@@ -45,20 +47,24 @@ public class TurnManager : MonoBehaviour
     {
         isPlayerTurn = true;
         playerMovement.ResetMovement();
+        playerMovement.HighlightMovableTiles();
         Debug.Log("Tura gracza");
     }
 
     void EndPlayerTurn()
     {
-        isPlayerTurn = false;
-        Debug.Log("Koniec tury gracza");
 
-        // Rozpocznij Coroutine dla opóŸnienia przed ruchem przeciwnika
-        StartCoroutine(StartEnemyTurnWithDelay());
-
-        if (IsInAttackRange(playerMovement.transform.position, enemyMovement.transform.position))
+        if (playerMovement.hasMoved)
         {
-            enemyMovement.TakeDamage(playerMovement.damage);
+            if (IsInAttackRange(playerMovement.transform.position, enemyMovement.transform.position))
+            {
+                enemyMovement.TakeDamage(playerMovement.damage);
+            }
+
+            isPlayerTurn = false; 
+            Debug.Log("Koniec tury gracza");
+
+            StartCoroutine(StartEnemyTurnWithDelay());
         }
 
     }
@@ -72,22 +78,27 @@ public class TurnManager : MonoBehaviour
 
     void StartEnemyTurn()
     {
-        Debug.Log("Tura przeciwnika");
+        isPlayerTurn = false;
         enemyMovement.ResetMovement();
+        Debug.Log("Tura przeciwnika");
         enemyMovement.MoveTowardsPlayer();
     }
 
     void EndEnemyTurn()
     {
-        isPlayerTurn = true;
-        Debug.Log("Koniec tury przeciwnika");
-
-        StartPlayerTurn();
-
-        if (IsInAttackRange(enemyMovement.transform.position, playerMovement.transform.position))
+        if (enemyMovement.hasMoved)
         {
-            playerMovement.TakeDamage(enemyMovement.damage);
+            isPlayerTurn = true;
+            Debug.Log("Koniec tury przeciwnika");
+
+            if (IsInAttackRange(enemyMovement.transform.position, playerMovement.transform.position))
+            {
+                playerMovement.TakeDamage(enemyMovement.damage);
+            }
+
+            StartPlayerTurn();
         }
+
     }
 
     bool IsInAttackRange(Vector3 attackerPos, Vector3 targetPos)

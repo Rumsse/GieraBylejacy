@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.TestTools;
 using UnityEngine.Tilemaps;
 
 
@@ -20,6 +22,12 @@ public class PlayerMovement : MonoBehaviour
 
     public HealthBarFollow healthBarFollow;
     public Transform playerTransform;
+
+    public int maxMoveRange = 2;
+    public Tile highlightTile;
+    public Tilemap HighlightTilemap;
+    public GameObject highlightPrefab;
+    private List<GameObject> activeHighlights = new List<GameObject>();
 
 
 
@@ -55,9 +63,19 @@ public class PlayerMovement : MonoBehaviour
         {
             // Ustaw pozycjê paska zdrowia nad g³ow¹ gracza
             Vector3 playerPosition = healthBarFollow.target.position;
-            playerPosition.y += 0f; // Mo¿esz dodaæ przesuniêcie w osi Y, by pasek by³ wy¿ej
+            playerPosition.y += 0f;
             playerPosition.z = 0;
             healthBarFollow.transform.position = playerPosition;
+        }
+
+        if (!hasMoved)
+        {
+            HighlightMoveRange();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && hasMoved)
+        {
+            EndTurn();
         }
 
         if (Input.GetMouseButtonDown(0) && !hasMoved)  // Gracz mo¿e klikn¹æ tylko raz na turê
@@ -74,38 +92,33 @@ public class PlayerMovement : MonoBehaviour
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0;
 
-        Vector3Int hexPosition = hexTilemap.WorldToCell(mouseWorldPos);
-
-        if (hexTilemap.HasTile(hexPosition))
+        if (IsEnemyClicked(mouseWorldPos) && IsEnemyInAttackRange())
         {
-            Vector3 targetWorldPosition = hexTilemap.CellToWorld(hexPosition) + hexTilemap.tileAnchor + new Vector3(0, yOffset, 0);
+            AttackEnemy();
+        }
+        else
+        {
+            Vector3Int hexPosition = hexTilemap.WorldToCell(mouseWorldPos);
 
-            // Tworzymy obiekty Hex z pozycji bie¿¹cej i docelowej
-            Hex playerHex = new Hex(hexTilemap.WorldToCell(transform.position).x, hexTilemap.WorldToCell(transform.position).y);
-            Hex targetHex = new Hex(hexPosition.x, hexPosition.y);
-
-            // SprawdŸ odleg³oœæ w heksach
-            int maxMoveDistance = 4; // Maksymalny zasiêg ruchu
-            if (playerHex.HexDistance(targetHex) <= maxMoveDistance)
+            if (hexTilemap.HasTile(hexPosition))
             {
-                if (!IsPositionOccupiedByEnemy(targetWorldPosition))  // SprawdŸ, czy pozycja nie jest zajêta
+                Vector3 targetWorldPosition = hexTilemap.CellToWorld(hexPosition) + hexTilemap.tileAnchor;
+
+                if (!IsPositionOccupiedByEnemy(targetWorldPosition) && IsWithinMoveRange(targetWorldPosition))
                 {
                     targetPosition = targetWorldPosition;
                     hasMoved = true;
+                    ClearHighlightedTiles();
                 }
                 else
                 {
-                    Debug.Log("Nie mo¿na poruszyæ siê na kafelek zajêty przez przeciwnika.");
+                    Debug.Log("Nie mo¿na poruszyæ siê na kafelek zajêty przez przeciwnika lub poza zasiêgiem.");
                 }
             }
             else
             {
-                Debug.Log("Pozycja jest poza zasiêgiem ruchu.");
+                Debug.LogWarning("Klikniêto poza heksagonaln¹ siatk¹.");
             }
-        }
-        else
-        {
-            Debug.LogWarning("Klikniêto poza heksagonaln¹ siatk¹.");
         }
     }
 
@@ -114,17 +127,57 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
         Vector3Int targetHexPos = hexTilemap.WorldToCell(position);
-        return enemyHexPos == targetHexPos;  // Zwraca true, jeœli pozycja jest zajêta przez przeciwnika
+        return enemyHexPos == targetHexPos;
     }
 
     void MovePlayerToTarget()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-        if (transform.position == targetPosition && hasMoved)
+        // Jeœli gracz nie osi¹gn¹³ jeszcze docelowej pozycji
+        if (transform.position != targetPosition)
         {
-            Debug.Log("Gracz zakoñczy³ ruch");
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
         }
+
+        // Kiedy gracz dotrze do celu, zakoñcz ruch
+        if (transform.position == targetPosition && !hasMoved)
+        {
+            hasMoved = true; 
+            Debug.Log("Gracz zakoñczy³ ruch");
+            ClearHighlightedTiles(); 
+        }
+    }
+
+    bool IsEnemyClicked(Vector3 mousePosition)
+    {
+        Collider2D hit = Physics2D.OverlapPoint(mousePosition);
+        return hit != null && hit.transform == enemy.transform;
+    }
+
+    bool IsEnemyInAttackRange()
+    {
+        Vector3Int playerHexPos = hexTilemap.WorldToCell(transform.position);
+        Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
+        return HexDistance(playerHexPos, enemyHexPos) == 1;
+    }
+
+    void AttackEnemy()
+    {
+        enemy.TakeDamage(damage);
+        Debug.Log("Atak na przeciwnika!");
+    }
+
+    bool IsWithinMoveRange(Vector3 position)
+    {
+        Vector3Int playerHexPos = hexTilemap.WorldToCell(transform.position);
+        Vector3Int targetHexPos = hexTilemap.WorldToCell(position);
+        return HexDistance(playerHexPos, targetHexPos) <= maxMoveRange;
+    }
+
+    void EndTurn()
+    {
+        hasMoved = false;
+        Debug.Log("Tura gracza zakoñczona.");
+        HighlightMoveRange();
     }
 
     public void ResetMovement()
@@ -148,6 +201,111 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateHealthUI()
     {
+        playerHealthBar.SetHealth(currentHealth);
+    }
+
+    public void HighlightMovableTiles()
+    {
+        Vector3Int playerHexPos = hexTilemap.WorldToCell(transform.position);
+        List<Vector3Int> reachableHexes = GetReachableHexes(playerHexPos, maxMoveRange);
+
+        foreach (Vector3Int hexPos in reachableHexes)
+        {
+            HighlightTilemap.SetTile(hexPos, highlightTile); // Ustawienie kafelka podœwietlenia na osiagalnych heksach
+        }
+    }
+
+
+    public List<Vector3Int> GetReachableHexes(Vector3Int startPos, int range)
+    {
+        List<Vector3Int> reachableHexes = new List<Vector3Int>();
+
+        Queue<(Vector3Int, int)> hexQueue = new Queue<(Vector3Int, int)>();
+        hexQueue.Enqueue((startPos, 0)); // Dodaj startowy heks z dystansem 0
+
+        HashSet<Vector3Int> visited = new HashSet<Vector3Int>();
+        visited.Add(startPos);
+
+        while (hexQueue.Count > 0)
+        {
+            var (currentHex, distance) = hexQueue.Dequeue();
+
+            if (distance >= range)
+                continue;
+
+            foreach (Vector3Int neighbor in GetNeighboringHexes(currentHex))
+            {
+                if (!visited.Contains(neighbor) && hexTilemap.HasTile(neighbor))
+                {
+                    visited.Add(neighbor);
+                    hexQueue.Enqueue((neighbor, distance + 1));
+                    reachableHexes.Add(neighbor);
+                }
+            }
+        }
+
+        return reachableHexes;
+    }
+
+    List<Vector3Int> GetNeighboringHexes(Vector3Int hexPos)
+    {
+        List<Vector3Int> neighbors = new List<Vector3Int>
+        {
+            new Vector3Int(hexPos.x + 1, hexPos.y, hexPos.z),
+            new Vector3Int(hexPos.x - 1, hexPos.y, hexPos.z),
+            new Vector3Int(hexPos.x, hexPos.y + 1, hexPos.z),
+            new Vector3Int(hexPos.x, hexPos.y - 1, hexPos.z),
+            new Vector3Int(hexPos.x + 1, hexPos.y - 1, hexPos.z),
+            new Vector3Int(hexPos.x - 1, hexPos.y + 1, hexPos.z)
+        };
+        return neighbors;
+    }
+
+
+    void ClearHighlight()
+    {
+        foreach (var highlight in activeHighlights)
+        {
+            Destroy(highlight);
+        }
+        activeHighlights.Clear();
+    }
+
+    void ClearHighlightedTiles()
+    {
+        foreach (GameObject tile in activeHighlights)
+        {
+            Destroy(tile);
+        }
+        activeHighlights.Clear();
+    }
+
+    void HighlightMoveRange()
+    {
+        ClearHighlightedTiles();
+
+        Vector3Int playerHexPos = hexTilemap.WorldToCell(transform.position);
+
+        for (int dx = -maxMoveRange; dx <= maxMoveRange; dx++)
+        {
+            for (int dy = Mathf.Max(-maxMoveRange, -dx - maxMoveRange); dy <= Mathf.Min(maxMoveRange, -dx + maxMoveRange); dy++)
+            {
+                int dz = -dx - dy;
+                Vector3Int hexPos = playerHexPos + new Vector3Int(dx, dy, dz);
+
+                if (hexTilemap.HasTile(hexPos))
+                {
+                    Vector3 worldPos = hexTilemap.CellToWorld(hexPos) + hexTilemap.tileAnchor;
+                    GameObject highlight = Instantiate(highlightPrefab, worldPos, Quaternion.identity);
+                    activeHighlights.Add(highlight);
+                }
+            }
+        }
+    }
+
+    int HexDistance(Vector3Int a, Vector3Int b)
+    {
+        return (Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y) + Mathf.Abs(a.x + a.y - b.x - b.y)) / 2;
     }
 
 

@@ -13,7 +13,7 @@ public class EnemyMovement : MonoBehaviour
     public bool hasMoved = false; 
     private bool isMoving = false;
     public float yOffset = 0.3f;
-    public int maxMoveDistance = 3;  
+    public int maxMoveDistance = 2;  
 
 
     public HealthBar enemyHealthBar;
@@ -57,6 +57,7 @@ public class EnemyMovement : MonoBehaviour
         if (isMoving)
         {
             MoveEnemyToTarget();
+            MoveTowardsPlayer();
         }
     }
 
@@ -68,14 +69,10 @@ public class EnemyMovement : MonoBehaviour
         Vector3Int nextHexPos = GetNextStepTowards(playerHexPos, enemyHexPos);
         Vector3 targetWorldPosition = hexTilemap.CellToWorld(nextHexPos) + hexTilemap.tileAnchor + new Vector3(0, yOffset, 0);
 
-        // Tworzymy obiekty Hex z pozycji przeciwnika i gracza
-        Hex enemyHex = new Hex(enemyHexPos.x, enemyHexPos.y);
-        Hex playerHex = new Hex(playerHexPos.x, playerHexPos.y);
-
         if (!IsPositionOccupiedByPlayer(targetWorldPosition))
         {
             targetPosition = targetWorldPosition;
-            isMoving = true;  // Ustaw isMoving na true, aby rozpocz¹æ ruch w Update
+            isMoving = true;  
             hasMoved = true;
             Debug.Log("Przeciwnik zmierza do pozycji: " + targetPosition);
         }
@@ -95,12 +92,15 @@ public class EnemyMovement : MonoBehaviour
 
     void MoveEnemyToTarget()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-        if (transform.position == targetPosition)
+        if (transform.position != targetPosition)
         {
-            isMoving = false;
-            hasMoved = true;
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+        }
+
+        // Kiedy przeciwnik dotrze do celu
+        if (transform.position == targetPosition && !hasMoved)
+        {
+            hasMoved = true; // Przeciwnik zakoñczy³ ruch
             Debug.Log("Przeciwnik dotar³ do docelowej pozycji.");
         }
     }
@@ -112,6 +112,11 @@ public class EnemyMovement : MonoBehaviour
 
     Vector3Int GetNextStepTowards(Vector3Int target, Vector3Int start)
     {
+        if (target == start)
+        {
+            return start;
+        }
+
         int dq = target.x - start.x;
         int dr = target.y - start.y;
 
@@ -143,6 +148,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void UpdateHealthUI()
     {
+        enemyHealthBar.SetHealth(currentHealth);
     }
 
 }
