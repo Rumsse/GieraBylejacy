@@ -7,6 +7,8 @@ public class TurnManager : MonoBehaviour
 {
     public PlayerMovement playerMovement;
     public EnemyMovement enemyMovement;
+    public PlayerAbilities playerAbilities;
+    public EnemyAbilities enemyAbilities;
     private bool isPlayerTurn = true;
     public float enemyMoveDelay = 1.3f;
 
@@ -58,7 +60,7 @@ public class TurnManager : MonoBehaviour
 
         if (IsInAttackRange(playerMovement.transform.position, enemyMovement.transform.position))
         {
-            enemyMovement.TakeDamage(playerMovement.damage);
+            enemyAbilities.TakeDamage(playerAbilities.damage);
         }
 
     }
@@ -86,7 +88,7 @@ public class TurnManager : MonoBehaviour
 
         if (IsInAttackRange(enemyMovement.transform.position, playerMovement.transform.position))
         {
-            playerMovement.TakeDamage(enemyMovement.damage);
+            playerAbilities.TakeDamage(enemyAbilities.damage);
         }
     }
 

@@ -8,30 +8,19 @@ public class EnemyMovement : MonoBehaviour
 {
     public Tilemap hexTilemap;
     public Transform playerTransform;
-    public float moveSpeed = 2f;
-    private Vector3 targetPosition;
-    public bool hasMoved = false; 
-    private bool isMoving = false;
-    public float yOffset = 0.3f;
-    public int maxMoveDistance = 3;  
-
-
-    public HealthBar enemyHealthBar;
-    public int maxHealth = 50;          
-    public int damage = 10;
-
-    public HealthBarFollow healthBarFollow;
     public Transform enemyTransform;
 
-    private int currentHealth;
+    public float moveSpeed = 2f;
+    public float yOffset = 0.3f;
+    public int maxMoveDistance = 3;
+    public bool hasMoved = false;
+    private bool isMoving = false;
+
+    private Vector3 targetPosition;
 
 
     void Start()
     {
-        currentHealth = maxHealth;
-        healthBarFollow.target = playerTransform;
-        enemyHealthBar.SetMaxHealth(maxHealth);
-
         if (hexTilemap == null)
         {
             hexTilemap = GameObject.Find("HexTilemap").GetComponent<Tilemap>();
@@ -44,12 +33,6 @@ public class EnemyMovement : MonoBehaviour
 
         targetPosition = transform.position;
 
-        if (enemyHealthBar == null)
-        {
-            enemyHealthBar = GameObject.Find("EnemyHealthBar").GetComponent<HealthBar>();
-        }
-
-        UpdateHealthUI();
     }
 
     void Update()
@@ -62,27 +45,39 @@ public class EnemyMovement : MonoBehaviour
 
     public void MoveTowardsPlayer()
     {
-        Vector3Int playerHexPos = hexTilemap.WorldToCell(playerTransform.position);
-        Vector3Int enemyHexPos = hexTilemap.WorldToCell(transform.position);
+        Vector3Int playerHexPos = hexTilemap.WorldToCell(playerTransform.position); //pozycja hexa na którym znajduje siê gracz
+        Vector3Int enemyHexPos = hexTilemap.WorldToCell(transform.position); 
+        Vector3Int nextHexPos = GetNextStepTowards(playerHexPos, enemyHexPos); //oblicza kolejny krok w stronê gracza
 
-        Vector3Int nextHexPos = GetNextStepTowards(playerHexPos, enemyHexPos);
-        Vector3 targetWorldPosition = hexTilemap.CellToWorld(nextHexPos) + hexTilemap.tileAnchor + new Vector3(0, yOffset, 0);
+        Hex enemyHex = new Hex(enemyHexPos.x, enemyHexPos.y); // Tworzymy obiekty Hex z pozycji przeciwnika i gracza
+        Hex playerHex = new Hex(playerHexPos.x, playerHexPos.y); // Tworzymy obiekty Hex z pozycji przeciwnika i gracza
 
-        // Tworzymy obiekty Hex z pozycji przeciwnika i gracza
-        Hex enemyHex = new Hex(enemyHexPos.x, enemyHexPos.y);
-        Hex playerHex = new Hex(playerHexPos.x, playerHexPos.y);
-
-        if (!IsPositionOccupiedByPlayer(targetWorldPosition))
+        if (hexTilemap.HasTile(nextHexPos))
         {
-            targetPosition = targetWorldPosition;
-            isMoving = true;  // Ustaw isMoving na true, aby rozpocz¹æ ruch w Update
-            hasMoved = true;
-            Debug.Log("Przeciwnik zmierza do pozycji: " + targetPosition);
+            Vector3 targetWorldPosition = hexTilemap.CellToWorld(nextHexPos) + hexTilemap.tileAnchor + new Vector3(0, yOffset, 0);
+
+            if (!IsPositionOccupiedByPlayer(targetWorldPosition))
+            {
+                targetPosition = targetWorldPosition;
+                isMoving = true;
+                hasMoved = true;
+                Debug.Log("Przeciwnik zmierza do pozycji: " + targetPosition);
+            }
+            else
+            {
+                Debug.Log("Nie mo¿na poruszyæ siê na kafelek zajêty przez gracza.");
+            }
         }
         else
         {
-            Debug.Log("Nie mo¿na poruszyæ siê na kafelek zajêty przez gracza.");
+            Debug.Log("Docelowy kafelek nie istnieje.");
         }
+
+        if (!hexTilemap.HasTile(nextHexPos))
+        {
+            Debug.Log("Docelowy kafelek nie istnieje. Szukanie alternatywnej drogi...");
+        }
+
     }
 
 
@@ -105,11 +100,6 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    public void ResetMovement()
-    {
-        hasMoved = false;
-    }
-
     Vector3Int GetNextStepTowards(Vector3Int target, Vector3Int start)
     {
         int dq = target.x - start.x;
@@ -127,24 +117,10 @@ public class EnemyMovement : MonoBehaviour
         return start;
     }
 
-    public void TakeDamage(int amount)
+    public void ResetMovement()
     {
-        currentHealth -= damage;
-        currentHealth = Mathf.Max(currentHealth, 0);
-        enemyHealthBar.SetHealth(currentHealth);
-        UpdateHealthUI();
-
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject);
-            Debug.Log("Przeciwnik zosta³ pokonany!");
-        }
+        hasMoved = false;
     }
-
-    private void UpdateHealthUI()
-    {
-    }
-
 }
 
 
