@@ -1,0 +1,165 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+
+public class HexTilemapPathfinding : MonoBehaviour
+{
+    [SerializeField] private Tilemap hexTilemap;      // Tilemap zawieraj¹cy heksagonalne kafelki
+    [SerializeField] private Transform playerUnit;    // Jednostka gracza
+    [SerializeField] private Transform enemyUnit;     // Jednostka przeciwnika
+    [SerializeField] private int movementRange = 3;   // Zasiêg ruchu (3 heksy)
+    [SerializeField] private float moveSpeed = 5f;    // Szybkoœæ poruszania siê jednostki
+
+    private List<Vector3Int> path = new List<Vector3Int>();  // Lista punktów œcie¿ki
+    private int currentPathIndex = 0;  // Indeks aktualnego punktu œcie¿ki
+    private bool isEnemyMoving = false;  // Flaga sprawdzaj¹ca, czy przeciwnik siê porusza
+
+    private void Start()
+    {
+        // Na pocz¹tku mo¿esz ustawiæ, gdzie znajduje siê gracz i przeciwnik
+        Vector3Int startEnemyPos = hexTilemap.WorldToCell(enemyUnit.position);  // Pozycja startowa przeciwnika
+        Vector3Int startPlayerPos = hexTilemap.WorldToCell(playerUnit.position);  // Pozycja gracza
+
+        // Wyszukiwanie œcie¿ki do gracza na pocz¹tku gry
+        path = FindPath(startEnemyPos, startPlayerPos);
+    }
+
+    private void Update()
+    {
+        // Przeciwnik porusza siê po œcie¿ce, jeœli jest czas na jego ruch
+        if (isEnemyMoving && path.Count > 0)
+        {
+            MoveEnemyAlongPath();
+        }
+    }
+
+    // Funkcja wyszukuj¹ca œcie¿kê do celu (gracza) z uwzglêdnieniem zasiêgu
+    public List<Vector3Int> FindPath(Vector3Int start, Vector3Int target)
+    {
+        List<Vector3Int> openSet = new List<Vector3Int>();    // Wierzcho³ki do rozwa¿enia
+        HashSet<Vector3Int> closedSet = new HashSet<Vector3Int>(); // Wierzcho³ki ju¿ rozwa¿one
+        Dictionary<Vector3Int, Vector3Int> cameFrom = new Dictionary<Vector3Int, Vector3Int>(); // Œcie¿ka prowadz¹ca do punktu
+
+        openSet.Add(start);
+
+        // Heurystyka - odleg³oœæ Manhattanowa
+        float Heuristic(Vector3Int position)
+        {
+            return Mathf.Abs(position.x - target.x) + Mathf.Abs(position.y - target.y);
+        }
+
+        // Koszt przejœcia do punktu
+        float Cost(Vector3Int current, Vector3Int neighbor)
+        {
+            return 1f;  // Zak³adaj¹c sta³y koszt przejœcia miêdzy s¹siednimi kafelkami
+        }
+
+        Dictionary<Vector3Int, float> gScore = new Dictionary<Vector3Int, float>();
+        gScore[start] = 0;
+
+        Dictionary<Vector3Int, float> fScore = new Dictionary<Vector3Int, float>();
+        fScore[start] = Heuristic(start);
+
+        while (openSet.Count > 0)
+        {
+            // Zbieramy punkt z najmniejszym fScore
+            Vector3Int current = openSet[0];
+            for (int i = 1; i < openSet.Count; i++)
+            {
+                if (fScore[openSet[i]] < fScore[current])
+                {
+                    current = openSet[i];
+                }
+            }
+
+            if (current == target)
+            {
+                // Rekonstrukcja œcie¿ki
+                List<Vector3Int> totalPath = new List<Vector3Int>();
+                while (cameFrom.ContainsKey(current))
+                {
+                    totalPath.Add(current);
+                    current = cameFrom[current];
+                }
+                totalPath.Reverse();
+                return totalPath;
+            }
+
+            openSet.Remove(current);
+            closedSet.Add(current);
+
+            // Sprawdzamy s¹siadów
+            foreach (Vector3Int neighbor in GetNeighbors(current))
+            {
+                if (closedSet.Contains(neighbor)) continue;
+
+                float tentativeGScore = gScore[current] + Cost(current, neighbor);
+
+                if (!openSet.Contains(neighbor))
+                {
+                    openSet.Add(neighbor);
+                }
+                else if (tentativeGScore >= gScore.GetValueOrDefault(neighbor, float.MaxValue))
+                {
+                    continue;
+                }
+
+                cameFrom[neighbor] = current;
+                gScore[neighbor] = tentativeGScore;
+                fScore[neighbor] = gScore[neighbor] + Heuristic(neighbor);
+            }
+        }
+
+        return new List<Vector3Int>();  // Brak œcie¿ki
+    }
+
+    // Zwracanie s¹siednich kafelków (w zale¿noœci od uk³adu heksagonalnego)
+    private List<Vector3Int> GetNeighbors(Vector3Int position)
+    {
+        List<Vector3Int> neighbors = new List<Vector3Int>();
+
+        Vector3Int[] directions = new Vector3Int[]
+        {
+            new Vector3Int(1, 0, 0),   // Prawo
+            new Vector3Int(-1, 0, 0),  // Lewo
+            new Vector3Int(0, 1, 0),   // Góra
+            new Vector3Int(0, -1, 0),  // Dó³
+            new Vector3Int(1, -1, 0),  // Prawy dolny
+            new Vector3Int(-1, 1, 0)   // Lewy górny
+        };
+
+        foreach (Vector3Int direction in directions)
+        {
+            Vector3Int neighbor = position + direction;
+            if (hexTilemap.HasTile(neighbor)) // Sprawdzamy, czy kafelek jest dostêpny
+            {
+                neighbors.Add(neighbor);
+            }
+        }
+
+        return neighbors;
+    }
+
+    // Funkcja do p³ynnego poruszania siê jednostki wzd³u¿ œcie¿ki
+    public void MoveEnemyAlongPath()
+    {
+        if (currentPathIndex < path.Count)
+        {
+            Vector3 targetPosition = hexTilemap.CellToWorld(path[currentPathIndex]) + new Vector3(0.5f, 0.5f, 0); // Korygujemy pozycjê
+            enemyUnit.position = Vector3.MoveTowards(enemyUnit.position, targetPosition, moveSpeed * Time.deltaTime);
+
+            if (enemyUnit.position == targetPosition)
+            {
+                currentPathIndex++; // Przechodzimy do nastêpnego punktu œcie¿ki
+            }
+        }
+        else
+        {
+            // Gdy przeciwnik dotrze do celu, koñczymy ruch
+            isEnemyMoving = false;
+            currentPathIndex = 0;
+        }
+    }
+
+}

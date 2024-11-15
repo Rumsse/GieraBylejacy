@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 
@@ -9,10 +10,15 @@ public class TurnManager : MonoBehaviour
     public EnemyMovement enemyMovement;
     public PlayerAbilities playerAbilities;
     public EnemyAbilities enemyAbilities;
+    
     private bool isPlayerTurn = true;
     public float enemyMoveDelay = 1.3f;
 
-    void Start()
+    public HexTilemapPathfinding hexTilemapPathfinding;
+    public Vector3Int startPosition;
+    public Vector3Int targetPosition;
+
+    void Start() //maybe ca³a metoda do wyrzucenia
     {
         if (playerMovement == null)
         {
@@ -29,7 +35,7 @@ public class TurnManager : MonoBehaviour
     {
         if (isPlayerTurn)
         {
-            if (playerMovement.hasMoved)
+            if (playerMovement.hasMoved && Input.GetKeyDown(KeyCode.Space))
             {
                 EndPlayerTurn();
             }
@@ -54,15 +60,7 @@ public class TurnManager : MonoBehaviour
     {
         isPlayerTurn = false;
         Debug.Log("Koniec tury gracza");
-
-        // Rozpocznij Coroutine dla opóŸnienia przed ruchem przeciwnika
-        StartCoroutine(StartEnemyTurnWithDelay());
-
-        if (IsInAttackRange(playerMovement.transform.position, enemyMovement.transform.position))
-        {
-            enemyAbilities.TakeDamage(playerAbilities.damage);
-        }
-
+        StartCoroutine(StartEnemyTurnWithDelay()); // Rozpocznij Coroutine dla opóŸnienia przed ruchem przeciwnika
     }
 
     System.Collections.IEnumerator StartEnemyTurnWithDelay()
@@ -75,8 +73,11 @@ public class TurnManager : MonoBehaviour
     void StartEnemyTurn()
     {
         Debug.Log("Tura przeciwnika");
-        enemyMovement.ResetMovement();
-        enemyMovement.MoveTowardsPlayer();
+
+        Vector3Int playerHexPos = playerMovement.hexTilemap.WorldToCell(playerMovement.transform.position); //Pobiera pozycje gracza i przeciwnika
+        Vector3Int enemyHexPos = enemyMovement.hexTilemap.WorldToCell(enemyMovement.transform.position);
+
+        isPlayerTurn = false;
     }
 
     void EndEnemyTurn()
@@ -85,14 +86,17 @@ public class TurnManager : MonoBehaviour
         Debug.Log("Koniec tury przeciwnika");
 
         StartPlayerTurn();
-
-        if (IsInAttackRange(enemyMovement.transform.position, playerMovement.transform.position))
-        {
-            playerAbilities.TakeDamage(enemyAbilities.damage);
-        }
     }
 
-    bool IsInAttackRange(Vector3 attackerPos, Vector3 targetPos)
+
+
+
+
+
+
+
+
+    bool IsInAttackRange(Vector3 attackerPos, Vector3 targetPos) // OGARN¥Æ TO W JAKIMŒ INNYM SKRYPCIE CZY COŒ
     {
         // Pobierz pozycje heksów na siatce Tilemap
         Vector3Int attackerHexPos = playerMovement.hexTilemap.WorldToCell(attackerPos);
