@@ -15,7 +15,7 @@ public class EnemyMovement : MonoBehaviour
     public float yOffset = 0.3f;
     public int maxMoveDistance = 3;
     public bool hasMoved = false;
-    private bool isMoving = false;
+    public bool isEnemyMoving = false;
 
     private Vector3 targetPosition;
 
@@ -33,12 +33,11 @@ public class EnemyMovement : MonoBehaviour
         }
 
         targetPosition = transform.position;
-
     }
 
     void Update()
     {
-        if (isMoving)
+        if (isEnemyMoving)
         {
             hexTilemapPathfinding.MoveEnemyAlongPath();
         }
@@ -49,18 +48,6 @@ public class EnemyMovement : MonoBehaviour
         Vector3Int playerHexPos = hexTilemap.WorldToCell(playerTransform.position);
         Vector3Int targetHexPos = hexTilemap.WorldToCell(position);
         return playerHexPos == targetHexPos;  // Zwraca true, jeœli pozycja jest zajêta przez gracza
-    }
-
-    void MoveEnemyToTarget() //czy to jest potrzebne????
-    {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-        if (transform.position == targetPosition)
-        {
-            isMoving = false;
-            hasMoved = true;
-            Debug.Log("Przeciwnik dotar³ do docelowej pozycji.");
-        }
     }
 
     public void ResetMovement()

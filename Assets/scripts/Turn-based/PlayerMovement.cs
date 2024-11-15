@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public float yOffset = 0.3f;
     public bool hasMoved = false;
+    private bool hasLogged = false;
 
     private Vector3 targetPosition;
 
@@ -90,9 +91,10 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
-        if (transform.position == targetPosition && hasMoved)
+        if (transform.position == targetPosition && hasMoved) //chyba jak siê doda "&& !isMoving" czy coœ na podobnej zasadzie to mo¿e debug przestanie siê wyœwietlaæ co milisekunde
         {
             Debug.Log("Gracz zakoñczy³ ruch");
+            hasLogged = true; //przetestowaæ czy to siê op³aca zostawiæ, bo narazie nie dzia³a
         }
     }
 

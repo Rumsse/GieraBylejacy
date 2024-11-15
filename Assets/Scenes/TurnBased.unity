@@ -438,7 +438,9 @@ MonoBehaviour:
   playerUnit: {fileID: 1323855100}
   enemyUnit: {fileID: 1845817486}
   movementRange: 3
-  moveSpeed: 5
+  moveSpeed: 3
+  enemyMovement: {fileID: 1845817482}
+  turnManager: {fileID: 2848338075193348446}
 --- !u!1 &470792791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1744,6 +1746,10 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 1323855100}
+    - target: {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
+      propertyPath: hexTilemapPathfinding
+      value: 
+      objectReference: {fileID: 419332255}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1830,6 +1836,7 @@ MonoBehaviour:
   enemyMovement: {fileID: 1845817482}
   playerAbilities: {fileID: 1323855101}
   enemyAbilities: {fileID: 0}
+  isPlayerTurn: 1
   enemyMoveDelay: 1.3
   hexTilemapPathfinding: {fileID: 0}
   startPosition: {x: 0, y: 0, z: 0}

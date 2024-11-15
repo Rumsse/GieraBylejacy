@@ -11,7 +11,7 @@ public class TurnManager : MonoBehaviour
     public PlayerAbilities playerAbilities;
     public EnemyAbilities enemyAbilities;
     
-    private bool isPlayerTurn = true;
+    public bool isPlayerTurn = true;
     public float enemyMoveDelay = 1.3f;
 
     public HexTilemapPathfinding hexTilemapPathfinding;
@@ -35,7 +35,7 @@ public class TurnManager : MonoBehaviour
     {
         if (isPlayerTurn)
         {
-            if (playerMovement.hasMoved && Input.GetKeyDown(KeyCode.Space))
+            if (playerMovement.hasMoved)  //&& Input.GetKeyDown(KeyCode.Space))
             {
                 EndPlayerTurn();
             }
@@ -77,10 +77,12 @@ public class TurnManager : MonoBehaviour
         Vector3Int playerHexPos = playerMovement.hexTilemap.WorldToCell(playerMovement.transform.position); //Pobiera pozycje gracza i przeciwnika
         Vector3Int enemyHexPos = enemyMovement.hexTilemap.WorldToCell(enemyMovement.transform.position);
 
+        enemyMovement.isEnemyMoving = true;
+
         isPlayerTurn = false;
     }
 
-    void EndEnemyTurn()
+    public void EndEnemyTurn()
     {
         isPlayerTurn = true;
         Debug.Log("Koniec tury przeciwnika");

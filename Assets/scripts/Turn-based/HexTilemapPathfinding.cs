@@ -9,11 +9,14 @@ public class HexTilemapPathfinding : MonoBehaviour
     [SerializeField] private Transform playerUnit;    // Jednostka gracza
     [SerializeField] private Transform enemyUnit;     // Jednostka przeciwnika
     [SerializeField] private int movementRange = 3;   // Zasiêg ruchu (3 heksy)
-    [SerializeField] private float moveSpeed = 5f;    // Szybkoœæ poruszania siê jednostki
+    [SerializeField] private float moveSpeed = 3f;    // Szybkoœæ poruszania siê jednostki
 
+    public EnemyMovement enemyMovement;
+    public TurnManager turnManager;
     private List<Vector3Int> path = new List<Vector3Int>();  // Lista punktów œcie¿ki
     private int currentPathIndex = 0;  // Indeks aktualnego punktu œcie¿ki
-    private bool isEnemyMoving = false;  // Flaga sprawdzaj¹ca, czy przeciwnik siê porusza
+
+
 
     private void Start()
     {
@@ -28,7 +31,7 @@ public class HexTilemapPathfinding : MonoBehaviour
     private void Update()
     {
         // Przeciwnik porusza siê po œcie¿ce, jeœli jest czas na jego ruch
-        if (isEnemyMoving && path.Count > 0)
+        if (enemyMovement.isEnemyMoving && path.Count > 0)
         {
             MoveEnemyAlongPath();
         }
@@ -157,8 +160,9 @@ public class HexTilemapPathfinding : MonoBehaviour
         else
         {
             // Gdy przeciwnik dotrze do celu, koñczymy ruch
-            isEnemyMoving = false;
+            enemyMovement.isEnemyMoving = false;
             currentPathIndex = 0;
+            turnManager.EndEnemyTurn();
         }
     }
 
