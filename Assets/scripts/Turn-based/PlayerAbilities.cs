@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class PlayerAbilities : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class PlayerAbilities : MonoBehaviour
     public EnemyAbilities enemyAbilities;
     public GameObject enemy;
     public Tilemap hexTilemap;
+
+    public bool isAttackMode = false;
+    public Button BasicAttackButton;
+    public LayerMask enemyLayer;
 
     public HealthBar playerHealthBar;
     public int maxHealth = 100;
@@ -20,25 +25,60 @@ public class PlayerAbilities : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
+        BasicAttackButton.onClick.AddListener(SelectAttackMode); 
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F)) 
+        if (isAttackMode && Input.GetMouseButtonDown(0))
         {
-            Vector3Int playerHexPos = hexTilemap.WorldToCell(transform.position);
-            Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 1f);
+            RaycastHit hit;
 
-            if (HexDistance(playerHexPos, enemyHexPos) <= 1) // Sprawdzenie, czy przeciwnik jest w zasiêgu
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, enemyLayer))
             {
-                Attack();
+                Debug.Log("Trafiono: " + hit.collider.name);
+                EnemyAbilities enemy = hit.collider.GetComponent<EnemyAbilities>();
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(damage);
+                    Debug.Log("Przeciwnik otrzyma³ " + damage + " obra¿eñ!");
+                    isAttackMode = false;
+                }
             }
             else
             {
-                Debug.Log("Przeciwnik poza zasiêgiem ataku!");
+                Debug.Log("Promieñ nie trafi³ w przeciwnika.");
             }
         }
+
+        isAttackMode = false;
+        BasicAttackButton.GetComponent<Image>().color = Color.white;
+
+        //if (Input.GetKeyDown(KeyCode.F)) 
+        //{
+        //Vector3Int playerHexPos = hexTilemap.WorldToCell(transform.position);
+        // Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
+
+        //if (HexDistance(playerHexPos, enemyHexPos) <= 1) // Sprawdzenie, czy przeciwnik jest w zasiêgu
+        //{
+        // Attack();
+        //}
+        //else
+        //{
+        // Debug.Log("Przeciwnik poza zasiêgiem ataku!");
+        //}
+        //}
     }
+
+    public void SelectAttackMode()
+    {
+        isAttackMode = true;
+        BasicAttackButton.GetComponent<Image>().color = Color.red;
+        Debug.Log("Wybrano tryb ataku!");
+    }
+
 
     private int HexDistance(Vector3Int a, Vector3Int b)
     {
