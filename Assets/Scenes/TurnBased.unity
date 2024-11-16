@@ -438,8 +438,9 @@ MonoBehaviour:
   playerUnit: {fileID: 1323855100}
   enemyUnit: {fileID: 1845817486}
   movementRange: 3
-  moveSpeed: 3
+  moveSpeed: 1
   enemyMovement: {fileID: 1845817482}
+  playerMovement: {fileID: 1098599819}
   turnManager: {fileID: 2848338075193348446}
 --- !u!1 &470792791
 GameObject:

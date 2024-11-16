@@ -93,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (transform.position == targetPosition && hasMoved) //chyba jak siê doda "&& !isMoving" czy coœ na podobnej zasadzie to mo¿e debug przestanie siê wyœwietlaæ co milisekunde
         {
-            Debug.Log("Gracz zakoñczy³ ruch");
+            //Debug.Log("Gracz zakoñczy³ ruch"); (denerwuje mnie ten debug)
             hasLogged = true; //przetestowaæ czy to siê op³aca zostawiæ, bo narazie nie dzia³a
         }
     }

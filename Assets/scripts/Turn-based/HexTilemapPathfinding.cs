@@ -12,9 +12,14 @@ public class HexTilemapPathfinding : MonoBehaviour
     [SerializeField] private float moveSpeed = 3f;    // Szybkoœæ poruszania siê jednostki
 
     public EnemyMovement enemyMovement;
+    public PlayerMovement playerMovement;
     public TurnManager turnManager;
+
     private List<Vector3Int> path = new List<Vector3Int>();  // Lista punktów œcie¿ki
     private int currentPathIndex = 0;  // Indeks aktualnego punktu œcie¿ki
+
+    private Vector3Int lastPlayerPos; // Ostatnia zaktualizowana pozycja gracza
+    private Vector3Int lastEnemyPos;
 
 
 
@@ -30,14 +35,31 @@ public class HexTilemapPathfinding : MonoBehaviour
 
     private void Update()
     {
-        // Przeciwnik porusza siê po œcie¿ce, jeœli jest czas na jego ruch
-        if (enemyMovement.isEnemyMoving && path.Count > 0)
+        Vector3Int currentPlayerPos = hexTilemap.WorldToCell(playerUnit.transform.position); // Zaktualizuj pozycje gracza i przeciwnika
+        Vector3Int currentEnemyPos = hexTilemap.WorldToCell(enemyUnit.transform.position);
+
+        path = FindPath(currentEnemyPos, currentPlayerPos);
+
+        if (currentPlayerPos != lastPlayerPos) // SprawdŸ, czy pozycja gracza siê zmieni³a
+        {
+            lastPlayerPos = currentPlayerPos;
+            Debug.Log("Nowa pozycja gracza w siatce: " + currentPlayerPos);
+        }
+
+        if (currentEnemyPos != lastEnemyPos) // SprawdŸ, czy pozycja przeciwnika siê zmieni³a
+        {
+            lastEnemyPos = currentEnemyPos;
+            Debug.Log("Nowa pozycja przeciwnika w siatce: " + currentEnemyPos);
+        }
+
+
+        if (enemyMovement.isEnemyMoving && path.Count > 0) // Przeciwnik porusza siê po œcie¿ce, jeœli jest czas na jego ruch
         {
             MoveEnemyAlongPath();
         }
     }
 
-    // Funkcja wyszukuj¹ca œcie¿kê do celu (gracza) z uwzglêdnieniem zasiêgu
+    // Funkcja wyszukuj¹ca œcie¿kê do celu (gracza) z uwzglêdnieniem zasiêgu (w³aœnie nie ma zasiêgu, trzeba dodaæ)
     public List<Vector3Int> FindPath(Vector3Int start, Vector3Int target)
     {
         List<Vector3Int> openSet = new List<Vector3Int>();    // Wierzcho³ki do rozwa¿enia
@@ -162,6 +184,8 @@ public class HexTilemapPathfinding : MonoBehaviour
             // Gdy przeciwnik dotrze do celu, koñczymy ruch
             enemyMovement.isEnemyMoving = false;
             currentPathIndex = 0;
+            enemyMovement.ResetMovement();
+            playerMovement.ResetMovement();
             turnManager.EndEnemyTurn();
         }
     }
