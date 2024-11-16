@@ -30,7 +30,7 @@ public class PlayerAbilities : MonoBehaviour
 
     void Update()
     {
-        if (isAttackMode && Input.GetMouseButtonDown(0))
+        if (isAttackMode && Input.GetMouseButtonDown(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 1f);
