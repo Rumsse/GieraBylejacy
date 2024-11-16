@@ -7,9 +7,12 @@ public class EnemyAbilities : MonoBehaviour
     public HealthBar enemyHealthBar;
     public int maxHealth = 50;
     public int damage = 10;
+    public int currentHealth;
 
-    private int currentHealth;
-
+    void Start()
+    {
+        currentHealth = maxHealth;
+    }
 
     public void TakeDamage(int amount)
     {
@@ -27,6 +30,6 @@ public class EnemyAbilities : MonoBehaviour
 
     private void UpdateHealthUI()
     {
-
+        enemyHealthBar.SetHealth(currentHealth);
     }
 }

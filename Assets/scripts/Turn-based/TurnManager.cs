@@ -35,7 +35,7 @@ public class TurnManager : MonoBehaviour
     {
         if (isPlayerTurn)
         {
-            if (playerMovement.hasMoved)  //&& Input.GetKeyDown(KeyCode.Space))
+            if (playerMovement.hasMoved && Input.GetKeyDown(KeyCode.Space))
             {
                 EndPlayerTurn();
             }
