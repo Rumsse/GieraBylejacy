@@ -14,6 +14,7 @@ public class PlayerAbilities : MonoBehaviour
 
     public bool isAttackMode = false;
     public Button BasicAttackButton;
+    public Button AdvancedAttackButton;
     public LayerMask EnemyLayer;
 
     public HealthBar playerHealthBar;
@@ -25,56 +26,112 @@ public class PlayerAbilities : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-        BasicAttackButton.onClick.AddListener(SelectAttackMode); 
     }
 
     void Update()
     {
         if (isAttackMode && Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(ray.origin, ray.direction * 100, Color.blue, 3f);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("EnemyLayer")))
-            {
-                Debug.Log("Trafiono: " + hit.collider.name);
-                EnemyAbilities enemy = hit.collider.GetComponent<EnemyAbilities>();
-                if (enemy != null)
-                {
-                    Debug.Log("Coœ");
-                    enemy.TakeDamage(damage);
-                    Debug.Log("Przeciwnik otrzyma³ " + damage + " obra¿eñ!");
-                    isAttackMode = false;
-                }
-            }
-            else
-            {
-                Debug.Log("Promieñ nie trafi³ w przeciwnika.");
-                Debug.Log("Ray origin: " + ray.origin);  // Dodaj wiêcej informacji o pocz¹tku promienia
-                Debug.Log("Ray direction: " + ray.direction);
-            }
+            BasicAttack();
         }
-
     }
 
-    public void SelectAttackMode()
+    public void SelectBasicAttackMode()
     {
-        Vector3Int playerHexPos = hexTilemap.WorldToCell(transform.position);
-        Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
+        isAttackMode ^= true;
 
-        if (HexDistance(playerHexPos, enemyHexPos) <= 1)
+        if (isAttackMode)
         {
-            isAttackMode = true;
             BasicAttackButton.GetComponent<Image>().color = Color.red;
             Debug.Log("Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaæ.");
         }
         else
         {
-            isAttackMode = false;
             BasicAttackButton.GetComponent<Image>().color = Color.white;
-            Debug.Log("Przeciwnik poza zasiêgiem ataku!");
+            Debug.Log("Tryb ataku wy³¹czony.");
         }
+
+    }
+
+    public void BasicAttack()
+    {
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPos.z = 0;
+        Vector3Int hexPosition = hexTilemap.WorldToCell(mouseWorldPos);
+
+        Collider2D hitCollider = Physics2D.OverlapPoint(mouseWorldPos);
+
+        Vector3Int playerHexPos = hexTilemap.WorldToCell(transform.position);
+        Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
+
+
+        if (hitCollider != null && hitCollider.CompareTag("Enemy"))
+        {
+            EnemyAbilities enemy = hitCollider.GetComponent<EnemyAbilities>();
+            if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 1) && !enemy.hasTakenDamage)
+            {
+                enemy.TakeDamage(damage);
+                Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
+            }
+            else
+            {
+                Debug.Log("Przeciwnik ju¿ otrzyma³ obra¿enia");
+            }
+        }
+        else
+        {
+            Debug.Log("Promieñ nie trafi³ w przeciwnika.");
+        }
+
+    }
+
+    public void SelectAdvancedAttackMode()
+    {
+        isAttackMode ^= true;
+
+        if (isAttackMode)
+        {
+            AdvancedAttackButton.GetComponent<Image>().color = Color.red;
+            Debug.Log("2Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaæ.");
+        }
+        else
+        {
+            AdvancedAttackButton.GetComponent<Image>().color = Color.white;
+            Debug.Log("2Tryb ataku wy³¹czony.");
+        }
+
+    }
+
+    public void AdvancedAttack()
+    {
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPos.z = 0;
+        Vector3Int hexPosition = hexTilemap.WorldToCell(mouseWorldPos);
+
+        Collider2D hitCollider = Physics2D.OverlapPoint(mouseWorldPos);
+
+        Vector3Int playerHexPos = hexTilemap.WorldToCell(transform.position);
+        Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
+
+
+        if (hitCollider != null && hitCollider.CompareTag("Enemy"))
+        {
+            EnemyAbilities enemy = hitCollider.GetComponent<EnemyAbilities>();
+            if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 2) && !enemy.hasTakenDamage)
+            {
+                enemy.TakeDamage(damage);
+                Debug.Log("2Przeciwnik otrzyma³ obra¿enia: " + damage);
+            }
+            else
+            {
+                Debug.Log("2Przeciwnik ju¿ otrzyma³ obra¿enia");
+            }
+        }
+        else
+        {
+            Debug.Log("2Promieñ nie trafi³ w przeciwnika.");
+        }
+
     }
 
 
@@ -97,17 +154,6 @@ public class PlayerAbilities : MonoBehaviour
         }
     }
 
-    public void Attack()
-    {
-        if (enemy != null)
-        {
-            enemyAbilities.TakeDamage(damage);
-        }
-        else
-        {
-            Debug.Log("Brak przeciwnika do zaatakowania.");
-        }
-    }
 
     private void UpdateHealthUI()
     {

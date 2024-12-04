@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public Tilemap hexTilemap;
     public Transform playerTransform;
     public EnemyMovement enemy;
+    public PlayerAbilities playerAbilities;
 
     public float moveSpeed = 5f;
     public float yOffset = 0.3f;
@@ -30,13 +31,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !hasMoved)  // Gracz mo¿e klikn¹æ tylko raz na turê
+        if (Input.GetMouseButtonDown(0) && !hasMoved && !playerAbilities.isAttackMode)  // Gracz mo¿e klikn¹æ tylko raz na turê
         {
             HandleMouseClick();
         }
 
         MovePlayerToTarget();
-
+        
     }
 
     void HandleMouseClick()

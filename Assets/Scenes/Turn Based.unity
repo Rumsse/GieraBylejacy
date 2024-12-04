@@ -688,7 +688,7 @@ GameObject:
   - component: {fileID: 632823905}
   - component: {fileID: 632823904}
   m_Layer: 5
-  m_Name: PlayerHealthbar
+  m_Name: PlayerHealthbar above head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1178,7 +1178,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 924042639}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1323855101}
+        m_TargetAssemblyTypeName: PlayerAbilities, Assembly-CSharp
+        m_MethodName: SelectAdvancedAttackMode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &924042639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1653,7 +1665,7 @@ GameObject:
   - component: {fileID: 1087777237}
   - component: {fileID: 1087777236}
   m_Layer: 5
-  m_Name: End Turn
+  m_Name: End Turn txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2006,7 +2018,7 @@ GameObject:
   - component: {fileID: 1182462472}
   - component: {fileID: 1182462471}
   m_Layer: 5
-  m_Name: Basic Attack
+  m_Name: Basic Attack txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2151,10 +2163,11 @@ MonoBehaviour:
   hexTilemap: {fileID: 943148697}
   isAttackMode: 0
   BasicAttackButton: {fileID: 1440956011}
+  AdvancedAttackButton: {fileID: 0}
   EnemyLayer:
     serializedVersion: 2
     m_Bits: 0
-  playerHealthBar: {fileID: 0}
+  playerHealthBar: {fileID: 1774097602}
   maxHealth: 100
   currentHealth: 0
   damage: 20
@@ -2243,7 +2256,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1323855101}
         m_TargetAssemblyTypeName: PlayerAbilities, Assembly-CSharp
-        m_MethodName: SelectAttackMode
+        m_MethodName: SelectBasicAttackMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3027,10 +3040,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05db5089a4fc8494eb631689716f2067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealthBar: {fileID: 0}
+  enemyHealthBar: {fileID: 1093270953}
   maxHealth: 50
   damage: 10
   currentHealth: 0
+  hasTakenDamage: 0
 --- !u!1 &1858966109
 GameObject:
   m_ObjectHideFlags: 0
@@ -3253,7 +3267,7 @@ GameObject:
   - component: {fileID: 1951363196}
   - component: {fileID: 1951363195}
   m_Layer: 5
-  m_Name: PlayerHealthbar (1)
+  m_Name: PlayerHealthbar Big UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3562,7 +3576,7 @@ GameObject:
   - component: {fileID: 2101283949}
   - component: {fileID: 2101283948}
   m_Layer: 5
-  m_Name: Advanced Attack
+  m_Name: Advanced Attack txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3837,6 +3851,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
+      propertyPath: playerAbilities
+      value: 
+      objectReference: {fileID: 1323855101}
+    - target: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       propertyPath: playerHealthBar
       value: 
       objectReference: {fileID: 0}
@@ -3989,11 +4007,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7002934762677977222, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7002934762677977222, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_IncludeLayers.m_Bits
-      value: 64
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7002934762677977222, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
@@ -4127,6 +4145,7 @@ MonoBehaviour:
   enemyMovement: {fileID: 1845817482}
   playerAbilities: {fileID: 1323855101}
   enemyAbilities: {fileID: 1845817490}
+  BasicAttackButton: {fileID: 1440956011}
   isPlayerTurn: 1
   enemyMoveDelay: 1.3
   hexTilemapPathfinding: {fileID: 419332255}

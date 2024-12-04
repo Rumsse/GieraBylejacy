@@ -11,7 +11,9 @@ public class TurnManager : MonoBehaviour
     public EnemyMovement enemyMovement;
     public PlayerAbilities playerAbilities;
     public EnemyAbilities enemyAbilities;
-    
+    public Button BasicAttackButton;
+    public Button AdvancedAttackButton;
+
     public bool isPlayerTurn = true;
     public float enemyMoveDelay = 1.3f;
 
@@ -61,6 +63,10 @@ public class TurnManager : MonoBehaviour
     {
         isPlayerTurn = false;
         Debug.Log("Koniec tury gracza");
+        enemyAbilities.hasTakenDamage = false;
+        playerAbilities.isAttackMode = false;
+        BasicAttackButton.GetComponent<Image>().color = Color.white;
+        AdvancedAttackButton.GetComponent<Image>().color = Color.white;
         StartCoroutine(StartEnemyTurnWithDelay()); // Rozpocznij Coroutine dla opóŸnienia przed ruchem przeciwnika
     }
 

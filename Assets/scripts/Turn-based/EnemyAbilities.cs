@@ -8,6 +8,7 @@ public class EnemyAbilities : MonoBehaviour
     public int maxHealth = 50;
     public int damage = 10;
     public int currentHealth;
+    public bool hasTakenDamage = false;
 
     void Start()
     {
@@ -19,6 +20,7 @@ public class EnemyAbilities : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Max(currentHealth, 0);
         UpdateHealthUI();
+        hasTakenDamage = true;
 
         if (currentHealth <= 0)
         {
