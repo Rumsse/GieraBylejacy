@@ -18,7 +18,6 @@ public class EnemyAbilities : MonoBehaviour
     {
         currentHealth -= damage;
         currentHealth = Mathf.Max(currentHealth, 0);
-        enemyHealthBar.SetHealth(currentHealth);
         UpdateHealthUI();
 
         if (currentHealth <= 0)

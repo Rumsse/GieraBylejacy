@@ -68,7 +68,7 @@ public class HexTilemapPathfinding : MonoBehaviour
 
         openSet.Add(start);
 
-        // Heurystyka - odleg³oœæ Manhattanowa
+        // Heurystyka - odleg³oœæ Manhattanowa (powinna raczej byæ euklidesowa)
         float Heuristic(Vector3Int position)
         {
             return Mathf.Abs(position.x - target.x) + Mathf.Abs(position.y - target.y);
