@@ -2163,7 +2163,7 @@ MonoBehaviour:
   hexTilemap: {fileID: 943148697}
   isAttackMode: 0
   BasicAttackButton: {fileID: 1440956011}
-  AdvancedAttackButton: {fileID: 0}
+  AdvancedAttackButton: {fileID: 924042638}
   EnemyLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -4146,6 +4146,7 @@ MonoBehaviour:
   playerAbilities: {fileID: 1323855101}
   enemyAbilities: {fileID: 1845817490}
   BasicAttackButton: {fileID: 1440956011}
+  AdvancedAttackButton: {fileID: 0}
   isPlayerTurn: 1
   enemyMoveDelay: 1.3
   hexTilemapPathfinding: {fileID: 419332255}
