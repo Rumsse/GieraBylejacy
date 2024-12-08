@@ -348,9 +348,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 100
+  m_MaxValue: 50
   m_WholeNumbers: 1
-  m_Value: 100
+  m_Value: 50
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2161,7 +2161,8 @@ MonoBehaviour:
   enemyAbilities: {fileID: 1845817490}
   enemy: {fileID: 1721634232}
   hexTilemap: {fileID: 943148697}
-  isAttackMode: 0
+  isAttackMode1: 0
+  isAttackMode2: 0
   BasicAttackButton: {fileID: 1440956011}
   AdvancedAttackButton: {fileID: 924042638}
   EnemyLayer:
@@ -2170,7 +2171,8 @@ MonoBehaviour:
   playerHealthBar: {fileID: 1774097602}
   maxHealth: 100
   currentHealth: 0
-  damage: 20
+  playerDamageBasic: 10
+  playerDamageAdvanced: 20
 --- !u!1 &1440956009
 GameObject:
   m_ObjectHideFlags: 0
@@ -3041,8 +3043,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealthBar: {fileID: 1093270953}
+  playerAbilities: {fileID: 1323855101}
   maxHealth: 50
-  damage: 10
   currentHealth: 0
   hasTakenDamage: 0
 --- !u!1 &1858966109
@@ -4146,7 +4148,7 @@ MonoBehaviour:
   playerAbilities: {fileID: 1323855101}
   enemyAbilities: {fileID: 1845817490}
   BasicAttackButton: {fileID: 1440956011}
-  AdvancedAttackButton: {fileID: 0}
+  AdvancedAttackButton: {fileID: 924042638}
   isPlayerTurn: 1
   enemyMoveDelay: 1.3
   hexTilemapPathfinding: {fileID: 419332255}

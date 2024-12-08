@@ -12,7 +12,8 @@ public class PlayerAbilities : MonoBehaviour
     public GameObject enemy;
     public Tilemap hexTilemap;
 
-    public bool isAttackMode = false;
+    public bool isAttackMode1 = false;
+    public bool isAttackMode2 = false;
     public Button BasicAttackButton;
     public Button AdvancedAttackButton;
     public LayerMask EnemyLayer;
@@ -20,7 +21,8 @@ public class PlayerAbilities : MonoBehaviour
     public HealthBar playerHealthBar;
     public int maxHealth = 100;
     public int currentHealth;
-    public int damage = 20;
+    public int playerDamageBasic = 10;
+    public int playerDamageAdvanced = 20;
 
 
     private void Start()
@@ -30,17 +32,22 @@ public class PlayerAbilities : MonoBehaviour
 
     void Update()
     {
-        if (isAttackMode && Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && isAttackMode1)
         {
             BasicAttack();
+        }
+
+        if (Input.GetMouseButtonDown(0) && isAttackMode2)
+        {
+            AdvancedAttack();
         }
     }
 
     public void SelectBasicAttackMode()
     {
-        isAttackMode ^= true;
+        isAttackMode1 ^= true;
 
-        if (isAttackMode)
+        if (isAttackMode1)
         {
             BasicAttackButton.GetComponent<Image>().color = Color.red;
             Debug.Log("Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaæ.");
@@ -70,8 +77,8 @@ public class PlayerAbilities : MonoBehaviour
             EnemyAbilities enemy = hitCollider.GetComponent<EnemyAbilities>();
             if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 1) && !enemy.hasTakenDamage)
             {
-                enemy.TakeDamage(damage);
-                Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
+                enemy.TakeDamage(10);
+                Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + 10);
             }
             else
             {
@@ -87,9 +94,9 @@ public class PlayerAbilities : MonoBehaviour
 
     public void SelectAdvancedAttackMode()
     {
-        isAttackMode ^= true;
+        isAttackMode2 ^= true;
 
-        if (isAttackMode)
+        if (isAttackMode2)
         {
             AdvancedAttackButton.GetComponent<Image>().color = Color.red;
             Debug.Log("2Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaæ.");
@@ -119,8 +126,8 @@ public class PlayerAbilities : MonoBehaviour
             EnemyAbilities enemy = hitCollider.GetComponent<EnemyAbilities>();
             if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 2) && !enemy.hasTakenDamage)
             {
-                enemy.TakeDamage(damage);
-                Debug.Log("2Przeciwnik otrzyma³ obra¿enia: " + damage);
+                enemy.TakeDamage(20);
+                Debug.Log("2Przeciwnik otrzyma³ obra¿enia: " + 20);
             }
             else
             {
@@ -140,9 +147,10 @@ public class PlayerAbilities : MonoBehaviour
         return Mathf.Max(Mathf.Abs(a.x - b.x), Mathf.Abs(a.y - b.y));
     }
 
+
     public void TakeDamage(int amount)
     {
-        currentHealth -= damage;
+        currentHealth -= amount;
         currentHealth = Mathf.Max(currentHealth, 0);
         UpdateHealthUI();
 

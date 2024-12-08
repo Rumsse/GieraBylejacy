@@ -5,19 +5,21 @@ using UnityEngine;
 public class EnemyAbilities : MonoBehaviour
 {
     public HealthBar enemyHealthBar;
+    public PlayerAbilities playerAbilities;
     public int maxHealth = 50;
-    public int damage = 10;
     public int currentHealth;
     public bool hasTakenDamage = false;
+
 
     void Start()
     {
         currentHealth = maxHealth;
     }
 
+
     public void TakeDamage(int amount)
     {
-        currentHealth -= damage;
+        currentHealth -= amount;
         currentHealth = Mathf.Max(currentHealth, 0);
         UpdateHealthUI();
         hasTakenDamage = true;
@@ -33,4 +35,15 @@ public class EnemyAbilities : MonoBehaviour
     {
         enemyHealthBar.SetHealth(currentHealth);
     }
+
+    public void AttackPlayer()
+    {
+        
+    }
+
+    private int HexDistance(Vector3Int a, Vector3Int b)
+    {
+        return Mathf.Max(Mathf.Abs(a.x - b.x), Mathf.Abs(a.y - b.y));
+    }
+
 }
