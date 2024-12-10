@@ -9,30 +9,21 @@ public class TurnManager : MonoBehaviour
 {
     public PlayerMovement playerMovement;
     public EnemyMovement enemyMovement;
+    public BatMateMovement batMateMovement;
     public PlayerAbilities playerAbilities;
     public EnemyAbilities enemyAbilities;
+
     public Button BasicAttackButton;
     public Button AdvancedAttackButton;
 
     public bool isPlayerTurn = true;
+    public bool isBatMateTurn = true;
     public float enemyMoveDelay = 1.3f;
 
     public HexTilemapPathfinding hexTilemapPathfinding;
     public Vector3Int startPosition;
     public Vector3Int targetPosition;
 
-    void Start() //maybe ca³a metoda do wyrzucenia
-    {
-        if (playerMovement == null)
-        {
-            playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-        }
-
-        if (enemyMovement == null)
-        {
-            enemyMovement = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyMovement>();
-        }
-    }
 
     void Update()
     {
@@ -45,7 +36,14 @@ public class TurnManager : MonoBehaviour
         }
         else
         {
-            if (enemyMovement.hasMoved)
+            if (isBatMateTurn)
+            {
+                if (batMateMovement.hasMoved && Input.GetKeyDown(KeyCode.Space))
+                {
+                    EndBatMateTurn();
+                }
+            }
+            else
             {
                 EndEnemyTurn();
             }
@@ -70,6 +68,22 @@ public class TurnManager : MonoBehaviour
         BasicAttackButton.GetComponent<Image>().color = Color.white;
         AdvancedAttackButton.GetComponent<Image>().color = Color.white;
 
+        StartBatMateTurn();
+
+    }
+
+    void StartBatMateTurn()
+    {
+        isBatMateTurn = true;
+        batMateMovement.ResetMovement();
+        Debug.Log("Tura Bat Mate'a");
+    }
+
+    void EndBatMateTurn()
+    {
+        isBatMateTurn = false;
+        Debug.Log("Koniec tury Bat Mate'a");
+        enemyAbilities.hasTakenDamage = false;
         StartCoroutine(StartEnemyTurnWithDelay()); // Rozpocznij Coroutine dla opóŸnienia przed ruchem przeciwnika
     }
 
@@ -88,8 +102,6 @@ public class TurnManager : MonoBehaviour
         Vector3Int enemyHexPos = enemyMovement.hexTilemap.WorldToCell(enemyMovement.transform.position);
 
         enemyMovement.isEnemyMoving = true;
-
-        isPlayerTurn = false;
     }
 
     public void EndEnemyTurn()
