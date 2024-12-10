@@ -3551,9 +3551,10 @@ MonoBehaviour:
   playerTransform: {fileID: 1847597381}
   enemy: {fileID: 1845817482}
   playerAbilities: {fileID: 0}
-  moveSpeed: 5
+  moveSpeed: 4
   yOffset: 0.3
   hasMoved: 0
+  isActive: 0
 --- !u!61 &1847597378
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4803,6 +4804,7 @@ MonoBehaviour:
   hexTilemapPathfinding: {fileID: 419332255}
   startPosition: {x: 0, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  currentTurn: 0
 --- !u!1001 &6570375150689132612
 PrefabInstance:
   m_ObjectHideFlags: 0

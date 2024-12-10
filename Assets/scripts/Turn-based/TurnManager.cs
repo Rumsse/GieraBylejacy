@@ -24,67 +24,84 @@ public class TurnManager : MonoBehaviour
     public Vector3Int startPosition;
     public Vector3Int targetPosition;
 
+    public TurnState currentTurn = TurnState.Player;
 
-    void Update()
+
+    public enum TurnState
     {
-        if (isPlayerTurn)
+        Player,
+        BatMate,
+        Enemy
+    }
+
+    private void Start()
+    {
+        currentTurn = TurnState.Player;
+        StartTurn();
+    }
+
+
+    void StartTurn()
+    {
+        switch (currentTurn)
         {
-            if (playerMovement.hasMoved && Input.GetKeyDown(KeyCode.Space))
-            {
-                EndPlayerTurn();
-            }
-        }
-        else
-        {
-            if (isBatMateTurn)
-            {
-                if (batMateMovement.hasMoved && Input.GetKeyDown(KeyCode.Space))
-                {
-                    EndBatMateTurn();
-                }
-            }
-            else
-            {
-                EndEnemyTurn();
-            }
+            case TurnState.Player:
+                playerMovement.isActive = true;
+                batMateMovement.isActive = false;
+                enemyMovement.isActive = false;
+                StartPlayerTurn();
+                break;
+            case TurnState.BatMate:
+                playerMovement.isActive = false;
+                batMateMovement.isActive = true;
+                enemyMovement.isActive = false;
+                StartBatMateTurn();
+                break;
+            case TurnState.Enemy:
+                playerMovement.isActive = false;
+                batMateMovement.isActive = false;
+                enemyMovement.isActive = true;
+                StartEnemyTurn();
+                break;
         }
     }
 
+
     void StartPlayerTurn()
     {
-        isPlayerTurn = true;
         playerMovement.ResetMovement();
         Debug.Log("Tura gracza");
+
+        if (playerMovement.hasMoved && Input.GetKeyDown(KeyCode.Space))
+        {
+            EndPlayerTurn();
+        }
     }
 
     void EndPlayerTurn()
     {
-        isPlayerTurn = false;
-        Debug.Log("Koniec tury gracza");
-        enemyAbilities.hasTakenDamage = false;
+        Debug.Log("Koniec tury gracza/batmate'a");
+
         playerAbilities.isAttackMode1 = false;
         playerAbilities.isAttackMode2 = false;
+        enemyAbilities.hasTakenDamage = false;
 
         BasicAttackButton.GetComponent<Image>().color = Color.white;
         AdvancedAttackButton.GetComponent<Image>().color = Color.white;
 
-        StartBatMateTurn();
-
+        currentTurn = (TurnState)(((int)currentTurn + 1) % 3);
+        StartTurn();
     }
 
     void StartBatMateTurn()
     {
-        isBatMateTurn = true;
         batMateMovement.ResetMovement();
         Debug.Log("Tura Bat Mate'a");
-    }
 
-    void EndBatMateTurn()
-    {
-        isBatMateTurn = false;
-        Debug.Log("Koniec tury Bat Mate'a");
-        enemyAbilities.hasTakenDamage = false;
-        StartCoroutine(StartEnemyTurnWithDelay()); // Rozpocznij Coroutine dla opóŸnienia przed ruchem przeciwnika
+        if (batMateMovement.hasMoved && Input.GetKeyDown(KeyCode.Space))
+        {
+            EndPlayerTurn();
+        }
     }
 
     System.Collections.IEnumerator StartEnemyTurnWithDelay()
@@ -106,10 +123,9 @@ public class TurnManager : MonoBehaviour
 
     public void EndEnemyTurn()
     {
-        isPlayerTurn = true;
         Debug.Log("Koniec tury przeciwnika");
-
-        StartPlayerTurn();
+        currentTurn = (TurnState)(((int)currentTurn + 1) % 3);
+        StartTurn();
     }
 
 

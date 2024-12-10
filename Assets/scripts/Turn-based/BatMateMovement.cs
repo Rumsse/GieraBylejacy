@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static TurnManager;
 
 
 public class BatMateMovement : MonoBehaviour
@@ -11,32 +12,28 @@ public class BatMateMovement : MonoBehaviour
     public EnemyMovement enemy;
     public PlayerAbilities playerAbilities;
 
-    public float moveSpeed = 5f;
+    public float moveSpeed = 4f;
     public float yOffset = 0.3f;
-    public bool hasMoved = false;
-    private bool hasLogged = false;
+    public bool hasMoved = true;
+    public bool isActive = false;
 
     private Vector3 targetPosition;
 
 
-
     void Start()
     {
-        if (hexTilemap == null)
-        {
-            hexTilemap = GameObject.Find("HexTilemap").GetComponent<Tilemap>();
-        }
+        ResetMovement();
         targetPosition = transform.position;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !hasMoved) // Gracz mo¿e klikn¹æ tylko raz na turê
+        if (Input.GetMouseButtonDown(0) && !hasMoved && isActive) // Gracz mo¿e klikn¹æ tylko raz na turê
         {
             HandleMouseClick();
         }
 
-        MovePlayerToTarget();
+        MoveBatMateToTarget();
 
     }
 
@@ -55,11 +52,10 @@ public class BatMateMovement : MonoBehaviour
             Hex playerHex = new Hex(hexTilemap.WorldToCell(transform.position).x, hexTilemap.WorldToCell(transform.position).y);
             Hex targetHex = new Hex(hexPosition.x, hexPosition.y);
 
-            // SprawdŸ odleg³oœæ w heksach
-            int maxMoveDistance = 4; // Maksymalny zasiêg ruchu
+            int maxMoveDistance = 4; 
             if (playerHex.HexDistance(targetHex) <= maxMoveDistance)
             {
-                if (!IsPositionOccupiedByEnemy(targetWorldPosition))  // SprawdŸ, czy pozycja nie jest zajêta
+                if (!IsPositionOccupiedByEnemy(targetWorldPosition))
                 {
                     targetPosition = targetWorldPosition;
                     hasMoved = true;
@@ -88,14 +84,13 @@ public class BatMateMovement : MonoBehaviour
         return enemyHexPos == targetHexPos;  // Zwraca true, jeœli pozycja jest zajêta przez przeciwnika
     }
 
-    void MovePlayerToTarget()
+    void MoveBatMateToTarget()
     {
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
-        if (transform.position == targetPosition && hasMoved) //chyba jak siê doda "&& !isMoving" czy coœ na podobnej zasadzie to mo¿e debug przestanie siê wyœwietlaæ co milisekunde
+        if (transform.position == targetPosition && hasMoved) 
         {
-            //Debug.Log("Gracz zakoñczy³ ruch"); (denerwuje mnie ten debug)
-            hasLogged = true; //przetestowaæ czy to siê op³aca zostawiæ, bo narazie nie dzia³a
+
         }
     }
 

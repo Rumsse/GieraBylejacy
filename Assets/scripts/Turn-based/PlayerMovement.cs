@@ -11,10 +11,11 @@ public class PlayerMovement : MonoBehaviour
     public EnemyMovement enemy;
     public PlayerAbilities playerAbilities;
 
-    public float moveSpeed = 5f;
+    public float moveSpeed = 4f;
     public float yOffset = 0.3f;
     public bool hasMoved = false;
     private bool hasLogged = false;
+    public bool isActive = true;
 
     private Vector3 targetPosition;
 

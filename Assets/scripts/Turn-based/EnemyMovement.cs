@@ -8,6 +8,7 @@ public class EnemyMovement : MonoBehaviour
 {
     public Tilemap hexTilemap;
     public Transform playerTransform;
+    public Transform batMateTransform;
     public Transform enemyTransform;
     public HexTilemapPathfinding hexTilemapPathfinding;
 
@@ -16,6 +17,7 @@ public class EnemyMovement : MonoBehaviour
     public int maxMoveDistance = 3;
     public bool hasMoved = false;
     public bool isEnemyMoving = false;
+    public bool isActive = false;
 
     private Vector3 targetPosition;
 
@@ -46,6 +48,7 @@ public class EnemyMovement : MonoBehaviour
     bool IsPositionOccupiedByPlayer(Vector3 position)
     {
         Vector3Int playerHexPos = hexTilemap.WorldToCell(playerTransform.position);
+        Vector3Int batMateHexPos = hexTilemap.WorldToCell(batMateTransform.position);
         Vector3Int targetHexPos = hexTilemap.WorldToCell(position);
         return playerHexPos == targetHexPos;  // Zwraca true, jeœli pozycja jest zajêta przez gracza
     }
