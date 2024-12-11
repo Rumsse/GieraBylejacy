@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 191214321}
   - component: {fileID: 191214322}
   m_Layer: 5
-  m_Name: PlayerHealthBar
+  m_Name: BatmateHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -913,9 +913,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 100
+  m_MaxValue: 20
   m_WholeNumbers: 1
-  m_Value: 100
+  m_Value: 20
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1158,6 +1158,7 @@ RectTransform:
   - {fileID: 1440956010}
   - {fileID: 924042637}
   - {fileID: 2059216622}
+  - {fileID: 1603689850}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2554,6 +2555,7 @@ MonoBehaviour:
   enemyAbilities: {fileID: 1845817490}
   enemy: {fileID: 1721634232}
   hexTilemap: {fileID: 943148697}
+  turnManager: {fileID: 2848338075193348446}
   isAttackMode1: 0
   isAttackMode2: 0
   BasicAttackButton: {fileID: 1440956011}
@@ -3424,6 +3426,81 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1603689849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1603689850}
+  - component: {fileID: 1603689852}
+  - component: {fileID: 1603689851}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1603689850
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603689849}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.875, y: 1.875, z: 1.875}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 833479361}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 804, y: -389}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1603689851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603689849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1603689852
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603689849}
+  m_CullTransparentMesh: 1
 --- !u!1 &1721634232 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
@@ -3528,6 +3605,7 @@ GameObject:
   - component: {fileID: 1847597379}
   - component: {fileID: 1847597378}
   - component: {fileID: 1847597377}
+  - component: {fileID: 1847597382}
   m_Layer: 0
   m_Name: batmate
   m_TagString: BatMate
@@ -3550,7 +3628,6 @@ MonoBehaviour:
   hexTilemap: {fileID: 943148697}
   playerTransform: {fileID: 1847597381}
   enemy: {fileID: 1845817482}
-  playerAbilities: {fileID: 0}
   moveSpeed: 4
   yOffset: 0.3
   hasMoved: 0
@@ -3695,6 +3772,26 @@ Transform:
   - {fileID: 220442768}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1847597382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847597376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c61ff60467428e4c96787c25ae0e9c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BasicAttackButton: {fileID: 1440956011}
+  batMateHealthBar: {fileID: 191214322}
+  enemy: {fileID: 1721634232}
+  hexTilemap: {fileID: 943148697}
+  maxHealth: 20
+  currentHealth: 0
+  batMateDamageBasic: 5
+  isAttackMode1: 0
 --- !u!1 &1858966109
 GameObject:
   m_ObjectHideFlags: 0
@@ -4796,15 +4893,27 @@ MonoBehaviour:
   batMateMovement: {fileID: 1847597377}
   playerAbilities: {fileID: 1323855101}
   enemyAbilities: {fileID: 1845817490}
+  batMateAbilities: {fileID: 1847597382}
   BasicAttackButton: {fileID: 1440956011}
   AdvancedAttackButton: {fileID: 924042638}
   isPlayerTurn: 1
   isBatMateTurn: 1
+  canUseAdvancedAttack: 1
   enemyMoveDelay: 1.3
+  turnCounter: 0
   hexTilemapPathfinding: {fileID: 419332255}
   startPosition: {x: 0, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
   currentTurn: 0
+  turnImage: {fileID: 1603689851}
+  characterSprites:
+  - {fileID: 21300000, guid: efdad69e04c4d8b4db8bbf45d8e89828, type: 3}
+  - {fileID: 21300000, guid: 9ba23a91f2cb4224a8d48761d282ee12, type: 3}
+  - {fileID: 21300000, guid: 899c365d648194740b88903a83a4745d, type: 3}
+  characters:
+  - {fileID: 965607011}
+  - {fileID: 1721634232}
+  - {fileID: 1847597376}
 --- !u!1001 &6570375150689132612
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7637,7 +7746,7 @@ SceneRoots:
   - {fileID: 419332254}
   - {fileID: 207808671248478531}
   - {fileID: 1070220613740402151}
+  - {fileID: 1847597381}
   - {fileID: 2848338075193348444}
   - {fileID: 833479361}
   - {fileID: 80871701}
-  - {fileID: 1847597381}

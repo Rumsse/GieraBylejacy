@@ -10,7 +10,6 @@ public class BatMateMovement : MonoBehaviour
     public Tilemap hexTilemap;
     public Transform playerTransform;
     public EnemyMovement enemy;
-    public PlayerAbilities playerAbilities;
 
     public float moveSpeed = 4f;
     public float yOffset = 0.3f;

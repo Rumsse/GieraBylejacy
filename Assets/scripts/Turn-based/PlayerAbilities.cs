@@ -11,6 +11,7 @@ public class PlayerAbilities : MonoBehaviour
     public EnemyAbilities enemyAbilities;
     public GameObject enemy;
     public Tilemap hexTilemap;
+    public TurnManager turnManager;
 
     public bool isAttackMode1 = false;
     public bool isAttackMode2 = false;
@@ -121,22 +122,29 @@ public class PlayerAbilities : MonoBehaviour
         Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
 
 
-        if (hitCollider != null && hitCollider.CompareTag("Enemy"))
+        if (turnManager.canUseAdvancedAttack)
         {
-            EnemyAbilities enemy = hitCollider.GetComponent<EnemyAbilities>();
-            if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 2) && !enemy.hasTakenDamage)
+            if (hitCollider != null && hitCollider.CompareTag("Enemy"))
             {
-                enemy.TakeDamage(20);
-                Debug.Log("2Przeciwnik otrzyma³ obra¿enia: " + 20);
+                EnemyAbilities enemy = hitCollider.GetComponent<EnemyAbilities>();
+                if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 2) && !enemy.hasTakenDamage)
+                {
+                    enemy.TakeDamage(20);
+                    Debug.Log("2Przeciwnik otrzyma³ obra¿enia: " + 20);
+                }
+                else
+                {
+                    Debug.Log("2Przeciwnik ju¿ otrzyma³ obra¿enia");
+                }
             }
             else
             {
-                Debug.Log("2Przeciwnik ju¿ otrzyma³ obra¿enia");
+                Debug.Log("2Promieñ nie trafi³ w przeciwnika.");
             }
         }
         else
         {
-            Debug.Log("2Promieñ nie trafi³ w przeciwnika.");
+            Debug.Log("Advance Attack jest niedostêpny w tej turze");
         }
 
     }
@@ -163,7 +171,7 @@ public class PlayerAbilities : MonoBehaviour
     }
 
 
-    private void UpdateHealthUI()
+    public void UpdateHealthUI()
     {
         playerHealthBar.SetHealth(currentHealth);
     }

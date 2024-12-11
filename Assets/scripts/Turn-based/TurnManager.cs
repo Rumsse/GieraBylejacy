@@ -12,19 +12,28 @@ public class TurnManager : MonoBehaviour
     public BatMateMovement batMateMovement;
     public PlayerAbilities playerAbilities;
     public EnemyAbilities enemyAbilities;
+    public BatMateAbilities batMateAbilities;
 
     public Button BasicAttackButton;
     public Button AdvancedAttackButton;
 
     public bool isPlayerTurn = true;
     public bool isBatMateTurn = true;
+    public bool canUseAdvancedAttack = true;
     public float enemyMoveDelay = 1.3f;
+    public int turnCounter = 0;
 
     public HexTilemapPathfinding hexTilemapPathfinding;
     public Vector3Int startPosition;
     public Vector3Int targetPosition;
 
     public TurnState currentTurn = TurnState.Player;
+
+
+    public Image turnImage;
+    public Sprite[] characterSprites;
+    public GameObject[] characters;
+    private int currentTurnIndex = 0;
 
 
     public enum TurnState
@@ -37,6 +46,7 @@ public class TurnManager : MonoBehaviour
     private void Start()
     {
         currentTurn = TurnState.Player;
+        UpdateTurnIndicator();
         StartTurn();
     }
 
@@ -72,6 +82,9 @@ public class TurnManager : MonoBehaviour
         playerMovement.ResetMovement();
         Debug.Log("Tura gracza");
 
+        turnCounter++;
+        canUseAdvancedAttack = (turnCounter % 2 == 1);
+
         if (playerMovement.hasMoved && Input.GetKeyDown(KeyCode.Space))
         {
             EndPlayerTurn();
@@ -80,7 +93,7 @@ public class TurnManager : MonoBehaviour
 
     void EndPlayerTurn()
     {
-        Debug.Log("Koniec tury gracza/batmate'a");
+        Debug.Log("Koniec tury gracza");
 
         playerAbilities.isAttackMode1 = false;
         playerAbilities.isAttackMode2 = false;
@@ -90,6 +103,9 @@ public class TurnManager : MonoBehaviour
         AdvancedAttackButton.GetComponent<Image>().color = Color.white;
 
         currentTurn = (TurnState)(((int)currentTurn + 1) % 3);
+        currentTurnIndex = (currentTurnIndex + 1) % characters.Length;
+        UpdateTurnIndicator();
+
         StartTurn();
     }
 
@@ -100,8 +116,24 @@ public class TurnManager : MonoBehaviour
 
         if (batMateMovement.hasMoved && Input.GetKeyDown(KeyCode.Space))
         {
-            EndPlayerTurn();
+            EndBatMateTurn();
         }
+    }
+
+    void EndBatMateTurn()
+    {
+        Debug.Log("Koniec tury bat mate'a");
+        batMateAbilities.isAttackMode1 = false;
+        enemyAbilities.hasTakenDamage = false;
+
+        BasicAttackButton.GetComponent<Image>().color = Color.white;
+
+        currentTurn = (TurnState)(((int)currentTurn + 1) % 3);
+        currentTurnIndex = (currentTurnIndex + 1) % characters.Length;
+        UpdateTurnIndicator();
+
+        StartTurn();
+
     }
 
     System.Collections.IEnumerator StartEnemyTurnWithDelay()
@@ -125,9 +157,17 @@ public class TurnManager : MonoBehaviour
     {
         Debug.Log("Koniec tury przeciwnika");
         currentTurn = (TurnState)(((int)currentTurn + 1) % 3);
+        currentTurnIndex = (currentTurnIndex + 1) % characters.Length;
+        UpdateTurnIndicator();
+
         StartTurn();
     }
 
+
+    public void UpdateTurnIndicator()
+    {
+        turnImage.sprite = characterSprites[currentTurnIndex];
+    }
 
 
 

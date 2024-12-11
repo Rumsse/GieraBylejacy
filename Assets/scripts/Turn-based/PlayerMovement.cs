@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !hasMoved && (!playerAbilities.isAttackMode1 || !playerAbilities.isAttackMode2)) // Gracz mo¿e klikn¹æ tylko raz na turê
+        if (Input.GetMouseButtonDown(0) && !hasMoved && (!playerAbilities.isAttackMode1 && !playerAbilities.isAttackMode2)) // Gracz mo¿e klikn¹æ tylko raz na turê
         {
             HandleMouseClick();
         }
