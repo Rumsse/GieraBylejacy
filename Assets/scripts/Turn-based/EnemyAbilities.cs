@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyAbilities : MonoBehaviour
 {
+    public GameObject player;
     public HealthBar enemyHealthBar;
     public PlayerAbilities playerAbilities;
+    public EnemyMovement enemyMovement;
     public int maxHealth = 50;
     public int currentHealth;
     public bool hasTakenDamage = false;
@@ -14,6 +16,11 @@ public class EnemyAbilities : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
     }
 
 
@@ -38,7 +45,16 @@ public class EnemyAbilities : MonoBehaviour
 
     public void AttackPlayer()
     {
-        
+        if (enemyMovement.hasMoved)
+        {
+
+        }
+    }
+
+    private bool IsPlayerNearby()
+    {
+        float distance = Vector3.Distance(transform.position, player.position);
+        return distance <= 1.1f;
     }
 
     private int HexDistance(Vector3Int a, Vector3Int b)

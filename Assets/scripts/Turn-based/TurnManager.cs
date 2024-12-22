@@ -71,7 +71,7 @@ public class TurnManager : MonoBehaviour
                 playerMovement.isActive = false;
                 batMateMovement.isActive = false;
                 enemyMovement.isActive = true;
-                StartEnemyTurn();
+                StartEnemyTurnWithDelay();
                 break;
         }
     }
@@ -116,7 +116,9 @@ public class TurnManager : MonoBehaviour
 
         if (batMateMovement.hasMoved && Input.GetKeyDown(KeyCode.Space))
         {
+            Debug.Log("Koniec3");
             EndBatMateTurn();
+            Debug.Log("Koniec4");
         }
     }
 
@@ -133,6 +135,7 @@ public class TurnManager : MonoBehaviour
         UpdateTurnIndicator();
 
         StartTurn();
+        Debug.Log("Koniec2");
 
     }
 
@@ -148,7 +151,7 @@ public class TurnManager : MonoBehaviour
         enemyMovement.ResetMovement();
         Debug.Log("Tura przeciwnika");
 
-        enemyMovement.MoveEnemyToTarget();
+        enemyMovement.MoveTowardsPlayer();
 
         if (enemyMovement.hasMoved)
         {
