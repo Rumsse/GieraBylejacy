@@ -51,11 +51,11 @@ public class EnemyAbilities : MonoBehaviour
         }
     }
 
-    private bool IsPlayerNearby()
-    {
-        float distance = Vector3.Distance(transform.position, player.position);
-        return distance <= 1.1f;
-    }
+    //private bool IsPlayerNearby()
+    //{
+        //float distance = Vector3.Distance(transform.position, player.position);
+        //return distance <= 1.1f;
+    //}
 
     private int HexDistance(Vector3Int a, Vector3Int b)
     {
