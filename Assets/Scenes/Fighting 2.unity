@@ -2570,23 +2570,27 @@ MonoBehaviour:
   currentHealth: 0
   playerDamageBasic: 10
   playerDamageAdvanced: 20
---- !u!111 &1323855105
-Animation:
+--- !u!95 &1323855109
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 965607011}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 1eef6aaccae4ca34e96ae91845b6366c, type: 2}
-  m_Animations:
-  - {fileID: 0}
-  - {fileID: 7400000, guid: 52acd643f43f5b6449ee2a9c1875d52e, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b5d82a15663fd7041893c4e7e687e4a8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1423594304
 GameObject:
   m_ObjectHideFlags: 0
@@ -3561,7 +3565,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -965.24316, y: -539.85}
+  m_AnchoredPosition: {x: -965.1781, y: -539.85}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1774097602
@@ -3613,6 +3617,27 @@ MonoBehaviour:
   maxHealth: 50
   currentHealth: 0
   hasTakenDamage: 0
+--- !u!95 &1845817494
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721634232}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8d794a0d5dbbee34ab5a379ee7e97f6d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1847597376
 GameObject:
   m_ObjectHideFlags: 0
@@ -3649,7 +3674,7 @@ MonoBehaviour:
   hexTilemap: {fileID: 943148697}
   playerTransform: {fileID: 1847597381}
   enemy: {fileID: 1845817482}
-  moveSpeed: 4
+  moveSpeed: 3
   yOffset: 0.3
   hasMoved: 0
   isActive: 0
@@ -4488,7 +4513,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1232210129897247516, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.25
+      value: -5.28
       objectReference: {fileID: 0}
     - target: {fileID: 1232210129897247516, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4608,7 +4633,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       propertyPath: moveSpeed
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       propertyPath: hexTilemap
@@ -4642,7 +4667,7 @@ PrefabInstance:
       addedObject: {fileID: 1323855101}
     - targetCorrespondingSourceObject: {fileID: 1370206309616209178, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1323855105}
+      addedObject: {fileID: 1323855109}
   m_SourcePrefab: {fileID: 100100000, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
 --- !u!1001 &1070220613740402151
 PrefabInstance:
@@ -4834,6 +4859,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1845817490}
+    - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1845817494}
   m_SourcePrefab: {fileID: 100100000, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
 --- !u!1001 &2848338075193348444
 PrefabInstance:
