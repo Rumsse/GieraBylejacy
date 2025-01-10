@@ -557,6 +557,7 @@ GameObject:
   m_Component:
   - component: {fileID: 419332254}
   - component: {fileID: 419332253}
+  - component: {fileID: 419332255}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -593,6 +594,26 @@ Transform:
   - {fileID: 1442002275}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &419332255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419332252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ac0f20dac3fc34f89a3a0f2c95f55c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hexTilemap: {fileID: 943148697}
+  playerUnit: {fileID: 1323855100}
+  enemyUnit: {fileID: 1845817486}
+  movementRange: 3
+  moveSpeed: 0.5
+  enemyMovement: {fileID: 1845817482}
+  playerMovement: {fileID: 1098599819}
+  turnManager: {fileID: 2848338075193348446}
 --- !u!1 &443288589
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,7 +830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904780e4241489c448233c7034b9bf0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionAnimator: {fileID: 1364636310}
+  transitionAnimator: {fileID: 0}
   transitionTime: 1
 --- !u!1 &612209366
 GameObject:
@@ -2549,11 +2570,6 @@ MonoBehaviour:
   currentHealth: 0
   playerDamageBasic: 10
   playerDamageAdvanced: 20
---- !u!95 &1364636310 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3260405327365397428, guid: 1c941f020055eac42a9c594ffcadf872, type: 3}
-  m_PrefabInstance: {fileID: 8311379132033754646}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1423594304
 GameObject:
   m_ObjectHideFlags: 0
@@ -3573,8 +3589,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05db5089a4fc8494eb631689716f2067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   enemyHealthBar: {fileID: 1093270953}
   playerAbilities: {fileID: 1323855101}
+  enemyMovement: {fileID: 0}
   maxHealth: 50
   currentHealth: 0
   hasTakenDamage: 0
@@ -3661,7 +3679,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.4}
+  m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
 --- !u!50 &1847597379
 Rigidbody2D:
@@ -4715,13 +4733,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1323855100}
     - target: {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
-      propertyPath: batMateTransform
-      value: 
-      objectReference: {fileID: 1847597381}
-    - target: {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: hexTilemapPathfinding
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 419332255}
     - target: {fileID: 7002934762677977222, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_Size.x
       value: 0.3767016
@@ -4891,6 +4905,7 @@ MonoBehaviour:
   canUseAdvancedAttack: 1
   enemyMoveDelay: 1.3
   turnCounter: 0
+  hexTilemapPathfinding: {fileID: 419332255}
   startPosition: {x: 0, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
   currentTurn: 0

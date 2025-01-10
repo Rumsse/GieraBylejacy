@@ -23,7 +23,7 @@ public class TurnManager : MonoBehaviour
     public float enemyMoveDelay = 1.3f;
     public int turnCounter = 0;
 
-    //public HexTilemapPathfinding hexTilemapPathfinding;
+    public HexTilemapPathfinding hexTilemapPathfinding;
     public Vector3Int startPosition;
     public Vector3Int targetPosition;
 
@@ -71,7 +71,7 @@ public class TurnManager : MonoBehaviour
                 playerMovement.isActive = false;
                 batMateMovement.isActive = false;
                 enemyMovement.isActive = true;
-                StartEnemyTurnWithDelay();
+                StartEnemyTurn();
                 break;
         }
     }
@@ -151,7 +151,7 @@ public class TurnManager : MonoBehaviour
         enemyMovement.ResetMovement();
         Debug.Log("Tura przeciwnika");
 
-        enemyMovement.MoveTowardsPlayer();
+        hexTilemapPathfinding.MoveEnemyAlongPath();
 
         if (enemyMovement.hasMoved)
         {

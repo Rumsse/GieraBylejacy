@@ -53,7 +53,7 @@ public class HexTilemapPathfinding : MonoBehaviour
         }
 
 
-        //if (enemyMovement.isEnemyMoving && path.Count > 0) // Przeciwnik porusza siê po œcie¿ce, jeœli jest czas na jego ruch
+        if (enemyMovement.isEnemyMoving && path.Count > 0) // Przeciwnik porusza siê po œcie¿ce, jeœli jest czas na jego ruch
         {
             MoveEnemyAlongPath();
         }
@@ -186,7 +186,7 @@ public class HexTilemapPathfinding : MonoBehaviour
         else
         {
             // Gdy przeciwnik dotrze do celu, koñczymy ruch
-            //enemyMovement.isEnemyMoving = false;
+            enemyMovement.isEnemyMoving = false;
             currentPathIndex = 0;
             enemyMovement.ResetMovement();
             playerMovement.ResetMovement();
