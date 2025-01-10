@@ -3263,6 +3263,27 @@ MonoBehaviour:
   maxMoveDistance: 3
   hasMoved: 0
   isEnemyMoving: 0
+--- !u!95 &1845817495
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721634232}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8d794a0d5dbbee34ab5a379ee7e97f6d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1858966109
 GameObject:
   m_ObjectHideFlags: 0
@@ -4269,7 +4290,7 @@ PrefabInstance:
     - target: {fileID: 8028396635752160040, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 899c365d648194740b88903a83a4745d, type: 3}
+      objectReference: {fileID: 21300000, guid: a61e3ee42a1ed4d4c8e0d32693bc97fb, type: 3}
     - target: {fileID: 8028396635752160040, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_SortingOrder
       value: 1
@@ -4292,6 +4313,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1845817491}
+    - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1845817495}
   m_SourcePrefab: {fileID: 100100000, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
 --- !u!1001 &2848338075193348444
 PrefabInstance:
