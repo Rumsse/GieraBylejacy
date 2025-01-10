@@ -171,7 +171,11 @@ public class HexTilemapPathfinding : MonoBehaviour
     {
         if (currentPathIndex < path.Count)
         {
-            Vector3 targetPosition = hexTilemap.CellToWorld(path[currentPathIndex]) + new Vector3(0.5f, 0.5f, 0); // Korygujemy pozycjê
+            Vector3 targetPosition = hexTilemap.CellToWorld(path[currentPathIndex]) + new Vector3(0, 0, 0); // Korygujemy pozycjê
+
+            Debug.DrawLine(targetPosition, targetPosition + Vector3.up * 0.5f, Color.red, 5f); // Linia pionowa od kafelka
+            Debug.DrawLine(enemyUnit.position, enemyUnit.position + Vector3.up * 0.5f, Color.blue, 5f);
+
             enemyUnit.position = Vector3.MoveTowards(enemyUnit.position, targetPosition, moveSpeed * Time.deltaTime);
 
             if (enemyUnit.position == targetPosition)
