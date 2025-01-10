@@ -553,9 +553,9 @@ MonoBehaviour:
   enemyUnit: {fileID: 1845817486}
   movementRange: 3
   moveSpeed: 1
-  enemyMovement: {fileID: 1845817482}
-  playerMovement: {fileID: 1098599819}
-  turnManager: {fileID: 2848338075193348446}
+  enemyMovement: {fileID: 0}
+  playerMovement: {fileID: 0}
+  turnManager: {fileID: 0}
 --- !u!1 &443288589
 GameObject:
   m_ObjectHideFlags: 0
@@ -1279,7 +1279,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1323855101}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerAbilities, Assembly-CSharp
         m_MethodName: SelectAdvancedAttackMode
         m_Mode: 1
@@ -1940,17 +1940,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 285528408}
   offset: {x: 0, y: 1, z: 0}
---- !u!114 &1098599819 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
-  m_PrefabInstance: {fileID: 207808671248478531}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 965607011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfa6f7264e310f34b9daea8ae8dd6082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1140113573
 GameObject:
   m_ObjectHideFlags: 0
@@ -2254,14 +2243,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 965607011}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36f6c011b3b7ecd4f891c21409b55ed8, type: 3}
+  m_Script: {fileID: 11500000, guid: 0258a51368b23b4438d75bdaef16855c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 519420033}
-  enemyAbilities: {fileID: 1845817490}
+  enemyAbilities: {fileID: 0}
   enemy: {fileID: 1721634232}
   hexTilemap: {fileID: 943148697}
-  turnManager: {fileID: 0}
   isAttackMode1: 0
   isAttackMode2: 0
   BasicAttackButton: {fileID: 1440956011}
@@ -2274,6 +2262,25 @@ MonoBehaviour:
   currentHealth: 0
   playerDamageBasic: 10
   playerDamageAdvanced: 20
+--- !u!114 &1323855102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965607011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c0ef361e2da5ae45be9477d4eee1aa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hexTilemap: {fileID: 943148697}
+  playerTransform: {fileID: 1323855100}
+  enemy: {fileID: 0}
+  playerAbilities: {fileID: 0}
+  moveSpeed: 4
+  yOffset: 0.5
+  hasMoved: 0
 --- !u!1 &1440956009
 GameObject:
   m_ObjectHideFlags: 0
@@ -2357,7 +2364,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1323855101}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerAbilities, Assembly-CSharp
         m_MethodName: SelectBasicAttackMode
         m_Mode: 1
@@ -3190,17 +3197,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 933385094}
   offset: {x: 0, y: 1, z: 0}
---- !u!114 &1845817482 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
-  m_PrefabInstance: {fileID: 1070220613740402151}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1721634232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b83707b6a3af1aa4aa3f8db1d0034e09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1845817486 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1016463608500058957, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
@@ -3218,11 +3214,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05db5089a4fc8494eb631689716f2067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   enemyHealthBar: {fileID: 1093270953}
-  playerAbilities: {fileID: 1323855101}
+  playerAbilities: {fileID: 0}
+  enemyMovement: {fileID: 0}
   maxHealth: 50
   currentHealth: 0
   hasTakenDamage: 0
+--- !u!114 &1845817491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721634232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbd647148205b804a944050d1950047b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hexTilemap: {fileID: 943148697}
+  playerTransform: {fileID: 1323855100}
+  enemyTransform: {fileID: 1845817486}
+  hexTilemapPathfinding: {fileID: 419332255}
+  moveSpeed: 3
+  yOffset: 0.3
+  maxMoveDistance: 3
+  hasMoved: 0
+  isEnemyMoving: 0
 --- !u!1 &1858966109
 GameObject:
   m_ObjectHideFlags: 0
@@ -3692,7 +3711,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2848338075193348446}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
         m_MethodName: EndPlayerTurn
         m_Mode: 1
@@ -3999,7 +4018,7 @@ PrefabInstance:
     - target: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       propertyPath: enemy
       value: 
-      objectReference: {fileID: 1845817482}
+      objectReference: {fileID: 0}
     - target: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       propertyPath: hexMap
       value: 
@@ -4031,7 +4050,7 @@ PrefabInstance:
     - target: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       propertyPath: playerAbilities
       value: 
-      objectReference: {fileID: 1323855101}
+      objectReference: {fileID: 0}
     - target: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       propertyPath: playerHealthBar
       value: 
@@ -4040,13 +4059,17 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 1323855100}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1232210129897247516, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 632823907}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1370206309616209178, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1323855102}
     - targetCorrespondingSourceObject: {fileID: 1370206309616209178, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1323855101}
@@ -4231,7 +4254,8 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1016463608500058957, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
@@ -4241,6 +4265,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1845817490}
+    - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1845817491}
   m_SourcePrefab: {fileID: 100100000, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
 --- !u!1001 &2848338075193348444
 PrefabInstance:
@@ -4316,33 +4343,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 2848338075193348445}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01b0704cafb941b489d65049510286bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 550792cf7b3ea3e4aa9a54c4029ad949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 1098599819}
-  enemyMovement: {fileID: 1845817482}
-  batMateMovement: {fileID: 0}
+  playerMovement: {fileID: 1323855102}
+  enemyMovement: {fileID: 1845817491}
   playerAbilities: {fileID: 1323855101}
-  enemyAbilities: {fileID: 1845817490}
-  batMateAbilities: {fileID: 0}
+  enemyAbilities: {fileID: 0}
   BasicAttackButton: {fileID: 1440956011}
   AdvancedAttackButton: {fileID: 924042638}
   isPlayerTurn: 1
-  isBatMateTurn: 1
-  canUseAdvancedAttack: 1
   enemyMoveDelay: 1.3
-  turnCounter: 0
   hexTilemapPathfinding: {fileID: 419332255}
   startPosition: {x: 0, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
-  currentTurn: 0
-  turnImage: {fileID: 1609389055}
-  characterSprites:
-  - {fileID: 21300000, guid: efdad69e04c4d8b4db8bbf45d8e89828, type: 3}
-  - {fileID: 21300000, guid: 899c365d648194740b88903a83a4745d, type: 3}
-  characters:
-  - {fileID: 965607011}
-  - {fileID: 1721634232}
 --- !u!1001 &6570375150689132612
 PrefabInstance:
   m_ObjectHideFlags: 0
