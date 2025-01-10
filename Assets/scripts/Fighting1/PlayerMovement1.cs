@@ -8,8 +8,8 @@ public class PlayerMovement1 : MonoBehaviour
 {
     public Tilemap hexTilemap;
     public Transform playerTransform;
-    public EnemyMovement enemy;
-    public PlayerAbilities playerAbilities;
+    public EnemyMovement1 enemy;
+    public PlayerAbilities1 playerAbilities;
 
     public float moveSpeed = 5f;
     public float yOffset = 0.3f;

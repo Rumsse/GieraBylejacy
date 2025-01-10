@@ -178,9 +178,12 @@ public class HexTilemapPathfinding : MonoBehaviour
 
             enemyUnit.position = Vector3.MoveTowards(enemyUnit.position, targetPosition, moveSpeed * Time.deltaTime);
 
-            if (enemyUnit.position == targetPosition)
+            float epsilon = 0.05f; // Tolerancja
+            if (Vector3.Distance(enemyUnit.position, targetPosition) <= epsilon)
             {
-                currentPathIndex++; // Przechodzimy do nastêpnego punktu œcie¿ki
+                // Wymuszenie ustawienia dok³adnej pozycji w œrodku kafelka
+                enemyUnit.position = targetPosition;
+                currentPathIndex++; // Nastêpny punkt œcie¿ki
             }
         }
         else

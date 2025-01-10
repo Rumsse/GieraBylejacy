@@ -10,14 +10,14 @@ public class TurnManager1 : MonoBehaviour
     public PlayerMovement1 playerMovement;
     public EnemyMovement1 enemyMovement;
     public PlayerAbilities1 playerAbilities;
-    public EnemyAbilities enemyAbilities;
+    public EnemyAbilities1 enemyAbilities;
     public Button BasicAttackButton;
     public Button AdvancedAttackButton;
 
     public bool isPlayerTurn = true;
-    public float enemyMoveDelay = 1.3f;
+    public float enemyMoveDelay = 0.2f;
 
-    public HexTilemapPathfinding hexTilemapPathfinding;
+    public HexTilemapPathfinding1 hexTilemapPathfinding;
     public Vector3Int startPosition;
     public Vector3Int targetPosition;
 
@@ -59,7 +59,7 @@ public class TurnManager1 : MonoBehaviour
         Debug.Log("Tura gracza");
     }
 
-    void EndPlayerTurn()
+    public void EndPlayerTurn()
     {
         isPlayerTurn = false;
         Debug.Log("Koniec tury gracza");

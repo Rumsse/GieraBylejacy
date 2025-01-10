@@ -9,7 +9,7 @@ public class EnemyMovement1 : MonoBehaviour
     public Tilemap hexTilemap;
     public Transform playerTransform;
     public Transform enemyTransform;
-    public HexTilemapPathfinding hexTilemapPathfinding;
+    public HexTilemapPathfinding1 hexTilemapPathfinding;
 
     public float moveSpeed = 2f;
     public float yOffset = 0.3f;

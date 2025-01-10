@@ -610,7 +610,7 @@ MonoBehaviour:
   playerUnit: {fileID: 1323855100}
   enemyUnit: {fileID: 1845817486}
   movementRange: 3
-  moveSpeed: 0.5
+  moveSpeed: 0.8
   enemyMovement: {fileID: 1845817482}
   playerMovement: {fileID: 1098599819}
   turnManager: {fileID: 2848338075193348446}
@@ -4916,8 +4916,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 899c365d648194740b88903a83a4745d, type: 3}
   characters:
   - {fileID: 965607011}
-  - {fileID: 1847597376}
   - {fileID: 1721634232}
+  - {fileID: 1847597376}
 --- !u!1001 &6570375150689132612
 PrefabInstance:
   m_ObjectHideFlags: 0

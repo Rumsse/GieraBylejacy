@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PlayerAbilities1 : MonoBehaviour
 {
     public MainMenu mainMenu;
-    public EnemyAbilities enemyAbilities;
+    public EnemyAbilities1 enemyAbilities;
     public GameObject enemy;
     public Tilemap hexTilemap;
 

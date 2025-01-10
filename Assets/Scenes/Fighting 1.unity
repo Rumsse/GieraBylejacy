@@ -545,7 +545,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 419332252}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9ac0f20dac3fc34f89a3a0f2c95f55c, type: 3}
+  m_Script: {fileID: 11500000, guid: 87053d19a860eed4fa25ab12532e28e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hexTilemap: {fileID: 943148697}
@@ -553,9 +553,9 @@ MonoBehaviour:
   enemyUnit: {fileID: 1845817486}
   movementRange: 3
   moveSpeed: 1
-  enemyMovement: {fileID: 0}
-  playerMovement: {fileID: 0}
-  turnManager: {fileID: 0}
+  enemyMovement: {fileID: 1845817491}
+  playerMovement: {fileID: 1323855102}
+  turnManager: {fileID: 2848338075193348446}
 --- !u!1 &443288589
 GameObject:
   m_ObjectHideFlags: 0
@@ -1279,9 +1279,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerAbilities, Assembly-CSharp
-        m_MethodName: SelectAdvancedAttackMode
+      - m_Target: {fileID: 1323855101}
+        m_TargetAssemblyTypeName: PlayerAbilities1, Assembly-CSharp
+        m_MethodName: AdvancedAttack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2247,7 +2247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 519420033}
-  enemyAbilities: {fileID: 0}
+  enemyAbilities: {fileID: 1845817495}
   enemy: {fileID: 1721634232}
   hexTilemap: {fileID: 943148697}
   isAttackMode1: 0
@@ -2276,8 +2276,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hexTilemap: {fileID: 943148697}
   playerTransform: {fileID: 1323855100}
-  enemy: {fileID: 0}
-  playerAbilities: {fileID: 0}
+  enemy: {fileID: 1845817491}
+  playerAbilities: {fileID: 1323855101}
   moveSpeed: 4
   yOffset: 0.5
   hasMoved: 0
@@ -2364,9 +2364,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerAbilities, Assembly-CSharp
-        m_MethodName: SelectBasicAttackMode
+      - m_Target: {fileID: 1323855101}
+        m_TargetAssemblyTypeName: PlayerAbilities1, Assembly-CSharp
+        m_MethodName: BasicAttack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3202,25 +3202,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1016463608500058957, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
   m_PrefabInstance: {fileID: 1070220613740402151}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1845817490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1721634232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05db5089a4fc8494eb631689716f2067, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  enemyHealthBar: {fileID: 1093270953}
-  playerAbilities: {fileID: 0}
-  enemyMovement: {fileID: 0}
-  maxHealth: 50
-  currentHealth: 0
-  hasTakenDamage: 0
 --- !u!114 &1845817491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3242,6 +3223,25 @@ MonoBehaviour:
   maxMoveDistance: 3
   hasMoved: 0
   isEnemyMoving: 0
+--- !u!114 &1845817495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721634232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e13d075a4c43e0e4abc5bd5926bf4328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  enemyHealthBar: {fileID: 0}
+  playerAbilities: {fileID: 0}
+  enemyMovement: {fileID: 0}
+  maxHealth: 50
+  currentHealth: 0
+  hasTakenDamage: 0
 --- !u!1 &1858966109
 GameObject:
   m_ObjectHideFlags: 0
@@ -3711,8 +3711,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
+      - m_Target: {fileID: 2848338075193348446}
+        m_TargetAssemblyTypeName: TurnManager1, Assembly-CSharp
         m_MethodName: EndPlayerTurn
         m_Mode: 1
         m_Arguments:
@@ -4185,7 +4185,7 @@ PrefabInstance:
     - target: {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: hexTilemapPathfinding
       value: 
-      objectReference: {fileID: 419332255}
+      objectReference: {fileID: 0}
     - target: {fileID: 7002934762677977222, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_Size.x
       value: 0.3767016
@@ -4264,10 +4264,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1845817490}
+      addedObject: {fileID: 1845817491}
     - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1845817491}
+      addedObject: {fileID: 1845817495}
   m_SourcePrefab: {fileID: 100100000, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
 --- !u!1001 &2848338075193348444
 PrefabInstance:
@@ -4349,7 +4349,7 @@ MonoBehaviour:
   playerMovement: {fileID: 1323855102}
   enemyMovement: {fileID: 1845817491}
   playerAbilities: {fileID: 1323855101}
-  enemyAbilities: {fileID: 0}
+  enemyAbilities: {fileID: 1845817495}
   BasicAttackButton: {fileID: 1440956011}
   AdvancedAttackButton: {fileID: 924042638}
   isPlayerTurn: 1
