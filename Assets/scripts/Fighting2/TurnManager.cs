@@ -9,9 +9,11 @@ public class TurnManager : MonoBehaviour
 {
     public PlayerMovement playerMovement;
     public EnemyMovement enemyMovement;
+    public Enemy2Movement enemy2Movement;
     public BatMateMovement batMateMovement;
     public PlayerAbilities playerAbilities;
     public EnemyAbilities enemyAbilities;
+    //public Enemy2Abilities enemy2Abilities;
     public BatMateAbilities batMateAbilities;
 
     public Button BasicAttackButton;
@@ -21,13 +23,12 @@ public class TurnManager : MonoBehaviour
     public bool isBatMateTurn = true;
     public float enemyMoveDelay = 1.3f;
 
-    public HexTilemapPathfinding hexTilemapPathfinding;
     public Vector3Int startPosition;
     public Vector3Int targetPosition;
 
     public TurnState currentTurn = TurnState.Player;
     public int turnCounter = 0;
-
+    public bool isEnemyTurn;
 
     public Image turnImage;
     public Sprite[] characterSprites;
@@ -39,7 +40,8 @@ public class TurnManager : MonoBehaviour
     {
         Player,
         BatMate,
-        Enemy
+        Enemy1,
+        Enemy2
     }
 
     private void Start()
@@ -58,19 +60,29 @@ public class TurnManager : MonoBehaviour
                 playerMovement.isActive = true;
                 batMateMovement.isActive = false;
                 enemyMovement.isActive = false;
+                enemy2Movement.isActive = false;
                 StartPlayerTurn();
                 break;
             case TurnState.BatMate:
                 playerMovement.isActive = false;
                 batMateMovement.isActive = true;
                 enemyMovement.isActive = false;
+                enemy2Movement.isActive = false;
                 StartBatMateTurn();
                 break;
-            case TurnState.Enemy:
+            case TurnState.Enemy1:
                 playerMovement.isActive = false;
                 batMateMovement.isActive = false;
                 enemyMovement.isActive = true;
+                enemy2Movement.isActive = false;
                 StartEnemyTurn();
+                break;
+            case TurnState.Enemy2:
+                playerMovement.isActive = false;
+                batMateMovement.isActive = false;
+                enemyMovement.isActive = false;
+                enemy2Movement.isActive = true;
+                StartEnemy2Turn();
                 break;
         }
     }
@@ -98,7 +110,7 @@ public class TurnManager : MonoBehaviour
         BasicAttackButton.GetComponent<Image>().color = Color.white;
         AdvancedAttackButton.GetComponent<Image>().color = Color.white;
 
-        currentTurn = (TurnState)(((int)currentTurn + 1) % 3);
+        currentTurn = (TurnState)(((int)currentTurn + 1) % 4);
         currentTurnIndex = (currentTurnIndex + 1) % characters.Length;
         UpdateTurnIndicator();
 
@@ -128,7 +140,7 @@ public class TurnManager : MonoBehaviour
 
         BasicAttackButton.GetComponent<Image>().color = Color.white;
 
-        currentTurn = (TurnState)(((int)currentTurn + 1) % 3);
+        currentTurn = (TurnState)(((int)currentTurn + 1) % 4);
         currentTurnIndex = (currentTurnIndex + 1) % characters.Length;
         UpdateTurnIndicator();
 
@@ -146,8 +158,8 @@ public class TurnManager : MonoBehaviour
 
     void StartEnemyTurn()
     {
+        isEnemyTurn = true;
         Debug.Log("Tura przeciwnika");
-
         enemyMovement.ResetMovement();
 
         Vector3Int playerHexPos = playerMovement.hexTilemap.WorldToCell(playerMovement.transform.position); //Pobiera pozycje gracza i przeciwnika
@@ -165,9 +177,39 @@ public class TurnManager : MonoBehaviour
     public void EndEnemyTurn()
     {
         Debug.Log("Koniec tury przeciwnika");
-        currentTurn = (TurnState)(((int)currentTurn + 1) % 3);
+        currentTurn = (TurnState)(((int)currentTurn + 1) % 4);
         currentTurnIndex = (currentTurnIndex + 1) % characters.Length;
         UpdateTurnIndicator();
+        isEnemyTurn = false;
+
+        StartTurn();
+    }
+
+    public void StartEnemy2Turn()
+    {
+        isEnemyTurn = true;
+        Debug.Log("Tura drugiego przeciwnika");
+        enemy2Movement.ResetMovement();
+
+        Vector3Int playerHexPos = playerMovement.hexTilemap.WorldToCell(playerMovement.transform.position); //Pobiera pozycje gracza i przeciwnika
+        Vector3Int enemyHexPos = enemyMovement.hexTilemap.WorldToCell(enemyMovement.transform.position);
+
+        enemy2Movement.isEnemyMoving = true;
+
+
+        if (enemy2Movement.hasMoved)
+        {
+            EndEnemy2Turn();
+        }
+    }
+
+    public void EndEnemy2Turn()
+    {
+        Debug.Log("Koniec tury drugiego przeciwnika");
+        currentTurn = (TurnState)(((int)currentTurn + 1) % 4);
+        currentTurnIndex = (currentTurnIndex + 1) % characters.Length;
+        UpdateTurnIndicator();
+        isEnemyTurn = false;
 
         StartTurn();
     }
