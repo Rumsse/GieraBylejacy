@@ -19,15 +19,14 @@ public class TurnManager : MonoBehaviour
 
     public bool isPlayerTurn = true;
     public bool isBatMateTurn = true;
-    public bool canUseAdvancedAttack = true;
     public float enemyMoveDelay = 1.3f;
-    public int turnCounter = 0;
 
     public HexTilemapPathfinding hexTilemapPathfinding;
     public Vector3Int startPosition;
     public Vector3Int targetPosition;
 
     public TurnState currentTurn = TurnState.Player;
+    public int turnCounter = 0;
 
 
     public Image turnImage;
@@ -82,9 +81,6 @@ public class TurnManager : MonoBehaviour
         playerMovement.ResetMovement();
         Debug.Log("Tura gracza");
 
-        turnCounter++;
-        canUseAdvancedAttack = (turnCounter % 2 == 1);
-
         if (playerMovement.hasMoved && Input.GetKeyDown(KeyCode.Space))
         {
             EndPlayerTurn();
@@ -105,6 +101,8 @@ public class TurnManager : MonoBehaviour
         currentTurn = (TurnState)(((int)currentTurn + 1) % 3);
         currentTurnIndex = (currentTurnIndex + 1) % characters.Length;
         UpdateTurnIndicator();
+
+        playerAbilities.OnOneTurnEnd();
 
         StartTurn();
     }

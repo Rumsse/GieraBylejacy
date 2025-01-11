@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,7 @@ public class PlayerAbilities : MonoBehaviour
     public int currentHealth;
     public int playerDamageBasic = 10;
     public int playerDamageAdvanced = 20;
+    public bool canUseAdvancedAttack = true;
 
 
     private void Start()
@@ -122,7 +124,7 @@ public class PlayerAbilities : MonoBehaviour
         Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
 
 
-        if (turnManager.canUseAdvancedAttack)
+        if (canUseAdvancedAttack)
         {
             if (hitCollider != null && hitCollider.CompareTag("Enemy"))
             {
@@ -131,6 +133,9 @@ public class PlayerAbilities : MonoBehaviour
                 {
                     enemy.TakeDamage(20);
                     Debug.Log("2Przeciwnik otrzyma³ obra¿enia: " + 20);
+
+                    canUseAdvancedAttack = false;
+                    turnManager.turnCounter = 4;
                 }
                 else
                 {
@@ -147,6 +152,20 @@ public class PlayerAbilities : MonoBehaviour
             Debug.Log("Advance Attack jest niedostêpny w tej turze");
         }
 
+    }
+
+    public void OnOneTurnEnd()
+    {
+        if (turnManager.turnCounter > 0)
+        {
+            turnManager.turnCounter--;
+        }
+
+        if (turnManager.turnCounter == 0)
+        {
+            canUseAdvancedAttack = true;
+            Debug.Log("Advanced Attack jest ju¿ dostêpny");
+        }
     }
 
 

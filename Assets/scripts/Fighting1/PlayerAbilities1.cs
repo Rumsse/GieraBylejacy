@@ -11,6 +11,7 @@ public class PlayerAbilities1 : MonoBehaviour
     public EnemyAbilities1 enemyAbilities;
     public GameObject enemy;
     public Tilemap hexTilemap;
+    public TurnManager1 turnManager;
 
     public bool isAttackMode1 = false;
     public bool isAttackMode2 = false;
@@ -18,11 +19,12 @@ public class PlayerAbilities1 : MonoBehaviour
     public Button AdvancedAttackButton;
     public LayerMask EnemyLayer;
 
-    public HealthBar playerHealthBar;
+    public HealthBar1 playerHealthBar;
     public int maxHealth = 100;
     public int currentHealth;
     public int playerDamageBasic = 10;
     public int playerDamageAdvanced = 20;
+    public bool canUseAdvancedAttack = true;
 
 
     private void Start()
@@ -74,7 +76,7 @@ public class PlayerAbilities1 : MonoBehaviour
 
         if (hitCollider != null && hitCollider.CompareTag("Enemy"))
         {
-            EnemyAbilities enemy = hitCollider.GetComponent<EnemyAbilities>();
+            EnemyAbilities1 enemy = hitCollider.GetComponent<EnemyAbilities1>();
             if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 1) && !enemy.hasTakenDamage)
             {
                 enemy.TakeDamage(10);
@@ -121,24 +123,48 @@ public class PlayerAbilities1 : MonoBehaviour
         Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
 
 
-        if (hitCollider != null && hitCollider.CompareTag("Enemy"))
+        if (canUseAdvancedAttack)
         {
-            EnemyAbilities enemy = hitCollider.GetComponent<EnemyAbilities>();
-            if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 2) && !enemy.hasTakenDamage)
+            if (hitCollider != null && hitCollider.CompareTag("Enemy"))
             {
-                enemy.TakeDamage(20);
-                Debug.Log("2Przeciwnik otrzyma³ obra¿enia: " + 20);
+                EnemyAbilities1 enemy = hitCollider.GetComponent<EnemyAbilities1>();
+                if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 2) && !enemy.hasTakenDamage)
+                {
+                    enemy.TakeDamage(20);
+                    Debug.Log("2Przeciwnik otrzyma³ obra¿enia: " + 20);
+
+                    canUseAdvancedAttack = false;
+                    turnManager.turnCounter = 2;
+                }
+                else
+                {
+                    Debug.Log("2Przeciwnik ju¿ otrzyma³ obra¿enia");
+                }
             }
             else
             {
-                Debug.Log("2Przeciwnik ju¿ otrzyma³ obra¿enia");
+                Debug.Log("2Promieñ nie trafi³ w przeciwnika.");
             }
         }
         else
         {
-            Debug.Log("2Promieñ nie trafi³ w przeciwnika.");
+            Debug.Log("Advance Attack jest niedostêpny w tej turze");
         }
 
+    }
+
+    public void OnOneTurnEnd()
+    {
+        if (turnManager.turnCounter > 0)
+        {
+            turnManager.turnCounter--;
+        }
+
+        if (turnManager.turnCounter == 0)
+        {
+            canUseAdvancedAttack = true;
+            Debug.Log("Advanced Attack jest ju¿ dostêpny");
+        }
     }
 
 

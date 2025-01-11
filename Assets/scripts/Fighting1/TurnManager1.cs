@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
+using static TurnManager;
 
 
 public class TurnManager1 : MonoBehaviour
@@ -15,11 +17,19 @@ public class TurnManager1 : MonoBehaviour
     public Button AdvancedAttackButton;
 
     public bool isPlayerTurn = true;
-    public float enemyMoveDelay = 0.2f;
+    public float enemyMoveDelay = 0.01f;
 
     public HexTilemapPathfinding1 hexTilemapPathfinding;
     public Vector3Int startPosition;
     public Vector3Int targetPosition;
+
+    public Image turnImage;
+    public Sprite[] characterSprites;
+    public GameObject[] characters;
+    private int currentTurnIndex = 0;
+
+    public int turnCounter = 0;
+
 
     void Start() //maybe ca³a metoda do wyrzucenia
     {
@@ -32,6 +42,8 @@ public class TurnManager1 : MonoBehaviour
         {
             enemyMovement = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyMovement1>();
         }
+
+        UpdateTurnIndicator();
     }
 
     void Update()
@@ -70,7 +82,12 @@ public class TurnManager1 : MonoBehaviour
         BasicAttackButton.GetComponent<Image>().color = Color.white;
         AdvancedAttackButton.GetComponent<Image>().color = Color.white;
 
-        StartCoroutine(StartEnemyTurnWithDelay()); // Rozpocznij Coroutine dla opóŸnienia przed ruchem przeciwnika
+        currentTurnIndex = (currentTurnIndex + 1) % characters.Length;
+        UpdateTurnIndicator();
+
+        playerAbilities.OnOneTurnEnd();
+
+        StartEnemyTurn(); // Rozpocznij Coroutine dla opóŸnienia przed ruchem przeciwnika
     }
 
     System.Collections.IEnumerator StartEnemyTurnWithDelay()
@@ -97,7 +114,15 @@ public class TurnManager1 : MonoBehaviour
         isPlayerTurn = true;
         Debug.Log("Koniec tury przeciwnika");
 
+        currentTurnIndex = (currentTurnIndex + 1) % characters.Length;
+        UpdateTurnIndicator();
+
         StartPlayerTurn();
+    }
+
+    public void UpdateTurnIndicator()
+    {
+        turnImage.sprite = characterSprites[currentTurnIndex];
     }
 
 

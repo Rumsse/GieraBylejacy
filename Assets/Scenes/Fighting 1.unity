@@ -552,7 +552,7 @@ MonoBehaviour:
   playerUnit: {fileID: 1323855100}
   enemyUnit: {fileID: 1845817486}
   movementRange: 3
-  moveSpeed: 1
+  moveSpeed: 0.8
   enemyMovement: {fileID: 1845817491}
   playerMovement: {fileID: 1323855102}
   turnManager: {fileID: 2848338075193348446}
@@ -1258,7 +1258,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -1281,7 +1281,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1323855101}
         m_TargetAssemblyTypeName: PlayerAbilities1, Assembly-CSharp
-        m_MethodName: AdvancedAttack
+        m_MethodName: SelectAdvancedAttackMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1935,7 +1935,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1093270951}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a7f39cdffc1e214da983137974d5668, type: 3}
+  m_Script: {fileID: 11500000, guid: 478d88c32456ac04781ae08155d98eeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 285528408}
@@ -2250,6 +2250,7 @@ MonoBehaviour:
   enemyAbilities: {fileID: 1845817495}
   enemy: {fileID: 1721634232}
   hexTilemap: {fileID: 943148697}
+  turnManager: {fileID: 2848338075193348446}
   isAttackMode1: 0
   isAttackMode2: 0
   BasicAttackButton: {fileID: 1440956011}
@@ -2262,6 +2263,7 @@ MonoBehaviour:
   currentHealth: 0
   playerDamageBasic: 10
   playerDamageAdvanced: 20
+  canUseAdvancedAttack: 1
 --- !u!114 &1323855102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2364,7 +2366,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -2387,7 +2389,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1323855101}
         m_TargetAssemblyTypeName: PlayerAbilities1, Assembly-CSharp
-        m_MethodName: BasicAttack
+        m_MethodName: SelectBasicAttackMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3213,7 +3215,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1774097600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a7f39cdffc1e214da983137974d5668, type: 3}
+  m_Script: {fileID: 11500000, guid: 478d88c32456ac04781ae08155d98eeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 933385094}
@@ -3256,10 +3258,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e13d075a4c43e0e4abc5bd5926bf4328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  enemyHealthBar: {fileID: 0}
-  playerAbilities: {fileID: 0}
-  enemyMovement: {fileID: 0}
+  player: {fileID: 965607011}
+  enemyHealthBar: {fileID: 1093270953}
+  playerAbilities: {fileID: 1323855101}
+  enemyMovement: {fileID: 1845817491}
   maxHealth: 50
   currentHealth: 0
   hasTakenDamage: 0
@@ -4296,6 +4298,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8028396635752160040, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8028396635752160040, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -4405,6 +4411,14 @@ MonoBehaviour:
   hexTilemapPathfinding: {fileID: 419332255}
   startPosition: {x: 0, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  turnImage: {fileID: 1609389055}
+  characterSprites:
+  - {fileID: 21300000, guid: 6a27e3c1f932c044bac26c420ddd7f4e, type: 3}
+  - {fileID: 21300000, guid: a61e3ee42a1ed4d4c8e0d32693bc97fb, type: 3}
+  characters:
+  - {fileID: 965607011}
+  - {fileID: 1721634232}
+  turnCounter: 0
 --- !u!1001 &6570375150689132612
 PrefabInstance:
   m_ObjectHideFlags: 0

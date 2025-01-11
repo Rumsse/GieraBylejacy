@@ -5,9 +5,9 @@ using UnityEngine;
 public class EnemyAbilities1 : MonoBehaviour
 {
     public GameObject player;
-    public HealthBar enemyHealthBar;
-    public PlayerAbilities playerAbilities;
-    public EnemyMovement enemyMovement;
+    public HealthBar1 enemyHealthBar;
+    public PlayerAbilities1 playerAbilities;
+    public EnemyMovement1 enemyMovement;
     public int maxHealth = 50;
     public int currentHealth;
     public bool hasTakenDamage = false;
