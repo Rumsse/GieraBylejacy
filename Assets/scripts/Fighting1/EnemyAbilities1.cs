@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyAbilities1 : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class EnemyAbilities1 : MonoBehaviour
     public HealthBar1 enemyHealthBar;
     public PlayerAbilities1 playerAbilities;
     public EnemyMovement1 enemyMovement;
+    public Pause pause;
     public int maxHealth = 50;
     public int currentHealth;
     public bool hasTakenDamage = false;
@@ -35,6 +37,7 @@ public class EnemyAbilities1 : MonoBehaviour
         {
             Destroy(gameObject);
             Debug.Log("Przeciwnik zosta³ pokonany!");
+            pause.WinScreenPause();
         }
     }
 

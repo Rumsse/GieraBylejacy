@@ -184,7 +184,7 @@ public class PlayerAbilities1 : MonoBehaviour
         {
             Destroy(gameObject);
             Debug.Log("Gracz zosta³ pokonany!");
-            SceneManager.LoadSceneAsync(2);
+            SceneManager.LoadSceneAsync(3);
         }
     }
 
