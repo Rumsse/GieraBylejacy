@@ -38,12 +38,12 @@ public class HexTilemapPathfinding : MonoBehaviour
         Vector3Int currentPlayerPos = hexTilemap.WorldToCell(playerUnit.transform.position); // Zaktualizuj pozycje gracza i przeciwnika
         Vector3Int currentEnemyPos = hexTilemap.WorldToCell(enemyUnit.transform.position);
 
-        path = FindPath(currentEnemyPos, currentPlayerPos);
-
-        if (currentPlayerPos != lastPlayerPos) // SprawdŸ, czy pozycja gracza siê zmieni³a
+        if (!enemyMovement.isEnemyMoving && currentPlayerPos != lastPlayerPos) // SprawdŸ, czy pozycja gracza siê zmieni³a
         {
+            path = FindPath(currentEnemyPos, currentPlayerPos);
             lastPlayerPos = currentPlayerPos;
             Debug.Log("Nowa pozycja gracza w siatce: " + currentPlayerPos);
+            Debug.Log("Zaktualizowano œcie¿kê: " + string.Join(" -> ", path));
         }
 
         if (currentEnemyPos != lastEnemyPos) // SprawdŸ, czy pozycja przeciwnika siê zmieni³a
@@ -108,6 +108,14 @@ public class HexTilemapPathfinding : MonoBehaviour
                     current = cameFrom[current];
                 }
                 totalPath.Reverse();
+
+                if (totalPath.Count > movementRange)
+                {
+                    totalPath = totalPath.GetRange(0, movementRange);
+                }
+
+                Debug.Log("Œcie¿ka: " + string.Join(" -> ", totalPath));
+
                 return totalPath;
             }
 
@@ -169,6 +177,13 @@ public class HexTilemapPathfinding : MonoBehaviour
     // Funkcja do p³ynnego poruszania siê jednostki wzd³u¿ œcie¿ki
     public void MoveEnemyAlongPath()
     {
+        if (currentPathIndex >= path.Count || currentPathIndex >= movementRange)
+        {
+            Debug.Log($"Ruch zakoñczony! Index: {currentPathIndex}, Range: {movementRange}, Path Count: {path.Count}");
+            EndEnemyMovement();
+            return;
+        }
+
         if (currentPathIndex < path.Count)
         {
             Vector3 targetPosition = hexTilemap.CellToWorld(path[currentPathIndex]) + new Vector3(0, 0, 0); // Korygujemy pozycjê
@@ -184,17 +199,25 @@ public class HexTilemapPathfinding : MonoBehaviour
                 // Wymuszenie ustawienia dok³adnej pozycji w œrodku kafelka
                 enemyUnit.position = targetPosition;
                 currentPathIndex++; // Nastêpny punkt œcie¿ki
+                Debug.Log($"Ruch na kafelek: {currentPathIndex}, Pozosta³o: {path.Count - currentPathIndex}");
             }
+
         }
         else
         {
-            // Gdy przeciwnik dotrze do celu, koñczymy ruch
-            enemyMovement.isEnemyMoving = false;
-            currentPathIndex = 0;
-            enemyMovement.ResetMovement();
-            playerMovement.ResetMovement();
-            turnManager.EndEnemyTurn();
+            Debug.Log("sprawdzam");
+            EndEnemyMovement();
         }
+    }
+
+    private void EndEnemyMovement()
+    {
+        enemyMovement.isEnemyMoving = false;
+        enemyMovement.hasMoved = true;
+        currentPathIndex = 0;
+        enemyMovement.ResetMovement();
+        playerMovement.ResetMovement();
+        turnManager.EndEnemyTurn();
     }
 
 }

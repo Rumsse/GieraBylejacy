@@ -13,8 +13,6 @@ public class EnemyMovement : MonoBehaviour
     public HexTilemapPathfinding hexTilemapPathfinding;
 
     public float moveSpeed = 2f;
-    public float yOffset = 0.3f;
-    public int maxMoveDistance = 3;
     public bool hasMoved = false;
     public bool isEnemyMoving = false;
     public bool isActive = false;

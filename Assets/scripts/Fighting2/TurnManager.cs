@@ -150,6 +150,8 @@ public class TurnManager : MonoBehaviour
     {
         Debug.Log("Tura przeciwnika");
 
+        enemyMovement.ResetMovement();
+
         Vector3Int playerHexPos = playerMovement.hexTilemap.WorldToCell(playerMovement.transform.position); //Pobiera pozycje gracza i przeciwnika
         Vector3Int enemyHexPos = enemyMovement.hexTilemap.WorldToCell(enemyMovement.transform.position);
 
