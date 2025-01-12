@@ -919,6 +919,7 @@ MonoBehaviour:
   enemyMovement: {fileID: 1845817482}
   playerMovement: {fileID: 1098599819}
   turnManager: {fileID: 2848338075193348446}
+  tileManager: {fileID: 2002097039}
 --- !u!114 &419332256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -939,6 +940,7 @@ MonoBehaviour:
   enemyMovement: {fileID: 2070549773}
   playerMovement: {fileID: 1098599819}
   turnManager: {fileID: 2848338075193348446}
+  tileManager: {fileID: 2002097039}
 --- !u!1 &443288589
 GameObject:
   m_ObjectHideFlags: 0
@@ -4164,6 +4166,8 @@ MonoBehaviour:
   hexTilemap: {fileID: 943148697}
   playerTransform: {fileID: 1847597381}
   enemy: {fileID: 1845817482}
+  tileManager: {fileID: 2002097039}
+  maxMoveDistance: 4
   moveSpeed: 3
   yOffset: 0.3
   hasMoved: 0
@@ -4714,6 +4718,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959602156}
   m_CullTransparentMesh: 1
+--- !u!1 &2002097038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2002097040}
+  - component: {fileID: 2002097039}
+  m_Layer: 0
+  m_Name: TileManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2002097039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002097038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf228514905feae4db16b723795ec14b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hexTilemap: {fileID: 943148697}
+  characters:
+  - {fileID: 965607011}
+  - {fileID: 1847597376}
+  - {fileID: 1721634232}
+  - {fileID: 2070549765}
+--- !u!4 &2002097040
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002097038}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 968.20245, y: 792.8679, z: -9.3878765}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2059216621
 GameObject:
   m_ObjectHideFlags: 0
@@ -5120,6 +5174,7 @@ MonoBehaviour:
   batMateTransform: {fileID: 1847597381}
   enemy1Transform: {fileID: 1845817486}
   hexTilemapPathfinding: {fileID: 419332256}
+  tileManager: {fileID: 2002097039}
   hasMoved: 0
   isEnemyMoving: 0
   isActive: 0
@@ -5406,6 +5461,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 943148697}
     - target: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
+      propertyPath: tileManager
+      value: 
+      objectReference: {fileID: 2002097039}
+    - target: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       propertyPath: healthBarFollow
       value: 
       objectReference: {fileID: 0}
@@ -5527,6 +5586,10 @@ PrefabInstance:
       propertyPath: hexTilemap
       value: 
       objectReference: {fileID: 943148697}
+    - target: {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
+      propertyPath: tileManager
+      value: 
+      objectReference: {fileID: 2002097039}
     - target: {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: enemyHealthBar
       value: 
@@ -8677,3 +8740,4 @@ SceneRoots:
   - {fileID: 2848338075193348444}
   - {fileID: 833479361}
   - {fileID: 80871701}
+  - {fileID: 2002097040}

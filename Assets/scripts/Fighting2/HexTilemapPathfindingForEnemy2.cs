@@ -14,6 +14,7 @@ public class HexTilemapPathfindingForEnemy2 : MonoBehaviour
     public Enemy2Movement enemyMovement;
     public PlayerMovement playerMovement;
     public TurnManager turnManager;
+    public TileManager tileManager;
 
     private List<Vector3Int> path = new List<Vector3Int>();  // Lista punktów œcie¿ki
     private int currentPathIndex = 0;  // Indeks aktualnego punktu œcie¿ki
@@ -125,7 +126,7 @@ public class HexTilemapPathfindingForEnemy2 : MonoBehaviour
             // Sprawdzamy s¹siadów
             foreach (Vector3Int neighbor in GetNeighbors(current))
             {
-                if (closedSet.Contains(neighbor)) continue;
+                if (closedSet.Contains(neighbor) || tileManager.IsTileOccupied(neighbor)) continue;
 
                 float tentativeGScore = gScore[current] + Cost(current, neighbor);
 
@@ -186,6 +187,7 @@ public class HexTilemapPathfindingForEnemy2 : MonoBehaviour
 
         if (currentPathIndex < path.Count)
         {
+            Vector3 targetHexPos = path[currentPathIndex];
             Vector3 targetPosition = hexTilemap.CellToWorld(path[currentPathIndex]) + new Vector3(0, 0, 0); // Korygujemy pozycjê
 
             Debug.DrawLine(targetPosition, targetPosition + Vector3.up * 0.5f, Color.red, 5f); // Linia pionowa od kafelka
@@ -196,16 +198,23 @@ public class HexTilemapPathfindingForEnemy2 : MonoBehaviour
             float epsilon = 0.05f; // Tolerancja
             if (Vector3.Distance(enemyUnit.position, targetPosition) <= epsilon)
             {
-                // Wymuszenie ustawienia dok³adnej pozycji w œrodku kafelka
-                enemyUnit.position = targetPosition;
-                currentPathIndex++; // Nastêpny punkt œcie¿ki
+                enemyUnit.position = targetPosition; // Wymuszenie ustawienia dok³adnej pozycji w œrodku kafelka
+                currentPathIndex++;
+
+                if (currentPathIndex < path.Count)
+                {
+                    Vector3Int currentHexPosition = hexTilemap.WorldToCell(enemyUnit.position);
+                    Vector3Int targetHexPosition = path[currentPathIndex];
+                    tileManager.UpdateTileOccupation(currentHexPosition, targetHexPosition);
+                }
+
                 Debug.Log($"Ruch na kafelek: {currentPathIndex}, Pozosta³o: {path.Count - currentPathIndex}");
+
             }
 
         }
         else
         {
-            Debug.Log("sprawdzam");
             EndEnemyMovement();
         }
     }

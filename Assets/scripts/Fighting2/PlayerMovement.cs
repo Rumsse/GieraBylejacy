@@ -10,8 +10,10 @@ public class PlayerMovement : MonoBehaviour
     public Transform playerTransform;
     public EnemyMovement enemy;
     public PlayerAbilities playerAbilities;
+    public TileManager tileManager;
 
     public float moveSpeed = 4f;
+    public int maxMoveDistance = 4;
     public float yOffset = 0.3f;
     public bool hasMoved = false;
     private bool hasLogged = false;
@@ -23,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+
         if (hexTilemap == null)
         {
             hexTilemap = GameObject.Find("HexTilemap").GetComponent<Tilemap>();
@@ -55,19 +58,20 @@ public class PlayerMovement : MonoBehaviour
             // Tworzymy obiekty Hex z pozycji bie¿¹cej i docelowej
             Hex playerHex = new Hex(hexTilemap.WorldToCell(transform.position).x, hexTilemap.WorldToCell(transform.position).y);
             Hex targetHex = new Hex(hexPosition.x, hexPosition.y);
-
-            // SprawdŸ odleg³oœæ w heksach
-            int maxMoveDistance = 4; // Maksymalny zasiêg ruchu
+;
             if (playerHex.HexDistance(targetHex) <= maxMoveDistance)
             {
-                if (!IsPositionOccupiedByEnemy(targetWorldPosition))  // SprawdŸ, czy pozycja nie jest zajêta
+                if (!tileManager.IsTileOccupied(hexPosition)) 
                 {
+                    Vector3Int currentHexPosition = hexTilemap.WorldToCell(transform.position);
+                    tileManager.UpdateTileOccupation(currentHexPosition, hexPosition);
+
                     targetPosition = targetWorldPosition;
                     hasMoved = true;
                 }
                 else
                 {
-                    Debug.Log("Nie mo¿na poruszyæ siê na kafelek zajêty przez przeciwnika.");
+                    Debug.Log("Nie mo¿na poruszyæ siê na zajêty kafelek.");
                 }
             }
             else
@@ -81,13 +85,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-    bool IsPositionOccupiedByEnemy(Vector3 position)
-    {
-        Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
-        Vector3Int targetHexPos = hexTilemap.WorldToCell(position);
-        return enemyHexPos == targetHexPos;  // Zwraca true, jeœli pozycja jest zajêta przez przeciwnika
-    }
 
     void MovePlayerToTarget()
     {

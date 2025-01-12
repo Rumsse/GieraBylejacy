@@ -10,7 +10,10 @@ public class BatMateMovement : MonoBehaviour
     public Tilemap hexTilemap;
     public Transform playerTransform;
     public EnemyMovement enemy;
+    public TileManager tileManager;
 
+
+    public int maxMoveDistance = 4;
     public float moveSpeed = 4f;
     public float yOffset = 0.3f;
     public bool hasMoved = true;
@@ -51,17 +54,19 @@ public class BatMateMovement : MonoBehaviour
             Hex playerHex = new Hex(hexTilemap.WorldToCell(transform.position).x, hexTilemap.WorldToCell(transform.position).y);
             Hex targetHex = new Hex(hexPosition.x, hexPosition.y);
 
-            int maxMoveDistance = 4; 
             if (playerHex.HexDistance(targetHex) <= maxMoveDistance)
             {
-                if (!IsPositionOccupiedByEnemy(targetWorldPosition))
+                if (!tileManager.IsTileOccupied(hexPosition))
                 {
+                    Vector3Int currentHexPosition = hexTilemap.WorldToCell(transform.position);
+                    tileManager.UpdateTileOccupation(currentHexPosition, hexPosition);
+
                     targetPosition = targetWorldPosition;
                     hasMoved = true;
                 }
                 else
                 {
-                    Debug.Log("Nie mo¿na poruszyæ siê na kafelek zajêty przez przeciwnika.");
+                    Debug.Log("Nie mo¿na poruszyæ siê na zajêty kafelek.");
                 }
             }
             else
@@ -73,14 +78,6 @@ public class BatMateMovement : MonoBehaviour
         {
             Debug.LogWarning("Klikniêto poza heksagonaln¹ siatk¹.");
         }
-    }
-
-
-    bool IsPositionOccupiedByEnemy(Vector3 position)
-    {
-        Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
-        Vector3Int targetHexPos = hexTilemap.WorldToCell(position);
-        return enemyHexPos == targetHexPos;  // Zwraca true, jeœli pozycja jest zajêta przez przeciwnika
     }
 
     void MoveBatMateToTarget()
