@@ -25,11 +25,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-
         if (hexTilemap == null)
         {
             hexTilemap = GameObject.Find("HexTilemap").GetComponent<Tilemap>();
         }
+
         targetPosition = transform.position;
     }
 

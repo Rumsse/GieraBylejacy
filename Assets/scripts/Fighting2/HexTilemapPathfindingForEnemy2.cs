@@ -32,6 +32,7 @@ public class HexTilemapPathfindingForEnemy2 : MonoBehaviour
 
         // Wyszukiwanie œcie¿ki do gracza na pocz¹tku gry
         path = FindPath(startEnemyPos, startPlayerPos);
+        enemyMovement.SetPath(path);  // Inicjalizowanie œcie¿ki w EnemyMovement
     }
 
     private void Update()
@@ -56,7 +57,7 @@ public class HexTilemapPathfindingForEnemy2 : MonoBehaviour
 
         if (enemyMovement.isEnemyMoving && path.Count > 0) // Przeciwnik porusza siê po œcie¿ce, jeœli jest czas na jego ruch
         {
-            MoveEnemyAlongPath();
+            enemyMovement.MoveEnemyAlongPath();
         }
     }
 
@@ -117,6 +118,7 @@ public class HexTilemapPathfindingForEnemy2 : MonoBehaviour
 
                 Debug.Log("Œcie¿ka: " + string.Join(" -> ", totalPath));
 
+                path = totalPath;
                 return totalPath;
             }
 
@@ -148,6 +150,11 @@ public class HexTilemapPathfindingForEnemy2 : MonoBehaviour
         return new List<Vector3Int>();  // Brak œcie¿ki
     }
 
+    public List<Vector3Int> GetPath()
+    {
+        return path;
+    }
+
     // Zwracanie s¹siednich kafelków (w zale¿noœci od uk³adu heksagonalnego)
     private List<Vector3Int> GetNeighbors(Vector3Int position)
     {
@@ -175,58 +182,6 @@ public class HexTilemapPathfindingForEnemy2 : MonoBehaviour
         return neighbors;
     }
 
-    // Funkcja do p³ynnego poruszania siê jednostki wzd³u¿ œcie¿ki
-    public void MoveEnemyAlongPath()
-    {
-        if (currentPathIndex >= path.Count || currentPathIndex >= movementRange)
-        {
-            Debug.Log($"Ruch zakoñczony! Index: {currentPathIndex}, Range: {movementRange}, Path Count: {path.Count}");
-            EndEnemyMovement();
-            return;
-        }
-
-        if (currentPathIndex < path.Count)
-        {
-            Vector3 targetHexPos = path[currentPathIndex];
-            Vector3 targetPosition = hexTilemap.CellToWorld(path[currentPathIndex]) + new Vector3(0, 0, 0); // Korygujemy pozycjê
-
-            Debug.DrawLine(targetPosition, targetPosition + Vector3.up * 0.5f, Color.red, 5f); // Linia pionowa od kafelka
-            Debug.DrawLine(enemyUnit.position, enemyUnit.position + Vector3.up * 0.5f, Color.blue, 5f);
-
-            enemyUnit.position = Vector3.MoveTowards(enemyUnit.position, targetPosition, moveSpeed * Time.deltaTime);
-
-            float epsilon = 0.05f; // Tolerancja
-            if (Vector3.Distance(enemyUnit.position, targetPosition) <= epsilon)
-            {
-                enemyUnit.position = targetPosition; // Wymuszenie ustawienia dok³adnej pozycji w œrodku kafelka
-                currentPathIndex++;
-
-                if (currentPathIndex < path.Count)
-                {
-                    Vector3Int currentHexPosition = hexTilemap.WorldToCell(enemyUnit.position);
-                    Vector3Int targetHexPosition = path[currentPathIndex];
-                    tileManager.UpdateTileOccupation(currentHexPosition, targetHexPosition);
-                }
-
-                Debug.Log($"Ruch na kafelek: {currentPathIndex}, Pozosta³o: {path.Count - currentPathIndex}");
-
-            }
-
-        }
-        else
-        {
-            EndEnemyMovement();
-        }
-    }
-
-    private void EndEnemyMovement()
-    {
-        enemyMovement.isEnemyMoving = false;
-        enemyMovement.hasMoved = true;
-        currentPathIndex = 0;
-        enemyMovement.ResetMovement();
-        playerMovement.ResetMovement();
-        turnManager.EndEnemyTurn();
-    }
+    
 
 }

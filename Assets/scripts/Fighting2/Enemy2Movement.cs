@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -8,30 +9,28 @@ public class Enemy2Movement : MonoBehaviour
 {
     public Tilemap hexTilemap;
     public Transform playerTransform;
+    public PlayerMovement playerMovement;
     public Transform batMateTransform;
     public Transform enemy1Transform;
     public HexTilemapPathfindingForEnemy2 hexTilemapPathfinding;
+    public TurnManager turnManager;
     public TileManager tileManager;
 
     public bool hasMoved = false;
     public bool isEnemyMoving = false;
     public bool isActive = false;
+    public float moveSpeed = 1.8f;
+    public int movementRange = 3;
 
     private Vector3 targetPosition;
+
+    private List<Vector3Int> path;
+    private int currentPathIndex = 0;
+
 
 
     void Start()
     {
-        if (hexTilemap == null)
-        {
-            hexTilemap = GameObject.Find("HexTilemap").GetComponent<Tilemap>();
-        }
-
-        if (playerTransform == null)
-        {
-            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        }
-
         targetPosition = transform.position;
         Vector3Int startHex = tileManager.hexTilemap.WorldToCell(transform.position);
         tileManager.OccupyTile(startHex);
@@ -39,10 +38,78 @@ public class Enemy2Movement : MonoBehaviour
 
     void Update()
     {
+        path = hexTilemapPathfinding.GetPath();
+
         if (isEnemyMoving)
-        {  
-            hexTilemapPathfinding.MoveEnemyAlongPath();
+        {
+            MoveEnemyAlongPath();
         }
+    }
+
+    public void SetPath(List<Vector3Int> newPath)
+    {
+        path = newPath;
+        currentPathIndex = 0; // Resetujemy indeks œcie¿ki
+        Debug.Log("Œcie¿ka ustawiona: " + string.Join(", ", newPath.Select(p => p.ToString())));
+    }
+
+    public void MoveEnemyAlongPath()
+    {
+        if (path.Count == 0)
+        {
+            Debug.Log("Brak œcie¿ki do przebycia.");
+            EndEnemyMovement();
+            return;
+        }
+
+        if (currentPathIndex >= path.Count || currentPathIndex >= movementRange)
+        {
+            Debug.Log($"Ruch zakoñczony! Index: {currentPathIndex}, Range: {movementRange}, Path Count: {path.Count}");
+            EndEnemyMovement();
+            return;
+        }
+
+        if (currentPathIndex < path.Count)
+        {
+            Vector3Int targetHexPos = path[currentPathIndex];
+            Vector3 targetPosition = hexTilemap.CellToWorld(path[currentPathIndex]) + new Vector3(0, 0, 0); // Korygujemy pozycjê
+
+            Debug.DrawLine(targetPosition, targetPosition + Vector3.up * 0.5f, Color.red, 5f);
+            Debug.DrawLine(transform.position, transform.position + Vector3.up * 0.5f, Color.blue, 5f);
+
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+
+            float epsilon = 0.05f; // Tolerancja
+            if (Vector3.Distance(transform.position, targetPosition) <= epsilon)
+            {
+                transform.position = targetPosition; // Wymuszenie ustawienia dok³adnej pozycji w œrodku kafelka
+                currentPathIndex++;
+
+                if (currentPathIndex < path.Count)
+                {
+                    Vector3Int currentHexPosition = hexTilemap.WorldToCell(transform.position);
+                    Vector3Int targetHexPosition = path[currentPathIndex];
+                    tileManager.UpdateTileOccupation(currentHexPosition, targetHexPosition);
+                }
+
+                Debug.Log($"Ruch na kafelek: {currentPathIndex}, Pozosta³o: {path.Count - currentPathIndex}");
+            }
+
+        }
+        else
+        {
+            EndEnemyMovement();
+        }
+    }
+
+    private void EndEnemyMovement()
+    {
+        isEnemyMoving = false;
+        hasMoved = true;
+        currentPathIndex = 0;
+        ResetMovement();
+        playerMovement.ResetMovement();
+        turnManager.EndEnemyTurn();
     }
 
     public void ResetMovement()

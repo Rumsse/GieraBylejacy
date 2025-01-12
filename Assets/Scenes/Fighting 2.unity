@@ -5171,13 +5171,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hexTilemap: {fileID: 943148697}
   playerTransform: {fileID: 1323855100}
+  playerMovement: {fileID: 1098599819}
   batMateTransform: {fileID: 1847597381}
   enemy1Transform: {fileID: 1845817486}
   hexTilemapPathfinding: {fileID: 419332256}
+  turnManager: {fileID: 2848338075193348446}
   tileManager: {fileID: 2002097039}
   hasMoved: 0
   isEnemyMoving: 0
   isActive: 0
+  moveSpeed: 0.8
+  movementRange: 3
 --- !u!1 &2101283946
 GameObject:
   m_ObjectHideFlags: 0
@@ -5580,7 +5584,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: moveSpeed
-      value: 5
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: hexTilemap
@@ -5591,6 +5595,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2002097039}
     - target: {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
+      propertyPath: turnManager
+      value: 
+      objectReference: {fileID: 2848338075193348446}
+    - target: {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: enemyHealthBar
       value: 
       objectReference: {fileID: 0}
@@ -5598,6 +5606,10 @@ PrefabInstance:
       propertyPath: enemyTransform
       value: 
       objectReference: {fileID: 1845817486}
+    - target: {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1098599819}
     - target: {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: enemy2Transform
       value: 
