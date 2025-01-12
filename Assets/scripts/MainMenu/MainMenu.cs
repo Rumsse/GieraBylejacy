@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
 
     public Animator transitionAnimator;
     public float transitionTime = 1f;
+    public GameObject optionsPanel;
 
 
     public void PlayGame()
@@ -30,6 +31,11 @@ public class MainMenu : MonoBehaviour
         transitionAnimator.SetTrigger("Start");
         yield return new WaitForSeconds(transitionTime);
         SceneManager.LoadSceneAsync(0);
+    }
+
+    public void ExitOptionPanel()
+    {
+        optionsPanel.SetActive(false);
     }
 
 
