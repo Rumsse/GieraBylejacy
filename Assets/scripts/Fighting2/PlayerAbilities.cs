@@ -10,7 +10,9 @@ public class PlayerAbilities : MonoBehaviour
 {
     public MainMenu mainMenu;
     public EnemyAbilities enemyAbilities;
+    public Enemy2Abilities enemy2Abilities;
     public GameObject enemy;
+    public GameObject enemy2;
     public Tilemap hexTilemap;
     public TurnManager turnManager;
 
@@ -73,6 +75,7 @@ public class PlayerAbilities : MonoBehaviour
 
         Vector3Int playerHexPos = hexTilemap.WorldToCell(transform.position);
         Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
+        Vector3Int enemy2HexPos = hexTilemap.WorldToCell(enemy2.transform.position);
 
 
         if (hitCollider != null && hitCollider.CompareTag("Enemy"))
@@ -81,6 +84,26 @@ public class PlayerAbilities : MonoBehaviour
             if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 1) && !enemy.hasTakenDamage)
             {
                 enemy.TakeDamage(10);
+                Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + 10);
+            }
+            else
+            {
+                Debug.Log("Przeciwnik ju¿ otrzyma³ obra¿enia");
+            }
+        }
+        else
+        {
+            Debug.Log("Promieñ nie trafi³ w przeciwnika.");
+        }
+
+
+
+        if (hitCollider != null && hitCollider.CompareTag("Enemy2"))
+        {
+            Enemy2Abilities enemy2 = hitCollider.GetComponent<Enemy2Abilities>();
+            if (enemy2 != null && (HexDistance(playerHexPos, enemy2HexPos) <= 1) && !enemy2.hasTakenDamage)
+            {
+                enemy2.TakeDamage(10);
                 Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + 10);
             }
             else
@@ -122,6 +145,7 @@ public class PlayerAbilities : MonoBehaviour
 
         Vector3Int playerHexPos = hexTilemap.WorldToCell(transform.position);
         Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
+        Vector3Int enemy2HexPos = hexTilemap.WorldToCell(enemy2.transform.position);
 
 
         if (canUseAdvancedAttack)
@@ -132,6 +156,28 @@ public class PlayerAbilities : MonoBehaviour
                 if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 2) && !enemy.hasTakenDamage)
                 {
                     enemy.TakeDamage(20);
+                    Debug.Log("2Przeciwnik otrzyma³ obra¿enia: " + 20);
+
+                    canUseAdvancedAttack = false;
+                    turnManager.turnCounter = 4;
+                }
+                else
+                {
+                    Debug.Log("2Przeciwnik ju¿ otrzyma³ obra¿enia");
+                }
+            }
+            else
+            {
+                Debug.Log("2Promieñ nie trafi³ w przeciwnika.");
+            }
+
+
+            if (hitCollider != null && hitCollider.CompareTag("Enemy2"))
+            {
+                Enemy2Abilities enemy2 = hitCollider.GetComponent<Enemy2Abilities>();
+                if (enemy2 != null && (HexDistance(playerHexPos, enemy2HexPos) <= 2) && !enemy2.hasTakenDamage)
+                {
+                    enemy2.TakeDamage(20);
                     Debug.Log("2Przeciwnik otrzyma³ obra¿enia: " + 20);
 
                     canUseAdvancedAttack = false;

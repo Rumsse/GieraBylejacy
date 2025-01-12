@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAbilities : MonoBehaviour
+public class Enemy2Abilities : MonoBehaviour
 {
     public GameObject player;
     public HealthBar enemyHealthBar;
     public PlayerAbilities playerAbilities;
-    public EnemyMovement enemyMovement;
+    public Enemy2Movement enemyMovement;
     public int maxHealth = 50;
     public int currentHealth;
     public bool hasTakenDamage = false;
@@ -29,7 +29,7 @@ public class EnemyAbilities : MonoBehaviour
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
-            Debug.Log("Przeciwnik zosta³ pokonany!");
+            Debug.Log("Przeciwnik nr2 zosta³ pokonany!");
         }
     }
 
@@ -48,8 +48,8 @@ public class EnemyAbilities : MonoBehaviour
 
     //private bool IsPlayerNearby()
     //{
-        //float distance = Vector3.Distance(transform.position, player.position);
-        //return distance <= 1.1f;
+    //float distance = Vector3.Distance(transform.position, player.position);
+    //return distance <= 1.1f;
     //}
 
     private int HexDistance(Vector3Int a, Vector3Int b)

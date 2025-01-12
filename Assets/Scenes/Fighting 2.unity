@@ -1159,6 +1159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionAnimator: {fileID: 0}
   transitionTime: 1
+  optionsPanel: {fileID: 0}
 --- !u!1 &612209366
 GameObject:
   m_ObjectHideFlags: 0
@@ -2993,7 +2994,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 519420033}
   enemyAbilities: {fileID: 1845817490}
+  enemy2Abilities: {fileID: 2070549777}
   enemy: {fileID: 1721634232}
+  enemy2: {fileID: 2070549765}
   hexTilemap: {fileID: 943148697}
   turnManager: {fileID: 2848338075193348446}
   isAttackMode1: 0
@@ -4971,7 +4974,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Enemy2
       objectReference: {fileID: 0}
     - target: {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: hexGrid
@@ -5102,10 +5105,10 @@ PrefabInstance:
       addedObject: {fileID: 2070549773}
     - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2070549768}
+      addedObject: {fileID: 2070549767}
     - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2070549767}
+      addedObject: {fileID: 2070549777}
   m_SourcePrefab: {fileID: 100100000, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
 --- !u!1 &2070549765 stripped
 GameObject:
@@ -5138,25 +5141,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2070549768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2070549765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05db5089a4fc8494eb631689716f2067, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 965607011}
-  enemyHealthBar: {fileID: 1617653710}
-  playerAbilities: {fileID: 1323855101}
-  enemyMovement: {fileID: 1845817482}
-  maxHealth: 50
-  currentHealth: 0
-  hasTakenDamage: 0
 --- !u!114 &2070549773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5182,6 +5166,25 @@ MonoBehaviour:
   isActive: 0
   moveSpeed: 0.8
   movementRange: 3
+--- !u!114 &2070549777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070549765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783bf08226eaf2d47a1bfbbca817b004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 965607011}
+  enemyHealthBar: {fileID: 1617653710}
+  playerAbilities: {fileID: 1323855101}
+  enemyMovement: {fileID: 2070549773}
+  maxHealth: 50
+  currentHealth: 0
+  hasTakenDamage: 0
 --- !u!1 &2101283946
 GameObject:
   m_ObjectHideFlags: 0
