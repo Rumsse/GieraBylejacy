@@ -19,8 +19,9 @@ public class TurnManager : MonoBehaviour
     public Button BasicAttackButton;
     public Button AdvancedAttackButton;
 
-    public bool isPlayerTurn = true;
-    public bool isBatMateTurn = true;
+    public bool isPlayerTurn = true; //?? chyba nigdzie nie jest u¿ywane
+    public bool isBatMateTurn = false; //??
+    public bool isEnemyTurn;
     public float enemyMoveDelay = 1.3f;
 
     public Vector3Int startPosition;
@@ -28,12 +29,11 @@ public class TurnManager : MonoBehaviour
 
     public TurnState currentTurn = TurnState.Player;
     public int turnCounter = 0;
-    public bool isEnemyTurn;
+    private int currentTurnIndex = 0;
 
     public Image turnImage;
     public Sprite[] characterSprites;
     public GameObject[] characters;
-    private int currentTurnIndex = 0;
 
 
     public enum TurnState

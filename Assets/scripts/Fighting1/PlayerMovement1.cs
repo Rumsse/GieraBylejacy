@@ -10,11 +10,15 @@ public class PlayerMovement1 : MonoBehaviour
     public Transform playerTransform;
     public EnemyMovement1 enemy;
     public PlayerAbilities1 playerAbilities;
+    public TurnManager1 turnManager;
+    public TileManager1 tileManager;
 
     public float moveSpeed = 5f;
     public float yOffset = 0.3f;
     public bool hasMoved = false;
-    private bool hasLogged = false;
+    public bool isPlayerMoving;
+
+    public Animator animator;
 
     private Vector3 targetPosition;
 
@@ -22,11 +26,8 @@ public class PlayerMovement1 : MonoBehaviour
 
     void Start()
     {
-        if (hexTilemap == null)
-        {
-            hexTilemap = GameObject.Find("HexTilemap").GetComponent<Tilemap>();
-        }
         targetPosition = transform.position;
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -36,15 +37,12 @@ public class PlayerMovement1 : MonoBehaviour
             HandleMouseClick();
         }
 
-        MovePlayerToTarget();
-
     }
 
     void HandleMouseClick()
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0;
-
         Vector3Int hexPosition = hexTilemap.WorldToCell(mouseWorldPos);
 
         if (hexTilemap.HasTile(hexPosition))
@@ -55,18 +53,20 @@ public class PlayerMovement1 : MonoBehaviour
             Hex playerHex = new Hex(hexTilemap.WorldToCell(transform.position).x, hexTilemap.WorldToCell(transform.position).y);
             Hex targetHex = new Hex(hexPosition.x, hexPosition.y);
 
-            // SprawdŸ odleg³oœæ w heksach
-            int maxMoveDistance = 4; // Maksymalny zasiêg ruchu
+            int maxMoveDistance = 4;
             if (playerHex.HexDistance(targetHex) <= maxMoveDistance)
             {
-                if (!IsPositionOccupiedByEnemy(targetWorldPosition))  // SprawdŸ, czy pozycja nie jest zajêta
+                if (!tileManager.IsTileOccupied(hexPosition))
                 {
+                    Vector3Int currentHexPosition = hexTilemap.WorldToCell(transform.position);
+                    tileManager.UpdateTileOccupation(currentHexPosition, hexPosition);
+
                     targetPosition = targetWorldPosition;
-                    hasMoved = true;
+                    StartCoroutine(MovePlayerToTarget());
                 }
                 else
                 {
-                    Debug.Log("Nie mo¿na poruszyæ siê na kafelek zajêty przez przeciwnika.");
+                    Debug.Log("Nie mo¿na poruszyæ siê na zajêty kafelek.");
                 }
             }
             else
@@ -80,23 +80,21 @@ public class PlayerMovement1 : MonoBehaviour
         }
     }
 
-
-    bool IsPositionOccupiedByEnemy(Vector3 position)
+    IEnumerator MovePlayerToTarget()
     {
-        Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
-        Vector3Int targetHexPos = hexTilemap.WorldToCell(position);
-        return enemyHexPos == targetHexPos;  // Zwraca true, jeœli pozycja jest zajêta przez przeciwnika
-    }
+        animator.SetBool("isWalking", true);
 
-    void MovePlayerToTarget()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-        if (transform.position == targetPosition && hasMoved) //chyba jak siê doda "&& !isMoving" czy coœ na podobnej zasadzie to mo¿e debug przestanie siê wyœwietlaæ co milisekunde
+        while (Vector3.Distance(transform.position, targetPosition) >0.01f)
         {
-            //Debug.Log("Gracz zakoñczy³ ruch"); (denerwuje mnie ten debug)
-            hasLogged = true; //przetestowaæ czy to siê op³aca zostawiæ, bo narazie nie dzia³a
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            Debug.Log($"isWalking: {animator.GetBool("isWalking")}");
+
+            yield return null;
         }
+        
+        transform.position = targetPosition; 
+        animator.SetBool("isWalking", false);
+        hasMoved = true;
     }
 
     public void ResetMovement()

@@ -17,7 +17,6 @@ public class PlayerAbilities1 : MonoBehaviour
     public bool isAttackMode2 = false;
     public Button BasicAttackButton;
     public Button AdvancedAttackButton;
-    public LayerMask EnemyLayer;
 
     public HealthBar1 playerHealthBar;
     public int maxHealth = 100;

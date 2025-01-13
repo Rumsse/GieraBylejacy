@@ -31,18 +31,8 @@ public class TurnManager1 : MonoBehaviour
     public int turnCounter = 0;
 
 
-    void Start() //maybe ca³a metoda do wyrzucenia
+    void Start()
     {
-        if (playerMovement == null)
-        {
-            playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement1>();
-        }
-
-        if (enemyMovement == null)
-        {
-            enemyMovement = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyMovement1>();
-        }
-
         UpdateTurnIndicator();
     }
 
@@ -75,6 +65,7 @@ public class TurnManager1 : MonoBehaviour
     {
         isPlayerTurn = false;
         Debug.Log("Koniec tury gracza");
+
         enemyAbilities.hasTakenDamage = false;
         playerAbilities.isAttackMode1 = false;
         playerAbilities.isAttackMode2 = false;
@@ -87,26 +78,15 @@ public class TurnManager1 : MonoBehaviour
 
         playerAbilities.OnOneTurnEnd();
 
-        StartEnemyTurn(); // Rozpocznij Coroutine dla opóŸnienia przed ruchem przeciwnika
-    }
-
-    System.Collections.IEnumerator StartEnemyTurnWithDelay()
-    {
-        yield return new WaitForSeconds(enemyMoveDelay);
-        Debug.Log("OpóŸnienie zakoñczone, zaczynam turê przeciwnika.");
         StartEnemyTurn();
     }
 
     void StartEnemyTurn()
     {
+        isPlayerTurn = false;
         Debug.Log("Tura przeciwnika");
 
-        Vector3Int playerHexPos = playerMovement.hexTilemap.WorldToCell(playerMovement.transform.position); //Pobiera pozycje gracza i przeciwnika
-        Vector3Int enemyHexPos = enemyMovement.hexTilemap.WorldToCell(enemyMovement.transform.position);
-
         enemyMovement.isEnemyMoving = true;
-
-        isPlayerTurn = false;
     }
 
     public void EndEnemyTurn()

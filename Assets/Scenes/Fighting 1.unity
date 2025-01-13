@@ -2413,9 +2413,6 @@ MonoBehaviour:
   isAttackMode2: 0
   BasicAttackButton: {fileID: 1440956011}
   AdvancedAttackButton: {fileID: 924042638}
-  EnemyLayer:
-    serializedVersion: 2
-    m_Bits: 0
   playerHealthBar: {fileID: 1774097602}
   maxHealth: 100
   currentHealth: 0
@@ -2438,9 +2435,13 @@ MonoBehaviour:
   playerTransform: {fileID: 1323855100}
   enemy: {fileID: 1845817491}
   playerAbilities: {fileID: 1323855101}
+  turnManager: {fileID: 2848338075193348446}
+  tileManager: {fileID: 1737104126}
   moveSpeed: 4
   yOffset: 0.5
   hasMoved: 0
+  isPlayerMoving: 0
+  animator: {fileID: 1323855103}
 --- !u!95 &1323855103
 Animator:
   serializedVersion: 5
@@ -3458,6 +3459,52 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
   m_PrefabInstance: {fileID: 1070220613740402151}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1737104125
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1737104127}
+  - component: {fileID: 1737104126}
+  m_Layer: 0
+  m_Name: TileManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1737104126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737104125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a64766a955cfbb048af2844ac34e1b18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hexTilemap: {fileID: 0}
+  characters: []
+--- !u!4 &1737104127
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737104125}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.6660331, y: 0.6091925, z: -0.025741896}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1774097600
 GameObject:
   m_ObjectHideFlags: 0
@@ -7759,3 +7806,4 @@ SceneRoots:
   - {fileID: 2848338075193348444}
   - {fileID: 833479361}
   - {fileID: 80871701}
+  - {fileID: 1737104127}
