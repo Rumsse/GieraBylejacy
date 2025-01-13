@@ -9,19 +9,19 @@ using UnityEngine.Tilemaps;
 public class EnemyMovement : MonoBehaviour
 {
     public Tilemap hexTilemap;
-    public Transform playerTransform;
+    public HexTilemapPathfinding hexTilemapPathfinding;
     public PlayerMovement playerMovement;
+    public Transform playerTransform;
     public Transform batMateTransform;
     public Transform enemy2Transform;
-    public HexTilemapPathfinding hexTilemapPathfinding;
     public TurnManager turnManager;
     public TileManager tileManager;
 
-    public bool hasMoved = false;
     public bool isEnemyMoving = false;
     public bool isActive = false;
-    public float moveSpeed = 1.8f;
-    public int movementRange = 3;
+    public bool hasMoved = false;
+    private float moveSpeed = 0.8f;
+    private int movementRange = 3;
 
     private Vector3 targetPosition;
 

@@ -13,9 +13,9 @@ public class BatMateMovement : MonoBehaviour
     public TileManager tileManager;
 
 
-    public int maxMoveDistance = 4;
-    public float moveSpeed = 4f;
-    public float yOffset = 0.3f;
+    private int maxMoveDistance = 4;
+    private float moveSpeed = 3f;
+    private float yOffset = 0.3f;
     public bool hasMoved = true;
     public bool isActive = false;
 

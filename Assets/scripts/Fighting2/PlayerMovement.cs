@@ -12,20 +12,21 @@ public class PlayerMovement : MonoBehaviour
     public PlayerAbilities playerAbilities;
     public TileManager tileManager;
 
-    public float moveSpeed = 4f;
-    public int maxMoveDistance = 4;
-    public float yOffset = 0.3f;
+    Animator animator;
+
+    private float moveSpeed = 3f;
+    private int maxMoveDistance = 4;
+    private float yOffset = 0.5f;
     public bool hasMoved = false;
-    private bool hasLogged = false;
     public bool isActive = true;
 
     private Vector3 targetPosition;
 
 
-
     void Start()
     {
         targetPosition = transform.position;
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -35,15 +36,12 @@ public class PlayerMovement : MonoBehaviour
             HandleMouseClick();
         }
 
-        MovePlayerToTarget();
-        
     }
 
     void HandleMouseClick()
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0;
-
         Vector3Int hexPosition = hexTilemap.WorldToCell(mouseWorldPos);
 
         if (hexTilemap.HasTile(hexPosition))
@@ -62,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
                     tileManager.UpdateTileOccupation(currentHexPosition, hexPosition);
 
                     targetPosition = targetWorldPosition;
-                    hasMoved = true;
+                    StartCoroutine(MovePlayerToTarget());
                 }
                 else
                 {
@@ -81,15 +79,21 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    void MovePlayerToTarget()
+    IEnumerator MovePlayerToTarget()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+        animator.SetBool("isWalking", true);
 
-        if (transform.position == targetPosition && hasMoved) //chyba jak siê doda "&& !isMoving" czy coœ na podobnej zasadzie to mo¿e debug przestanie siê wyœwietlaæ co milisekunde
+        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
-            //Debug.Log("Gracz zakoñczy³ ruch"); (denerwuje mnie ten debug)
-            hasLogged = true; //przetestowaæ czy to siê op³aca zostawiæ, bo narazie nie dzia³a
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            Debug.Log($"isWalking: {animator.GetBool("isWalking")}");
+
+            yield return null;
         }
+
+        transform.position = targetPosition;
+        animator.SetBool("isWalking", false);
+        hasMoved = true;
     }
 
     public void ResetMovement()

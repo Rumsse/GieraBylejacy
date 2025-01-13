@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -8,19 +9,19 @@ using UnityEngine.Tilemaps;
 public class Enemy2Movement : MonoBehaviour
 {
     public Tilemap hexTilemap;
-    public Transform playerTransform;
+    public HexTilemapPathfindingForEnemy2 hexTilemapPathfinding;
     public PlayerMovement playerMovement;
+    public Transform playerTransform;
     public Transform batMateTransform;
     public Transform enemy1Transform;
-    public HexTilemapPathfindingForEnemy2 hexTilemapPathfinding;
     public TurnManager turnManager;
     public TileManager tileManager;
 
-    public bool hasMoved = false;
     public bool isEnemyMoving = false;
     public bool isActive = false;
-    public float moveSpeed = 1.8f;
-    public int movementRange = 3;
+    public bool hasMoved = false;
+    private float moveSpeed = 0.8f;
+    private int movementRange = 3;
 
     private Vector3 targetPosition;
 

@@ -8,26 +8,25 @@ using UnityEngine.UI;
 
 public class PlayerAbilities : MonoBehaviour
 {
-    public MainMenu mainMenu;
     public EnemyAbilities enemyAbilities;
     public Enemy2Abilities enemy2Abilities;
     public GameObject enemy;
     public GameObject enemy2;
     public Tilemap hexTilemap;
     public TurnManager turnManager;
+    public HealthBar playerHealthBar;
+
+    public Button BasicAttackButton;
+    public Button AdvancedAttackButton;
 
     public bool isAttackMode1 = false;
     public bool isAttackMode2 = false;
-    public Button BasicAttackButton;
-    public Button AdvancedAttackButton;
-    public LayerMask EnemyLayer;
+    public bool canUseAdvancedAttack = true;
 
-    public HealthBar playerHealthBar;
-    public int maxHealth = 100;
-    public int currentHealth;
+    private int maxHealth = 100;
+    private int currentHealth;
     public int playerDamageBasic = 10;
     public int playerDamageAdvanced = 20;
-    public bool canUseAdvancedAttack = true;
 
 
     private void Start()

@@ -1497,11 +1497,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 861931949}
   m_CullTransparentMesh: 1
---- !u!1 &872197663 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2099886375868596566, guid: 2d0242243661a3845ba245af1e73cbd6, type: 3}
-  m_PrefabInstance: {fileID: 6570375150689132612}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &924042636
 GameObject:
   m_ObjectHideFlags: 0
@@ -1772,50 +1767,6 @@ Tilemap:
   m_CorrespondingSourceObject: {fileID: 564013837713909765, guid: 2d0242243661a3845ba245af1e73cbd6, type: 3}
   m_PrefabInstance: {fileID: 6570375150689132612}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &943148698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 872197663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &965607011 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1370206309616209178, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
@@ -2599,25 +2550,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36f6c011b3b7ecd4f891c21409b55ed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenu: {fileID: 519420033}
   enemyAbilities: {fileID: 1845817490}
   enemy2Abilities: {fileID: 2070549777}
   enemy: {fileID: 1721634232}
   enemy2: {fileID: 2070549765}
   hexTilemap: {fileID: 943148697}
   turnManager: {fileID: 2848338075193348446}
-  isAttackMode1: 0
-  isAttackMode2: 0
+  playerHealthBar: {fileID: 1774097602}
   BasicAttackButton: {fileID: 1440956011}
   AdvancedAttackButton: {fileID: 924042638}
-  EnemyLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  playerHealthBar: {fileID: 1774097602}
-  maxHealth: 100
-  currentHealth: 0
-  playerDamageBasic: 10
-  playerDamageAdvanced: 20
+  isAttackMode1: 0
+  isAttackMode2: 0
   canUseAdvancedAttack: 1
 --- !u!95 &1323855109
 Animator:
@@ -4731,10 +4674,10 @@ PrefabInstance:
       addedObject: {fileID: 2070549773}
     - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2070549767}
+      addedObject: {fileID: 2070549777}
     - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2070549777}
+      addedObject: {fileID: 2070549767}
   m_SourcePrefab: {fileID: 100100000, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
 --- !u!1 &2070549765 stripped
 GameObject:
@@ -5424,17 +5367,14 @@ MonoBehaviour:
   batMateMovement: {fileID: 1847597377}
   playerAbilities: {fileID: 1323855101}
   enemyAbilities: {fileID: 1845817490}
+  enemy2Abilities: {fileID: 2070549777}
   batMateAbilities: {fileID: 1847597382}
   BasicAttackButton: {fileID: 1440956011}
   AdvancedAttackButton: {fileID: 924042638}
-  isPlayerTurn: 1
-  isBatMateTurn: 1
+  isEnemyTurn: 0
   enemyMoveDelay: 1.3
-  startPosition: {x: 0, y: 0, z: 0}
-  targetPosition: {x: 0, y: 0, z: 0}
   currentTurn: 0
   turnCounter: 0
-  isEnemyTurn: 0
   turnImage: {fileID: 1603689851}
   characterSprites:
   - {fileID: 21300000, guid: efdad69e04c4d8b4db8bbf45d8e89828, type: 3}
@@ -5446,6 +5386,8 @@ MonoBehaviour:
   - {fileID: 1847597376}
   - {fileID: 1721634232}
   - {fileID: 2070549765}
+  startPosition: {x: 0, y: 0, z: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1001 &6570375150689132612
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8645,10 +8587,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2099886375868596566, guid: 2d0242243661a3845ba245af1e73cbd6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 943148698}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d0242243661a3845ba245af1e73cbd6, type: 3}
 --- !u!1001 &7963742998644274399
 PrefabInstance:

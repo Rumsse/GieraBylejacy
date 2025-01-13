@@ -9,7 +9,6 @@ public class HexTilemapPathfinding : MonoBehaviour
     [SerializeField] private Transform playerUnit;    // Jednostka gracza
     [SerializeField] private Transform enemyUnit;     // Jednostka przeciwnika
     [SerializeField] private int movementRange = 3;   // Zasiêg ruchu (3 heksy)
-    [SerializeField] private float moveSpeed = 3f;    // Szybkoœæ poruszania siê jednostki
 
     public EnemyMovement enemyMovement;
     public PlayerMovement playerMovement;
@@ -17,7 +16,6 @@ public class HexTilemapPathfinding : MonoBehaviour
     public TileManager tileManager;
 
     private List<Vector3Int> path = new List<Vector3Int>();  // Lista punktów œcie¿ki
-    private int currentPathIndex = 0;  // Indeks aktualnego punktu œcie¿ki
 
     private Vector3Int lastPlayerPos; // Ostatnia zaktualizowana pozycja gracza
     private Vector3Int lastEnemyPos;

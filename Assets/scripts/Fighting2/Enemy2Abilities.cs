@@ -8,8 +8,9 @@ public class Enemy2Abilities : MonoBehaviour
     public HealthBar enemyHealthBar;
     public PlayerAbilities playerAbilities;
     public Enemy2Movement enemyMovement;
-    public int maxHealth = 50;
-    public int currentHealth;
+
+    private int maxHealth = 50;
+    private int currentHealth;
     public bool hasTakenDamage = false;
 
 
