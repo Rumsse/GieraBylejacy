@@ -80,9 +80,8 @@ public class PlayerAbilities1 : MonoBehaviour
             EnemyAbilities1 enemy = hitCollider.GetComponent<EnemyAbilities1>();
             if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 1) && !enemy.hasTakenDamage)
             {
-                animator.SetTrigger("Attack");
-                enemy.TakeDamage(10);
-                Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + 10);
+                animator.SetBool("isAttacking", true);
+                StartCoroutine(DelayedDamage(enemy, 10));
             }
             else
             {
@@ -132,9 +131,8 @@ public class PlayerAbilities1 : MonoBehaviour
                 EnemyAbilities1 enemy = hitCollider.GetComponent<EnemyAbilities1>();
                 if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 2) && !enemy.hasTakenDamage)
                 {
-                    animator.SetTrigger("Attack");
-                    enemy.TakeDamage(20);
-                    Debug.Log("2Przeciwnik otrzyma³ obra¿enia: " + 20);
+                    animator.SetBool("isAttacking", true);
+                    StartCoroutine(DelayedDamage(enemy, 20));
 
                     canUseAdvancedAttack = false;
                     turnManager.turnCounter = 2;
@@ -195,6 +193,20 @@ public class PlayerAbilities1 : MonoBehaviour
     private void UpdateHealthUI()
     {
         playerHealthBar.SetHealth(currentHealth);
+    }
+
+    IEnumerator DelayedDamage(EnemyAbilities1 enemy, int damage)
+    {
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        if (enemy != null && !enemy.hasTakenDamage)
+        {
+            enemy.TakeDamage(damage); 
+            Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
+        }
+
+        animator.SetBool("isAttacking", false);
+
     }
 
 }
