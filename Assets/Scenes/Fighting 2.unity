@@ -760,7 +760,6 @@ MonoBehaviour:
   playerUnit: {fileID: 1323855100}
   enemyUnit: {fileID: 1845817486}
   movementRange: 3
-  moveSpeed: 0.8
   enemyMovement: {fileID: 1845817482}
   playerMovement: {fileID: 1098599819}
   turnManager: {fileID: 2848338075193348446}
@@ -781,7 +780,6 @@ MonoBehaviour:
   playerUnit: {fileID: 1323855100}
   enemyUnit: {fileID: 2070549766}
   movementRange: 3
-  moveSpeed: 0.8
   enemyMovement: {fileID: 2070549773}
   playerMovement: {fileID: 1098599819}
   turnManager: {fileID: 2848338075193348446}
@@ -2557,11 +2555,14 @@ MonoBehaviour:
   hexTilemap: {fileID: 943148697}
   turnManager: {fileID: 2848338075193348446}
   playerHealthBar: {fileID: 1774097602}
+  animator: {fileID: 1323855109}
   BasicAttackButton: {fileID: 1440956011}
   AdvancedAttackButton: {fileID: 924042638}
   isAttackMode1: 0
   isAttackMode2: 0
   canUseAdvancedAttack: 1
+  playerDamageBasic: 10
+  playerDamageAdvanced: 20
 --- !u!95 &1323855109
 Animator:
   serializedVersion: 5
@@ -3848,8 +3849,6 @@ MonoBehaviour:
   enemyHealthBar: {fileID: 1093270953}
   playerAbilities: {fileID: 1323855101}
   enemyMovement: {fileID: 1845817482}
-  maxHealth: 50
-  currentHealth: 0
   hasTakenDamage: 0
 --- !u!95 &1845817494
 Animator:
@@ -4723,18 +4722,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hexTilemap: {fileID: 943148697}
-  playerTransform: {fileID: 1323855100}
+  hexTilemapPathfinding: {fileID: 419332256}
   playerMovement: {fileID: 1098599819}
+  playerTransform: {fileID: 1323855100}
   batMateTransform: {fileID: 1847597381}
   enemy1Transform: {fileID: 1845817486}
-  hexTilemapPathfinding: {fileID: 419332256}
   turnManager: {fileID: 2848338075193348446}
   tileManager: {fileID: 2002097039}
-  hasMoved: 0
   isEnemyMoving: 0
   isActive: 0
-  moveSpeed: 0.8
-  movementRange: 3
+  hasMoved: 0
 --- !u!114 &2070549777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4751,8 +4748,6 @@ MonoBehaviour:
   enemyHealthBar: {fileID: 1617653710}
   playerAbilities: {fileID: 1323855101}
   enemyMovement: {fileID: 2070549773}
-  maxHealth: 50
-  currentHealth: 0
   hasTakenDamage: 0
 --- !u!1 &2101283946
 GameObject:
@@ -5386,8 +5381,6 @@ MonoBehaviour:
   - {fileID: 1847597376}
   - {fileID: 1721634232}
   - {fileID: 2070549765}
-  startPosition: {x: 0, y: 0, z: 0}
-  targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1001 &6570375150689132612
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,6 +13,8 @@ public class PlayerAbilities1 : MonoBehaviour
     public Tilemap hexTilemap;
     public TurnManager1 turnManager;
 
+    public Animator animator;
+
     public bool isAttackMode1 = false;
     public bool isAttackMode2 = false;
     public Button BasicAttackButton;
@@ -78,6 +80,7 @@ public class PlayerAbilities1 : MonoBehaviour
             EnemyAbilities1 enemy = hitCollider.GetComponent<EnemyAbilities1>();
             if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 1) && !enemy.hasTakenDamage)
             {
+                animator.SetTrigger("Attack");
                 enemy.TakeDamage(10);
                 Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + 10);
             }
@@ -129,6 +132,7 @@ public class PlayerAbilities1 : MonoBehaviour
                 EnemyAbilities1 enemy = hitCollider.GetComponent<EnemyAbilities1>();
                 if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 2) && !enemy.hasTakenDamage)
                 {
+                    animator.SetTrigger("Attack");
                     enemy.TakeDamage(20);
                     Debug.Log("2Przeciwnik otrzyma³ obra¿enia: " + 20);
 

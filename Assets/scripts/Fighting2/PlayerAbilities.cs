@@ -16,6 +16,8 @@ public class PlayerAbilities : MonoBehaviour
     public TurnManager turnManager;
     public HealthBar playerHealthBar;
 
+    public Animator animator;
+
     public Button BasicAttackButton;
     public Button AdvancedAttackButton;
 
@@ -82,6 +84,7 @@ public class PlayerAbilities : MonoBehaviour
             EnemyAbilities enemy = hitCollider.GetComponent<EnemyAbilities>();
             if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 1) && !enemy.hasTakenDamage)
             {
+                animator.SetTrigger("Attack");
                 enemy.TakeDamage(10);
                 Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + 10);
             }
@@ -102,8 +105,10 @@ public class PlayerAbilities : MonoBehaviour
             Enemy2Abilities enemy2 = hitCollider.GetComponent<Enemy2Abilities>();
             if (enemy2 != null && (HexDistance(playerHexPos, enemy2HexPos) <= 1) && !enemy2.hasTakenDamage)
             {
+                animator.SetTrigger("Attack");
                 enemy2.TakeDamage(10);
                 Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + 10);
+
             }
             else
             {
@@ -154,6 +159,7 @@ public class PlayerAbilities : MonoBehaviour
                 EnemyAbilities enemy = hitCollider.GetComponent<EnemyAbilities>();
                 if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 2) && !enemy.hasTakenDamage)
                 {
+                    animator.SetTrigger("Attack");
                     enemy.TakeDamage(20);
                     Debug.Log("2Przeciwnik otrzyma³ obra¿enia: " + 20);
 
@@ -176,6 +182,7 @@ public class PlayerAbilities : MonoBehaviour
                 Enemy2Abilities enemy2 = hitCollider.GetComponent<Enemy2Abilities>();
                 if (enemy2 != null && (HexDistance(playerHexPos, enemy2HexPos) <= 2) && !enemy2.hasTakenDamage)
                 {
+                    animator.SetTrigger("Attack");
                     enemy2.TakeDamage(20);
                     Debug.Log("2Przeciwnik otrzyma³ obra¿enia: " + 20);
 

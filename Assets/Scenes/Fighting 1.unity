@@ -2409,6 +2409,7 @@ MonoBehaviour:
   enemy: {fileID: 1721634232}
   hexTilemap: {fileID: 943148697}
   turnManager: {fileID: 2848338075193348446}
+  animator: {fileID: 1323855103}
   isAttackMode1: 0
   isAttackMode2: 0
   BasicAttackButton: {fileID: 1440956011}
