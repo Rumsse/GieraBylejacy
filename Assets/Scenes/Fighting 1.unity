@@ -2438,7 +2438,8 @@ MonoBehaviour:
   playerTransform: {fileID: 1323855100}
   enemy: {fileID: 1845817491}
   playerAbilities: {fileID: 1323855101}
-  moveSpeed: 4
+  moveSpeed: 5
+  speed: 0
   yOffset: 0.5
   hasMoved: 0
 --- !u!95 &1323855103

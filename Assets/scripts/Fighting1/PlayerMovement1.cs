@@ -10,6 +10,7 @@ public class PlayerMovement1 : MonoBehaviour
     public Transform playerTransform;
     public EnemyMovement1 enemy;
     public PlayerAbilities1 playerAbilities;
+    public Animator animator;
 
     public float moveSpeed = 5f;
     public float yOffset = 0.3f;
@@ -17,7 +18,6 @@ public class PlayerMovement1 : MonoBehaviour
     private bool hasLogged = false;
 
     private Vector3 targetPosition;
-
 
 
     void Start()
@@ -31,7 +31,7 @@ public class PlayerMovement1 : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !hasMoved && (!playerAbilities.isAttackMode1 || !playerAbilities.isAttackMode2)) // Gracz mo¿e klikn¹æ tylko raz na turê
+        if (Input.GetMouseButtonDown(0) && !hasMoved && (!playerAbilities.isAttackMode1 || !playerAbilities.isAttackMode2)) // Gracz moï¿½e kliknï¿½ï¿½ tylko raz na turï¿½
         {
             HandleMouseClick();
         }
@@ -51,32 +51,32 @@ public class PlayerMovement1 : MonoBehaviour
         {
             Vector3 targetWorldPosition = hexTilemap.CellToWorld(hexPosition) + hexTilemap.tileAnchor + new Vector3(0, yOffset, 0);
 
-            // Tworzymy obiekty Hex z pozycji bie¿¹cej i docelowej
+            // Tworzymy obiekty Hex z pozycji bieï¿½ï¿½cej i docelowej
             Hex playerHex = new Hex(hexTilemap.WorldToCell(transform.position).x, hexTilemap.WorldToCell(transform.position).y);
             Hex targetHex = new Hex(hexPosition.x, hexPosition.y);
 
-            // SprawdŸ odleg³oœæ w heksach
-            int maxMoveDistance = 4; // Maksymalny zasiêg ruchu
+            // Sprawdï¿½ odlegï¿½oï¿½ï¿½ w heksach
+            int maxMoveDistance = 4; // Maksymalny zasiï¿½g ruchu
             if (playerHex.HexDistance(targetHex) <= maxMoveDistance)
             {
-                if (!IsPositionOccupiedByEnemy(targetWorldPosition))  // SprawdŸ, czy pozycja nie jest zajêta
+                if (!IsPositionOccupiedByEnemy(targetWorldPosition))  // Sprawdï¿½, czy pozycja nie jest zajï¿½ta
                 {
                     targetPosition = targetWorldPosition;
                     hasMoved = true;
                 }
                 else
                 {
-                    Debug.Log("Nie mo¿na poruszyæ siê na kafelek zajêty przez przeciwnika.");
+                    Debug.Log("Nie moï¿½na poruszyï¿½ siï¿½ na kafelek zajï¿½ty przez przeciwnika.");
                 }
             }
             else
             {
-                Debug.Log("Pozycja jest poza zasiêgiem ruchu.");
+                Debug.Log("Pozycja jest poza zasiï¿½giem ruchu.");
             }
         }
         else
         {
-            Debug.LogWarning("Klikniêto poza heksagonaln¹ siatk¹.");
+            Debug.LogWarning("Klikniï¿½to poza heksagonalnï¿½ siatkï¿½.");
         }
     }
 
@@ -85,17 +85,27 @@ public class PlayerMovement1 : MonoBehaviour
     {
         Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
         Vector3Int targetHexPos = hexTilemap.WorldToCell(position);
-        return enemyHexPos == targetHexPos;  // Zwraca true, jeœli pozycja jest zajêta przez przeciwnika
+        return enemyHexPos == targetHexPos;  // Zwraca true, jeï¿½li pozycja jest zajï¿½ta przez przeciwnika
     }
 
     void MovePlayerToTarget()
     {
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-        if (transform.position == targetPosition && hasMoved) //chyba jak siê doda "&& !isMoving" czy coœ na podobnej zasadzie to mo¿e debug przestanie siê wyœwietlaæ co milisekunde
+        
+        if (transform.position != targetPosition)
         {
-            //Debug.Log("Gracz zakoñczy³ ruch"); (denerwuje mnie ten debug)
-            hasLogged = true; //przetestowaæ czy to siê op³aca zostawiæ, bo narazie nie dzia³a
+            animator.SetFloat("Speed", 1f);
+        }
+        else
+        {
+            animator.SetFloat("Speed", 0f);
+        }
+
+
+        if (transform.position == targetPosition && hasMoved) //chyba jak siï¿½ doda "&& !isMoving" czy coï¿½ na podobnej zasadzie to moï¿½e debug przestanie siï¿½ wyï¿½wietlaï¿½ co milisekunde
+        {
+            //Debug.Log("Gracz zakoï¿½czyï¿½ ruch"); (denerwuje mnie ten debug)
+            hasLogged = true; //przetestowaï¿½ czy to siï¿½ opï¿½aca zostawiï¿½, bo narazie nie dziaï¿½a
         }
     }
 
