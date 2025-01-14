@@ -12,6 +12,7 @@ public class PlayerAbilities1 : MonoBehaviour
     public GameObject enemy;
     public Tilemap hexTilemap;
     public TurnManager1 turnManager;
+    public Animator animator;
 
     public bool isAttackMode1 = false;
     public bool isAttackMode2 = false;
@@ -52,12 +53,12 @@ public class PlayerAbilities1 : MonoBehaviour
         if (isAttackMode1)
         {
             BasicAttackButton.GetComponent<Image>().color = Color.red;
-            Debug.Log("Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaæ.");
+            Debug.Log("Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaï¿½.");
         }
         else
         {
             BasicAttackButton.GetComponent<Image>().color = Color.white;
-            Debug.Log("Tryb ataku wy³¹czony.");
+            Debug.Log("Tryb ataku wyï¿½ï¿½czony.");
         }
 
     }
@@ -77,22 +78,40 @@ public class PlayerAbilities1 : MonoBehaviour
         if (hitCollider != null && hitCollider.CompareTag("Enemy"))
         {
             EnemyAbilities1 enemy = hitCollider.GetComponent<EnemyAbilities1>();
+        
             if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 1) && !enemy.hasTakenDamage)
             {
+                animator.SetBool("IsAttacking", true);
+
                 enemy.TakeDamage(10);
-                Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + 10);
+                Debug.Log("Przeciwnik otrzymaï¿½ obraï¿½enia: " + 10);
+
+                StartCoroutine(ResetAttackAnimation());
+                
             }
             else
             {
-                Debug.Log("Przeciwnik ju¿ otrzyma³ obra¿enia");
+                Debug.Log("Przeciwnik juï¿½ otrzymaï¿½ obraï¿½enia");
+                
             }
         }
         else
         {
-            Debug.Log("Promieñ nie trafi³ w przeciwnika.");
+            Debug.Log("Promieï¿½ nie trafiï¿½ w przeciwnika.");
         }
 
     }
+    
+    private IEnumerator ResetAttackAnimation()
+    {
+    // Wait for the duration of the attack animation (adjust this time as needed)
+    yield return new WaitForSeconds(0.5f);  // 0.5 seconds is an example; match it to your animation duration
+
+    // Reset the IsAttacking parameter after the animation has finished
+    animator.SetBool("IsAttacking", false);
+    }
+
+    
 
     public void SelectAdvancedAttackMode()
     {
@@ -101,12 +120,12 @@ public class PlayerAbilities1 : MonoBehaviour
         if (isAttackMode2)
         {
             AdvancedAttackButton.GetComponent<Image>().color = Color.red;
-            Debug.Log("2Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaæ.");
+            Debug.Log("2Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaï¿½.");
         }
         else
         {
             AdvancedAttackButton.GetComponent<Image>().color = Color.white;
-            Debug.Log("2Tryb ataku wy³¹czony.");
+            Debug.Log("2Tryb ataku wyï¿½ï¿½czony.");
         }
 
     }
@@ -131,24 +150,24 @@ public class PlayerAbilities1 : MonoBehaviour
                 if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 2) && !enemy.hasTakenDamage)
                 {
                     enemy.TakeDamage(20);
-                    Debug.Log("2Przeciwnik otrzyma³ obra¿enia: " + 20);
+                    Debug.Log("2Przeciwnik otrzymaï¿½ obraï¿½enia: " + 20);
 
                     canUseAdvancedAttack = false;
                     turnManager.turnCounter = 2;
                 }
                 else
                 {
-                    Debug.Log("2Przeciwnik ju¿ otrzyma³ obra¿enia");
+                    Debug.Log("2Przeciwnik juï¿½ otrzymaï¿½ obraï¿½enia");
                 }
             }
             else
             {
-                Debug.Log("2Promieñ nie trafi³ w przeciwnika.");
+                Debug.Log("2Promieï¿½ nie trafiï¿½ w przeciwnika.");
             }
         }
         else
         {
-            Debug.Log("Advance Attack jest niedostêpny w tej turze");
+            Debug.Log("Advance Attack jest niedostï¿½pny w tej turze");
         }
 
     }
@@ -163,7 +182,7 @@ public class PlayerAbilities1 : MonoBehaviour
         if (turnManager.turnCounter == 0)
         {
             canUseAdvancedAttack = true;
-            Debug.Log("Advanced Attack jest ju¿ dostêpny");
+            Debug.Log("Advanced Attack jest juï¿½ dostï¿½pny");
         }
     }
 
@@ -183,7 +202,7 @@ public class PlayerAbilities1 : MonoBehaviour
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
-            Debug.Log("Gracz zosta³ pokonany!");
+            Debug.Log("Gracz zostaï¿½ pokonany!");
             SceneManager.LoadSceneAsync(3);
         }
     }
