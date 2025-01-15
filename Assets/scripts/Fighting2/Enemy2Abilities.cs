@@ -13,10 +13,13 @@ public class Enemy2Abilities : MonoBehaviour
     private int currentHealth;
     public bool hasTakenDamage = false;
 
+    public static List<Enemy2Abilities> activeEnemies = new List<Enemy2Abilities>();
+
 
     void Start()
     {
         currentHealth = maxHealth;
+        Enemy2Abilities.activeEnemies.Add(this);
     }
 
 
@@ -29,6 +32,7 @@ public class Enemy2Abilities : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            Enemy2Abilities.activeEnemies.Remove(this);
             Destroy(gameObject);
             Debug.Log("Przeciwnik nr2 zosta³ pokonany!");
         }

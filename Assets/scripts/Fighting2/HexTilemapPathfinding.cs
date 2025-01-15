@@ -36,27 +36,30 @@ public class HexTilemapPathfinding : MonoBehaviour
 
     private void Update()
     {
-        Vector3Int currentPlayerPos = hexTilemap.WorldToCell(playerUnit.transform.position); // Zaktualizuj pozycje gracza i przeciwnika
-        Vector3Int currentEnemyPos = hexTilemap.WorldToCell(enemyUnit.transform.position);
-
-        if (!enemyMovement.isEnemyMoving && currentPlayerPos != lastPlayerPos) // SprawdŸ, czy pozycja gracza siê zmieni³a
+        if (enemyUnit != null)
         {
-            path = FindPath(currentEnemyPos, currentPlayerPos);
-            lastPlayerPos = currentPlayerPos;
-            Debug.Log("Nowa pozycja gracza w siatce: " + currentPlayerPos);
-            Debug.Log("Zaktualizowano œcie¿kê: " + string.Join(" -> ", path));
-        }
+            Vector3Int currentPlayerPos = hexTilemap.WorldToCell(playerUnit.transform.position); // Zaktualizuj pozycje gracza i przeciwnika
+            Vector3Int currentEnemyPos = hexTilemap.WorldToCell(enemyUnit.transform.position);
 
-        if (currentEnemyPos != lastEnemyPos) // SprawdŸ, czy pozycja przeciwnika siê zmieni³a
-        {
-            lastEnemyPos = currentEnemyPos;
-            Debug.Log("Nowa pozycja przeciwnika w siatce: " + currentEnemyPos);
-        }
+            if (!enemyMovement.isEnemyMoving && currentPlayerPos != lastPlayerPos) // SprawdŸ, czy pozycja gracza siê zmieni³a
+            {
+                path = FindPath(currentEnemyPos, currentPlayerPos);
+                lastPlayerPos = currentPlayerPos;
+                Debug.Log("Nowa pozycja gracza w siatce: " + currentPlayerPos);
+                Debug.Log("Zaktualizowano œcie¿kê: " + string.Join(" -> ", path));
+            }
+
+            if (currentEnemyPos != lastEnemyPos) // SprawdŸ, czy pozycja przeciwnika siê zmieni³a
+            {
+                lastEnemyPos = currentEnemyPos;
+                Debug.Log("Nowa pozycja przeciwnika w siatce: " + currentEnemyPos);
+            }
 
 
-        if (enemyMovement.isEnemyMoving && path.Count > 0) // Przeciwnik porusza siê po œcie¿ce, jeœli jest czas na jego ruch
-        {
-            enemyMovement.MoveEnemyAlongPath();
+            if (enemyMovement.isEnemyMoving && path.Count > 0) // Przeciwnik porusza siê po œcie¿ce, jeœli jest czas na jego ruch
+            {
+                enemyMovement.MoveEnemyAlongPath();
+            }
         }
     }
 

@@ -10,19 +10,19 @@ public class EnemyAbilities1 : MonoBehaviour
     public PlayerAbilities1 playerAbilities;
     public EnemyMovement1 enemyMovement;
     public Pause pause;
+
     public int maxHealth = 50;
     public int currentHealth;
     public bool hasTakenDamage = false;
+
+    public static List<EnemyAbilities1> activeEnemies = new List<EnemyAbilities1>();
 
 
     void Start()
     {
         currentHealth = maxHealth;
 
-        if (player == null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
-        }
+        EnemyAbilities1.activeEnemies.Add(this);
     }
 
 
@@ -35,6 +35,7 @@ public class EnemyAbilities1 : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            EnemyAbilities1.activeEnemies.Remove(this);
             Destroy(gameObject);
             Debug.Log("Przeciwnik zosta³ pokonany!");
             pause.WinScreenPause();
