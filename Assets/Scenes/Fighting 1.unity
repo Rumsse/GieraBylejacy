@@ -552,10 +552,10 @@ MonoBehaviour:
   playerUnit: {fileID: 1323855100}
   enemyUnit: {fileID: 1845817486}
   movementRange: 3
-  moveSpeed: 0.8
   enemyMovement: {fileID: 1845817491}
-  playerMovement: {fileID: 1323855102}
+  playerMovement: {fileID: 1323855107}
   turnManager: {fileID: 2848338075193348446}
+  tileManager: {fileID: 1737104126}
 --- !u!1 &443288589
 GameObject:
   m_ObjectHideFlags: 0
@@ -2420,29 +2420,6 @@ MonoBehaviour:
   playerDamageBasic: 10
   playerDamageAdvanced: 20
   canUseAdvancedAttack: 1
---- !u!114 &1323855102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 965607011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c0ef361e2da5ae45be9477d4eee1aa4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hexTilemap: {fileID: 943148697}
-  playerTransform: {fileID: 1323855100}
-  enemy: {fileID: 1845817491}
-  playerAbilities: {fileID: 1323855101}
-  turnManager: {fileID: 2848338075193348446}
-  tileManager: {fileID: 1737104126}
-  moveSpeed: 4
-  yOffset: 0.5
-  hasMoved: 0
-  isPlayerMoving: 0
-  animator: {fileID: 1323855103}
 --- !u!95 &1323855103
 Animator:
   serializedVersion: 5
@@ -2464,6 +2441,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1323855107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965607011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c0ef361e2da5ae45be9477d4eee1aa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hexTilemap: {fileID: 943148697}
+  playerAbilities: {fileID: 1323855101}
+  tileManager: {fileID: 1737104126}
+  hasMoved: 0
+  isActive: 1
 --- !u!1 &1440956009
 GameObject:
   m_ObjectHideFlags: 0
@@ -3489,8 +3483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64766a955cfbb048af2844ac34e1b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hexTilemap: {fileID: 0}
-  characters: []
+  hexTilemap: {fileID: 943148697}
 --- !u!4 &1737104127
 Transform:
   m_ObjectHideFlags: 0
@@ -3577,14 +3570,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hexTilemap: {fileID: 943148697}
-  playerTransform: {fileID: 1323855100}
-  enemyTransform: {fileID: 1845817486}
   hexTilemapPathfinding: {fileID: 419332255}
-  moveSpeed: 3
-  yOffset: 0.3
-  maxMoveDistance: 3
-  hasMoved: 0
+  playerMovement: {fileID: 1323855107}
+  turnManager: {fileID: 2848338075193348446}
+  tileManager: {fileID: 1737104126}
   isEnemyMoving: 0
+  isActive: 0
+  hasMoved: 0
 --- !u!114 &1845817495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4662,7 +4654,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1370206309616209178, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1323855102}
+      addedObject: {fileID: 1323855107}
     - targetCorrespondingSourceObject: {fileID: 1370206309616209178, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1323855101}
@@ -4949,7 +4941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 550792cf7b3ea3e4aa9a54c4029ad949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 1323855102}
+  playerMovement: {fileID: 1323855107}
   enemyMovement: {fileID: 1845817491}
   playerAbilities: {fileID: 1323855101}
   enemyAbilities: {fileID: 1845817495}
