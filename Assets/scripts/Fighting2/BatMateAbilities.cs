@@ -10,11 +10,12 @@ public class BatMateAbilities : MonoBehaviour
     public HealthBar batMateHealthBar;
     public GameObject enemy;
     public Tilemap hexTilemap;
+    public TurnManager turnManager;
 
     public int maxHealth = 20;
     public int currentHealth;
     public int batMateDamageBasic = 5;
-
+    public bool isAlive = true;
     public bool isAttackMode1 = false;
 
 
@@ -89,6 +90,8 @@ public class BatMateAbilities : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
+            isAlive = false;
+            turnManager.OnCharacterDeath(gameObject);
             Destroy(gameObject);
             Debug.Log("Bat Mate zosta³ pokonany!");
         }

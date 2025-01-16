@@ -8,10 +8,12 @@ public class Enemy2Abilities : MonoBehaviour
     public HealthBar enemyHealthBar;
     public PlayerAbilities playerAbilities;
     public Enemy2Movement enemyMovement;
+    public TurnManager turnManager;
 
     private int maxHealth = 50;
     private int currentHealth;
     public bool hasTakenDamage = false;
+    public bool isAlive = true;
 
     public static List<Enemy2Abilities> activeEnemies = new List<Enemy2Abilities>();
 
@@ -32,6 +34,8 @@ public class Enemy2Abilities : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            isAlive = false;
+            turnManager.OnCharacterDeath(gameObject);
             Enemy2Abilities.activeEnemies.Remove(this);
             Destroy(gameObject);
             Debug.Log("Przeciwnik nr2 zosta³ pokonany!");

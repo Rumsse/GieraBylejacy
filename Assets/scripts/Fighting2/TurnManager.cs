@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 
@@ -29,6 +30,7 @@ public class TurnManager : MonoBehaviour
     public Image turnImage;
     public Sprite[] characterSprites;
     public GameObject[] characters;
+    public List<GameObject> activeCharacters;
 
 
     public enum TurnState
@@ -41,6 +43,11 @@ public class TurnManager : MonoBehaviour
 
     private void Start()
     {
+        activeCharacters.Add(playerMovement.gameObject);
+        activeCharacters.Add(batMateMovement.gameObject);
+        activeCharacters.Add(enemyMovement.gameObject);
+        activeCharacters.Add(enemy2Movement.gameObject);
+
         currentTurn = TurnState.Player;
         UpdateTurnIndicator();
         StartTurn();
@@ -49,6 +56,18 @@ public class TurnManager : MonoBehaviour
 
     void StartTurn()
     {
+        if (activeCharacters.Count == 0)
+        {
+            return;
+        }
+
+        if (!activeCharacters[currentTurnIndex].activeSelf)
+        {
+            currentTurnIndex = (currentTurnIndex + 1) % activeCharacters.Count;
+        }
+
+        GameObject currentCharacter = activeCharacters[currentTurnIndex];
+
         switch (currentTurn)
         {
             case TurnState.Player:
@@ -59,25 +78,46 @@ public class TurnManager : MonoBehaviour
                 StartPlayerTurn();
                 break;
             case TurnState.BatMate:
-                playerMovement.isActive = false;
-                batMateMovement.isActive = true;
-                enemyMovement.isActive = false;
-                enemy2Movement.isActive = false;
-                StartBatMateTurn();
+                if (batMateAbilities.isAlive)
+                {
+                    playerMovement.isActive = false;
+                    batMateMovement.isActive = true;
+                    enemyMovement.isActive = false;
+                    enemy2Movement.isActive = false;
+                    StartBatMateTurn();
+                }
+                else
+                {
+                    EndBatMateTurn();
+                }
                 break;
             case TurnState.Enemy1:
-                playerMovement.isActive = false;
-                batMateMovement.isActive = false;
-                enemyMovement.isActive = true;
-                enemy2Movement.isActive = false;
-                StartEnemyTurn();
+                if (enemyAbilities.isAlive)
+                {
+                    playerMovement.isActive = false;
+                    batMateMovement.isActive = false;
+                    enemyMovement.isActive = true;
+                    enemy2Movement.isActive = false;
+                    StartEnemyTurn();
+                }
+                else
+                {
+                    EndEnemyTurn();
+                }
                 break;
             case TurnState.Enemy2:
-                playerMovement.isActive = false;
-                batMateMovement.isActive = false;
-                enemyMovement.isActive = false;
-                enemy2Movement.isActive = true;
-                StartEnemy2Turn();
+                if (enemy2Abilities.isAlive)
+                {
+                    playerMovement.isActive = false;
+                    batMateMovement.isActive = false;
+                    enemyMovement.isActive = false;
+                    enemy2Movement.isActive = true;
+                    StartEnemy2Turn(); 
+                }
+                else
+                {
+                    EndEnemy2Turn();
+                }
                 break;
         }
     }
@@ -146,7 +186,7 @@ public class TurnManager : MonoBehaviour
 
     }
 
-    System.Collections.IEnumerator StartEnemyTurnWithDelay()
+    System.Collections.IEnumerator StartEnemyTurnWithDelay() //useless for now
     {
         yield return new WaitForSeconds(enemyMoveDelay);
         Debug.Log("OpóŸnienie zakoñczone, zaczynam turê przeciwnika.");
@@ -213,7 +253,39 @@ public class TurnManager : MonoBehaviour
 
     public void UpdateTurnIndicator()
     {
-        turnImage.sprite = characterSprites[currentTurnIndex];
+
+        if (activeCharacters.Count == 0)
+        {
+            Debug.Log("Brak aktywnych postaci! Gra zakoñczona.");
+            return;
+        }
+
+        GameObject currentCharacter = activeCharacters[currentTurnIndex];
+
+        switch (currentTurn)
+        {
+            case TurnState.Player:
+                turnImage.sprite = characterSprites[0];
+                break;
+            case TurnState.BatMate:
+                turnImage.sprite = characterSprites[1];
+                break;
+            case TurnState.Enemy1:
+                turnImage.sprite = characterSprites[2];
+                break;
+            case TurnState.Enemy2:
+                turnImage.sprite = characterSprites[3];
+                break;
+        }
+    }
+
+    public void OnCharacterDeath(GameObject deadCharacter)
+    {
+        if (activeCharacters.Contains(deadCharacter))
+        {
+            activeCharacters.Remove(deadCharacter);
+            Debug.Log(deadCharacter.name + " zosta³ usuniêty z aktywnych postaci.");
+        }
     }
 
 

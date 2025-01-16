@@ -3849,7 +3849,9 @@ MonoBehaviour:
   enemyHealthBar: {fileID: 1093270953}
   playerAbilities: {fileID: 1323855101}
   enemyMovement: {fileID: 1845817482}
+  turnManager: {fileID: 2848338075193348446}
   hasTakenDamage: 0
+  isAlive: 1
 --- !u!95 &1845817494
 Animator:
   serializedVersion: 5
@@ -4748,7 +4750,9 @@ MonoBehaviour:
   enemyHealthBar: {fileID: 1617653710}
   playerAbilities: {fileID: 1323855101}
   enemyMovement: {fileID: 2070549773}
+  turnManager: {fileID: 2848338075193348446}
   hasTakenDamage: 0
+  isAlive: 1
 --- !u!1 &2101283946
 GameObject:
   m_ObjectHideFlags: 0
@@ -5381,6 +5385,7 @@ MonoBehaviour:
   - {fileID: 1847597376}
   - {fileID: 1721634232}
   - {fileID: 2070549765}
+  activeCharacters: []
 --- !u!1001 &6570375150689132612
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8650,6 +8655,10 @@ PrefabInstance:
       propertyPath: hexTilemap
       value: 
       objectReference: {fileID: 943148697}
+    - target: {fileID: 7702391544596530969, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
+      propertyPath: turnManager
+      value: 
+      objectReference: {fileID: 2848338075193348446}
     - target: {fileID: 7702391544596530969, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
       propertyPath: BasicAttackButton
       value: 
