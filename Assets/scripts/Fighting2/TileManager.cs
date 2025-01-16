@@ -12,7 +12,7 @@ public class TileManager : MonoBehaviour
 
     private void Update()
     {
-        OnDrawGizmos();
+        //OnDrawGizmos();
     }
 
     public bool IsTileOccupied(Vector3Int tilePosition)

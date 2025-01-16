@@ -43,6 +43,7 @@ public class HexTilemapPathfinding : MonoBehaviour
             if (!enemyMovement.isEnemyMoving && currentPlayerPos != lastPlayerPos) // SprawdŸ, czy pozycja gracza siê zmieni³a
             {
                 path = FindPath(currentEnemyPos, currentPlayerPos);
+                Debug.Log("GGGGPrzeciwnik1 œcie¿ka: " + string.Join(" -> ", path));
                 lastPlayerPos = currentPlayerPos;
                 Debug.Log("Nowa pozycja gracza w siatce: " + currentPlayerPos);
                 Debug.Log("Zaktualizowano œcie¿kê: " + string.Join(" -> ", path));

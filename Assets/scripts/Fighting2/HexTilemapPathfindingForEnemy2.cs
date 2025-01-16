@@ -15,7 +15,7 @@ public class HexTilemapPathfindingForEnemy2 : MonoBehaviour
     public TurnManager turnManager;
     public TileManager tileManager;
 
-    private List<Vector3Int> path = new List<Vector3Int>();  // Lista punktów œcie¿ki
+    private List<Vector3Int> path1 = new List<Vector3Int>();  // Lista punktów œcie¿ki
 
     private Vector3Int lastPlayerPos; // Ostatnia zaktualizowana pozycja gracza
     private Vector3Int lastEnemyPos;
@@ -29,8 +29,8 @@ public class HexTilemapPathfindingForEnemy2 : MonoBehaviour
         Vector3Int startPlayerPos = hexTilemap.WorldToCell(playerUnit.position);  // Pozycja gracza
 
         // Wyszukiwanie œcie¿ki do gracza na pocz¹tku gry
-        path = FindPath(startEnemyPos, startPlayerPos);
-        enemyMovement.SetPath(path);  // Inicjalizowanie œcie¿ki w EnemyMovement
+        path1 = FindPath1(startEnemyPos, startPlayerPos);
+        enemyMovement.SetPath(path1);  // Inicjalizowanie œcie¿ki w EnemyMovement
     }
 
     private void Update()
@@ -42,10 +42,11 @@ public class HexTilemapPathfindingForEnemy2 : MonoBehaviour
 
             if (!enemyMovement.isEnemyMoving && currentPlayerPos != lastPlayerPos) // SprawdŸ, czy pozycja gracza siê zmieni³a
             {
-                path = FindPath(currentEnemyPos, currentPlayerPos);
+                path1 = FindPath1(currentEnemyPos, currentPlayerPos);
+                Debug.Log("Przeciwnik2 œcie¿ka: " + string.Join(" -> ", path1));
                 lastPlayerPos = currentPlayerPos;
                 Debug.Log("Nowa pozycja gracza w siatce: " + currentPlayerPos);
-                Debug.Log("Zaktualizowano œcie¿kê: " + string.Join(" -> ", path));
+                Debug.Log("Zaktualizowano œcie¿kê: " + string.Join(" -> ", path1));
             }
 
             if (currentEnemyPos != lastEnemyPos) // SprawdŸ, czy pozycja przeciwnika siê zmieni³a
@@ -55,7 +56,7 @@ public class HexTilemapPathfindingForEnemy2 : MonoBehaviour
             }
 
 
-            if (enemyMovement.isEnemyMoving && path.Count > 0) // Przeciwnik porusza siê po œcie¿ce, jeœli jest czas na jego ruch
+            if (enemyMovement.isEnemyMoving && path1.Count > 0) // Przeciwnik porusza siê po œcie¿ce, jeœli jest czas na jego ruch
             {
                 enemyMovement.MoveEnemyAlongPath();
             }
@@ -63,7 +64,7 @@ public class HexTilemapPathfindingForEnemy2 : MonoBehaviour
     }
 
     // Funkcja wyszukuj¹ca œcie¿kê do celu (gracza) z uwzglêdnieniem zasiêgu (w³aœnie nie ma zasiêgu, trzeba dodaæ)
-    public List<Vector3Int> FindPath(Vector3Int start, Vector3Int target)
+    public List<Vector3Int> FindPath1(Vector3Int start, Vector3Int target)
     {
         List<Vector3Int> openSet = new List<Vector3Int>();    // Wierzcho³ki do rozwa¿enia
         HashSet<Vector3Int> closedSet = new HashSet<Vector3Int>(); // Wierzcho³ki ju¿ rozwa¿one
@@ -119,7 +120,7 @@ public class HexTilemapPathfindingForEnemy2 : MonoBehaviour
 
                 Debug.Log("Œcie¿ka: " + string.Join(" -> ", totalPath));
 
-                path = totalPath;
+                path1 = totalPath;
                 return totalPath;
             }
 
@@ -153,7 +154,7 @@ public class HexTilemapPathfindingForEnemy2 : MonoBehaviour
 
     public List<Vector3Int> GetPath()
     {
-        return path;
+        return path1;
     }
 
     // Zwracanie s¹siednich kafelków (w zale¿noœci od uk³adu heksagonalnego)
