@@ -20,6 +20,7 @@ public class EnemyMovement : MonoBehaviour
     public bool isEnemyMoving = false;
     public bool isActive = false;
     public bool hasMoved = false;
+
     private float moveSpeed = 0.8f;
     private int movementRange = 3;
 
@@ -83,11 +84,9 @@ public class EnemyMovement : MonoBehaviour
             {
                 transform.position = targetWorldPosition;
 
-                // Aktualizacja pozycji
                 Vector3Int newHexPosition = hexTilemap.WorldToCell(transform.position);
                 Debug.Log($"Enemy {gameObject.name} moved to {newHexPosition}. Previous position: {currentHexPosition}.");
 
-                // Aktualizuj zajêtoœæ kafelków
                 tileManager.UpdateTileOccupation(currentHexPosition, newHexPosition, gameObject);
                 currentHexPosition = newHexPosition;
 

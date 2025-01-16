@@ -23,7 +23,7 @@ public class TileManager : MonoBehaviour
 
     public void OccupyTile(Vector3Int tilePosition, GameObject occupier)
     {
-        if (!IsTileOccupied(tilePosition))
+        if (!occupiedTiles.ContainsKey(tilePosition))
         {
             occupiedTiles[tilePosition] = occupier;
             

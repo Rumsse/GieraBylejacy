@@ -20,10 +20,12 @@ public class Enemy2Movement : MonoBehaviour
     public bool isEnemyMoving = false;
     public bool isActive = false;
     public bool hasMoved = false;
+
     private float moveSpeed = 0.8f;
     private int movementRange = 3;
 
     private Vector3 targetPosition;
+    private Vector3Int currentHexPosition;
 
     private List<Vector3Int> path;
     private int currentPathIndex = 0;
@@ -33,8 +35,9 @@ public class Enemy2Movement : MonoBehaviour
     void Start()
     {
         targetPosition = transform.position;
-        Vector3Int startHex = tileManager.hexTilemap.WorldToCell(transform.position);
-        //tileManager.OccupyTile(startHex);
+        Vector3Int startHex = tileManager.GetTilePosition(transform.position);
+        currentHexPosition = hexTilemap.WorldToCell(transform.position);
+        tileManager.OccupyTile(currentHexPosition, gameObject);
     }
 
     void Update()
@@ -56,7 +59,7 @@ public class Enemy2Movement : MonoBehaviour
 
     public void MoveEnemyAlongPath()
     {
-        if (path.Count == 0)
+        if (path == null || path.Count == 0)
         {
             Debug.Log("Brak œcie¿ki do przebycia.");
             EndEnemyMovement();
@@ -72,32 +75,30 @@ public class Enemy2Movement : MonoBehaviour
 
         if (currentPathIndex < path.Count)
         {
-            Vector3Int targetHexPos = path[currentPathIndex];
-            Vector3 targetPosition = hexTilemap.CellToWorld(path[currentPathIndex]) + new Vector3(0, 0, 0); // Korygujemy pozycjê
+            Vector3Int targetHexPosition = path[currentPathIndex];
+            Vector3 targetWorldPosition = hexTilemap.CellToWorld(targetHexPosition);
 
-            Debug.DrawLine(targetPosition, targetPosition + Vector3.up * 0.5f, Color.red, 5f);
-            Debug.DrawLine(transform.position, transform.position + Vector3.up * 0.5f, Color.blue, 5f);
+            transform.position = Vector3.MoveTowards(transform.position, targetWorldPosition, moveSpeed * Time.deltaTime);
 
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-            float epsilon = 0.05f; // Tolerancja
-            if (Vector3.Distance(transform.position, targetPosition) <= epsilon)
+            if (Vector3.Distance(transform.position, targetWorldPosition) < 0.05f)
             {
-                transform.position = targetPosition; // Wymuszenie ustawienia dok³adnej pozycji w œrodku kafelka
+                transform.position = targetWorldPosition;
+
+                Vector3Int newHexPosition = hexTilemap.WorldToCell(transform.position);
+                Debug.Log($"Enemy {gameObject.name} moved to {newHexPosition}. Previous position: {currentHexPosition}.");
+
+                tileManager.UpdateTileOccupation(currentHexPosition, newHexPosition, gameObject);
+                currentHexPosition = newHexPosition;
+
                 currentPathIndex++;
-
-                if (currentPathIndex < path.Count)
-                {
-                    Vector3Int currentHexPosition = hexTilemap.WorldToCell(transform.position);
-                    Vector3Int targetHexPosition = path[currentPathIndex];
-                    //tileManager.UpdateTileOccupation(currentHexPosition, targetHexPosition);
-                }
-
-                Debug.Log($"Ruch na kafelek: {currentPathIndex}, Pozosta³o: {path.Count - currentPathIndex}");
             }
-
         }
         else
+        {
+            EndEnemyMovement();
+        }
+
+        if (currentPathIndex >= path.Count || currentPathIndex >= movementRange)
         {
             EndEnemyMovement();
         }

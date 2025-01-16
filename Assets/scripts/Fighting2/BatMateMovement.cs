@@ -8,24 +8,26 @@ using static TurnManager;
 public class BatMateMovement : MonoBehaviour
 {
     public Tilemap hexTilemap;
-    public Transform playerTransform;
-    public EnemyMovement enemy;
     public TileManager tileManager;
-
 
     private int maxMoveDistance = 4;
     private float moveSpeed = 3f;
     private float yOffset = 0.3f;
+
     public bool hasMoved = true;
     public bool isActive = false;
 
     private Vector3 targetPosition;
+    private Vector3Int currentHexPosition;
+    private Vector3 occupiedTileOffset = new Vector3(0, -0.5f, 0);
 
 
     void Start()
     {
-        ResetMovement();
         targetPosition = transform.position;
+        Vector3Int startHex = tileManager.GetTilePosition(transform.position);
+        currentHexPosition = tileManager.GetTilePosition(transform.position);
+        tileManager.OccupyTile(startHex, gameObject);
     }
 
     void Update()
@@ -43,26 +45,25 @@ public class BatMateMovement : MonoBehaviour
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0;
-
         Vector3Int hexPosition = hexTilemap.WorldToCell(mouseWorldPos);
 
         if (hexTilemap.HasTile(hexPosition))
         {
             Vector3 targetWorldPosition = hexTilemap.CellToWorld(hexPosition) + hexTilemap.tileAnchor + new Vector3(0, yOffset, 0);
+            Vector3Int currentHexPosition = tileManager.GetTilePosition(transform.position);
 
             // Tworzymy obiekty Hex z pozycji bie¿¹cej i docelowej
             Hex playerHex = new Hex(hexTilemap.WorldToCell(transform.position).x, hexTilemap.WorldToCell(transform.position).y);
             Hex targetHex = new Hex(hexPosition.x, hexPosition.y);
 
-            if (playerHex.HexDistance(targetHex) <= maxMoveDistance)
+            if (Vector3.Distance(currentHexPosition, hexPosition) <= maxMoveDistance)
             {
                 if (!tileManager.IsTileOccupied(hexPosition))
                 {
-                    Vector3Int currentHexPosition = hexTilemap.WorldToCell(transform.position);
-                    //tileManager.UpdateTileOccupation(currentHexPosition, hexPosition);
+                    currentHexPosition = hexPosition;
 
                     targetPosition = targetWorldPosition;
-                    hasMoved = true;
+                    StartCoroutine(MoveBatMateToTarget());
                 }
                 else
                 {
@@ -80,14 +81,21 @@ public class BatMateMovement : MonoBehaviour
         }
     }
 
-    void MoveBatMateToTarget()
+    IEnumerator MoveBatMateToTarget()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-        if (transform.position == targetPosition && hasMoved) 
+        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
-
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            yield return null;
         }
+
+        transform.position = targetPosition;
+        Vector3Int newHexPosition = tileManager.GetTilePosition(transform.position + occupiedTileOffset);
+
+        tileManager.UpdateTileOccupation(currentHexPosition, newHexPosition, gameObject);
+        currentHexPosition = newHexPosition;
+
+        hasMoved = true;
     }
 
     public void ResetMovement()

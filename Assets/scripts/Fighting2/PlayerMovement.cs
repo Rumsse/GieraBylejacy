@@ -7,8 +7,6 @@ using UnityEngine.Tilemaps;
 public class PlayerMovement : MonoBehaviour
 {
     public Tilemap hexTilemap;
-    public Transform playerTransform;
-    public EnemyMovement enemy;
     public PlayerAbilities playerAbilities;
     public TileManager tileManager;
 
@@ -17,12 +15,13 @@ public class PlayerMovement : MonoBehaviour
     private float moveSpeed = 3f;
     private int maxMoveDistance = 4;
     private float yOffset = 0.5f;
+
     public bool hasMoved = false;
     public bool isActive = true;
 
     private Vector3 targetPosition;
     private Vector3Int currentHexPosition;
-    public Vector3 occupiedTileOffset = new Vector3(0, -0.5f, 0);
+    private Vector3 occupiedTileOffset = new Vector3(0, -0.5f, 0);
 
 
 
@@ -98,7 +97,6 @@ public class PlayerMovement : MonoBehaviour
 
         transform.position = targetPosition;
         Vector3Int newHexPosition = tileManager.GetTilePosition(transform.position + occupiedTileOffset);
-        Debug.Log($"Player moved to {newHexPosition}. Previous position: {currentHexPosition}.");
 
         tileManager.UpdateTileOccupation(currentHexPosition, newHexPosition, gameObject);
         currentHexPosition = newHexPosition;
