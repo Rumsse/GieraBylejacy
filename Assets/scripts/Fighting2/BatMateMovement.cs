@@ -59,7 +59,7 @@ public class BatMateMovement : MonoBehaviour
                 if (!tileManager.IsTileOccupied(hexPosition))
                 {
                     Vector3Int currentHexPosition = hexTilemap.WorldToCell(transform.position);
-                    tileManager.UpdateTileOccupation(currentHexPosition, hexPosition);
+                    //tileManager.UpdateTileOccupation(currentHexPosition, hexPosition);
 
                     targetPosition = targetWorldPosition;
                     hasMoved = true;

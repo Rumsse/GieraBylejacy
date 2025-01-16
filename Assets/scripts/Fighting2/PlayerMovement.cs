@@ -21,12 +21,19 @@ public class PlayerMovement : MonoBehaviour
     public bool isActive = true;
 
     private Vector3 targetPosition;
+    private Vector3Int currentHexPosition;
+    public Vector3 occupiedTileOffset = new Vector3(0, -0.5f, 0);
+
 
 
     void Start()
     {
         targetPosition = transform.position;
         animator = GetComponent<Animator>();
+
+        Vector3Int startHex = tileManager.GetTilePosition(transform.position);
+        currentHexPosition = tileManager.GetTilePosition(transform.position);
+        tileManager.OccupyTile(startHex, gameObject);
     }
 
     void Update()
@@ -47,17 +54,17 @@ public class PlayerMovement : MonoBehaviour
         if (hexTilemap.HasTile(hexPosition))
         {
             Vector3 targetWorldPosition = hexTilemap.CellToWorld(hexPosition) + hexTilemap.tileAnchor + new Vector3(0, yOffset, 0);
+            Vector3Int currentHexPosition = tileManager.GetTilePosition(transform.position);
 
             // Tworzymy obiekty Hex z pozycji bie¿¹cej i docelowej
             Hex playerHex = new Hex(hexTilemap.WorldToCell(transform.position).x, hexTilemap.WorldToCell(transform.position).y);
             Hex targetHex = new Hex(hexPosition.x, hexPosition.y);
 ;
-            if (playerHex.HexDistance(targetHex) <= maxMoveDistance)
+            if (Vector3.Distance(currentHexPosition, hexPosition) <= maxMoveDistance)
             {
                 if (!tileManager.IsTileOccupied(hexPosition)) 
                 {
-                    Vector3Int currentHexPosition = hexTilemap.WorldToCell(transform.position);
-                    tileManager.UpdateTileOccupation(currentHexPosition, hexPosition);
+                    currentHexPosition = hexPosition;
 
                     targetPosition = targetWorldPosition;
                     StartCoroutine(MovePlayerToTarget());
@@ -86,12 +93,16 @@ public class PlayerMovement : MonoBehaviour
         while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-            Debug.Log($"isWalking: {animator.GetBool("isWalking")}");
-
             yield return null;
         }
 
         transform.position = targetPosition;
+        Vector3Int newHexPosition = tileManager.GetTilePosition(transform.position + occupiedTileOffset);
+        Debug.Log($"Player moved to {newHexPosition}. Previous position: {currentHexPosition}.");
+
+        tileManager.UpdateTileOccupation(currentHexPosition, newHexPosition, gameObject);
+        currentHexPosition = newHexPosition;
+
         animator.SetBool("isWalking", false);
         hasMoved = true;
     }

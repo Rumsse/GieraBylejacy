@@ -31,7 +31,6 @@ public class HexTilemapPathfinding : MonoBehaviour
         // Wyszukiwanie œcie¿ki do gracza na pocz¹tku gry
         path = FindPath(startEnemyPos, startPlayerPos);
         enemyMovement.SetPath(path);  // Inicjalizowanie œcie¿ki w EnemyMovement
-
     }
 
     private void Update()

@@ -6,54 +6,88 @@ using UnityEngine.Tilemaps;
 public class TileManager : MonoBehaviour
 {
     public Tilemap hexTilemap;
-    private HashSet<Vector3Int> occupiedTiles = new HashSet<Vector3Int>();
 
-    public GameObject[] characters;
-
+    private Dictionary<Vector3Int, GameObject> occupiedTiles = new Dictionary<Vector3Int, GameObject>();
 
 
-    private void Start()
+    private void Update()
     {
-        InitializeTileOccupancy();
-    }
-
-    public void InitializeTileOccupancy()
-    {
-        occupiedTiles.Clear();
-
-        foreach (var character in characters)
-        {
-            Vector3Int characterTilePosition = hexTilemap.WorldToCell(character.transform.position);
-            occupiedTiles.Add(characterTilePosition);
-
-        }
-    }
-
-    public void OccupyTile(Vector3Int tilePosition)
-    {
-        if (!occupiedTiles.Contains(tilePosition))
-        {
-            occupiedTiles.Add(tilePosition);
-        }
-    }
-
-    public void FreeTile(Vector3Int tilePosition)
-    {
-        if (occupiedTiles.Contains(tilePosition))
-        {
-            occupiedTiles.Remove(tilePosition);
-        }
+        OnDrawGizmos();
     }
 
     public bool IsTileOccupied(Vector3Int tilePosition)
     {
-        return occupiedTiles.Contains(tilePosition);
+        return occupiedTiles.ContainsKey(tilePosition);
     }
 
-    public void UpdateTileOccupation(Vector3Int currentHex, Vector3Int targetHex)
+
+    public void OccupyTile(Vector3Int tilePosition, GameObject occupier)
     {
-        FreeTile(currentHex);
-        OccupyTile(targetHex);
+        if (!IsTileOccupied(tilePosition))
+        {
+            occupiedTiles[tilePosition] = occupier;
+            
+        }
+        else
+        {
+            Debug.LogWarning($"Tile at {tilePosition} is already occupied!");
+            
+        }
+    }
+
+
+    public void ReleaseTile(Vector3Int tilePosition)
+    {
+        if (occupiedTiles.ContainsKey(tilePosition))
+        {
+            Debug.Log($"Releasing tile at {tilePosition}, previously occupied by {occupiedTiles[tilePosition].name}.");
+            occupiedTiles.Remove(tilePosition);
+        }
+        else
+        {
+            Debug.LogWarning($"Attempted to release tile at {tilePosition}, but it is not occupied!");
+        }
+    }
+
+    public bool MoveOccupier(Vector3Int fromPosition, Vector3Int toPosition)
+    {
+        if (IsTileOccupied(fromPosition) && !IsTileOccupied(toPosition))
+        {
+            GameObject occupier = occupiedTiles[fromPosition];
+            ReleaseTile(fromPosition);
+            OccupyTile(toPosition, occupier);
+            return true;
+        }
+        else
+        {
+            Debug.LogWarning($"Cannot move from {fromPosition} to {toPosition}. Target tile might be occupied or source tile is empty.");
+            return false;
+        }
+    }
+
+    public Vector3Int GetTilePosition(Vector3 worldPosition)
+    {
+        return hexTilemap.WorldToCell(worldPosition);
+    }
+
+    public void UpdateTileOccupation(Vector3Int oldPosition, Vector3Int newPosition, GameObject occupier)
+    {
+        ReleaseTile(oldPosition); 
+        OccupyTile(newPosition, occupier); 
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        if (occupiedTiles != null && hexTilemap != null)
+        {
+            Gizmos.color = Color.red;
+            foreach (var tile in occupiedTiles.Keys)
+            {
+                Vector3 worldPosition = hexTilemap.CellToWorld(tile) + hexTilemap.tileAnchor;
+                Gizmos.DrawWireCube(worldPosition, new Vector3(1, 1, 0));
+            }
+        }
     }
 
 }

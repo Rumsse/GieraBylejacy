@@ -34,7 +34,7 @@ public class Enemy2Movement : MonoBehaviour
     {
         targetPosition = transform.position;
         Vector3Int startHex = tileManager.hexTilemap.WorldToCell(transform.position);
-        tileManager.OccupyTile(startHex);
+        //tileManager.OccupyTile(startHex);
     }
 
     void Update()
@@ -90,7 +90,7 @@ public class Enemy2Movement : MonoBehaviour
                 {
                     Vector3Int currentHexPosition = hexTilemap.WorldToCell(transform.position);
                     Vector3Int targetHexPosition = path[currentPathIndex];
-                    tileManager.UpdateTileOccupation(currentHexPosition, targetHexPosition);
+                    //tileManager.UpdateTileOccupation(currentHexPosition, targetHexPosition);
                 }
 
                 Debug.Log($"Ruch na kafelek: {currentPathIndex}, Pozosta³o: {path.Count - currentPathIndex}");
