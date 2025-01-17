@@ -3592,8 +3592,10 @@ MonoBehaviour:
   player: {fileID: 965607011}
   enemyHealthBar: {fileID: 1093270953}
   playerAbilities: {fileID: 1323855101}
+  playerMovement: {fileID: 1323855107}
   enemyMovement: {fileID: 1845817491}
   pause: {fileID: 519420034}
+  hexTilemap: {fileID: 943148697}
   maxHealth: 50
   currentHealth: 0
   hasTakenDamage: 0

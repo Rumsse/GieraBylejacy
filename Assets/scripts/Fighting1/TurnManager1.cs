@@ -91,6 +91,14 @@ public class TurnManager1 : MonoBehaviour
 
     public void EndEnemyTurn()
     {
+        foreach (EnemyAbilities1 enemy in EnemyAbilities1.activeEnemies)
+        {
+            if (enemy != null )
+            {
+                enemy.AttackPlayer();
+            }
+        }
+
         isPlayerTurn = true;
         Debug.Log("Koniec tury przeciwnika");
 
