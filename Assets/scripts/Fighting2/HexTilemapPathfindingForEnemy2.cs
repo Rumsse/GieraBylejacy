@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -60,6 +61,19 @@ public class HexTilemapPathfindingForEnemy2 : MonoBehaviour
             {
                 enemyMovement.MoveEnemyAlongPath();
             }
+            if (!enemyMovement.isEnemyMoving && currentPlayerPos != lastPlayerPos) // SprawdŸ, czy pozycja gracza siê zmieni³a
+            {
+                if (currentEnemyPos == lastEnemyPos) // Jeœli przeciwnik nie zmieni³ pozycji, nie generuj nowej œcie¿ki
+                {
+                    Debug.Log("Przeciwnik nie zmieni³ pozycji, œcie¿ka nie zostanie zaktualizowana.");
+                    return;
+                }
+
+                path1 = FindPath1(currentEnemyPos, currentPlayerPos);
+                Debug.Log("Zaktualizowano œcie¿kê: " + string.Join(" -> ", path1));
+                lastPlayerPos = currentPlayerPos;
+            }
+
         }
     }
 

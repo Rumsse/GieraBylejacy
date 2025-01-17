@@ -24,7 +24,7 @@ public class Enemy2Movement : MonoBehaviour
     private Vector3 targetPosition;
     private Vector3Int currentHexPosition;
 
-    private List<Vector3Int> path;
+    private List<Vector3Int> path1;
     private int currentPathIndex = 0;
 
 
@@ -39,7 +39,7 @@ public class Enemy2Movement : MonoBehaviour
 
     void Update()
     {
-        path = hexTilemapPathfinding.GetPath();
+        path1 = hexTilemapPathfinding.GetPath();
 
         if (isEnemyMoving)
         {
@@ -49,31 +49,59 @@ public class Enemy2Movement : MonoBehaviour
 
     public void SetPath(List<Vector3Int> newPath)
     {
-        path = newPath;
+        path1 = newPath;
         currentPathIndex = 0; // Resetujemy indeks œcie¿ki
         Debug.Log("Œcie¿ka ustawiona: " + string.Join(", ", newPath.Select(p => p.ToString())));
     }
 
     public void MoveEnemyAlongPath()
     {
-        if (path == null || path.Count == 0)
+        if (path1 == null || path1.Count == 0)
         {
             Debug.Log("Brak œcie¿ki do przebycia.");
             EndEnemyMovement();
             return;
         }
 
-        if (currentPathIndex >= path.Count || currentPathIndex >= movementRange)
+        if (currentPathIndex >= path1.Count || currentPathIndex >= movementRange)
         {
-            Debug.Log($"Ruch zakoñczony! Index: {currentPathIndex}, Range: {movementRange}, Path Count: {path.Count}");
+            Debug.Log($"Ruch zakoñczony! Index: {currentPathIndex}, Range: {movementRange}, Path Count: {path1.Count}");
             EndEnemyMovement();
             return;
         }
 
-        if (currentPathIndex < path.Count)
+        if (currentHexPosition == targetPosition)
         {
-            Vector3Int targetHexPosition = path[currentPathIndex];
+            Debug.Log($"Przeciwnik {gameObject.name} osi¹gn¹³ cel na {currentHexPosition}. Zatrzymanie.");
+            isEnemyMoving = false;
+            return;
+        }
+
+        if (currentPathIndex < path1.Count)
+        {
+            Vector3Int targetHexPosition = path1[currentPathIndex];
             Vector3 targetWorldPosition = hexTilemap.CellToWorld(targetHexPosition);
+
+            if (tileManager.IsTileOccupied(targetHexPosition))
+            {
+                Debug.LogWarning($"WWWWWWWWW Przeciwnik {gameObject.name} koliduje z innym przeciwnikiem na {targetHexPosition}. Generujê now¹ œcie¿kê.");
+
+                Vector3Int alternativeHexPosition = FindAlternativeTile(targetHexPosition, path1[^1]); // path[^1] = cel koñcowy
+
+                if (alternativeHexPosition != targetHexPosition)
+                {
+                    Debug.Log($"Przeciwnik {gameObject.name} zmierza na alternatywny kafelek: {alternativeHexPosition}.");
+                    path1 = new List<Vector3Int> { alternativeHexPosition }; // Ustawiamy now¹ œcie¿kê
+                    currentPathIndex = 0;
+                    targetHexPosition = alternativeHexPosition;
+                    return;
+                }
+
+                Debug.LogWarning($"Brak dostêpnych alternatywnych kafelków dla przeciwnika {gameObject.name}. Zatrzymanie ruchu.");
+                EndEnemyMovement();
+                return;
+
+            }
 
             transform.position = Vector3.MoveTowards(transform.position, targetWorldPosition, moveSpeed * Time.deltaTime);
 
@@ -89,6 +117,14 @@ public class Enemy2Movement : MonoBehaviour
                     tileManager.UpdateTileOccupation(currentHexPosition, newHexPosition, gameObject);
                     currentHexPosition = newHexPosition;
 
+                    if (currentPathIndex == path1.Count - 1)
+                    {
+                        Debug.Log($"Przeciwnik {gameObject.name} dotar³ na alternatywny kafelek {newHexPosition}. Zatrzymanie ruchu.");
+                        isEnemyMoving = false;
+                        EndEnemyMovement();
+                        return;
+                    }
+
                     currentPathIndex++;
                 }
             }
@@ -98,7 +134,7 @@ public class Enemy2Movement : MonoBehaviour
             EndEnemyMovement();
         }
 
-        if (currentPathIndex >= path.Count || currentPathIndex >= movementRange)
+        if (currentPathIndex >= path1.Count || currentPathIndex >= movementRange)
         {
             EndEnemyMovement();
         }
@@ -118,4 +154,64 @@ public class Enemy2Movement : MonoBehaviour
     {
         hasMoved = false;
     }
+
+    private Vector3Int FindAlternativeTile(Vector3Int blockedTile, Vector3Int targetTile)
+    {
+        Queue<Vector3Int> openSet = new Queue<Vector3Int>();
+        HashSet<Vector3Int> visited = new HashSet<Vector3Int>();
+
+        openSet.Enqueue(blockedTile);
+        visited.Add(blockedTile);
+
+        while (openSet.Count > 0)
+        {
+            Vector3Int current = openSet.Dequeue();
+
+            foreach (Vector3Int neighbor in GetNeighbors(current))
+            {
+                if (visited.Contains(neighbor)) continue; // Pomijamy odwiedzone kafelki
+
+                visited.Add(neighbor);
+
+                if (!tileManager.IsTileOccupied(neighbor)) // Jeœli kafelek jest wolny
+                {
+                    Debug.Log($"Znaleziono alternatywny kafelek {neighbor}.");
+                    return neighbor;
+                }
+
+                openSet.Enqueue(neighbor); // Dodajemy s¹siada do kolejki
+            }
+        }
+
+        // Jeœli nie znaleziono alternatywnego kafelka, zwracamy pozycjê pocz¹tkow¹
+        Debug.LogWarning($"Nie znaleziono alternatywnego kafelka dla {blockedTile}.");
+        return blockedTile;
+    }
+
+    private List<Vector3Int> GetNeighbors(Vector3Int position)
+    {
+        List<Vector3Int> neighbors = new List<Vector3Int>();
+
+        Vector3Int[] directions = new Vector3Int[]
+        {
+            new Vector3Int(1, 0, 0),   // Prawo
+            new Vector3Int(-1, 0, 0),  // Lewo
+            new Vector3Int(0, 1, 0),   // Góra
+            new Vector3Int(0, -1, 0),  // Dó³
+            new Vector3Int(1, -1, 0),  // Prawy dolny
+            new Vector3Int(-1, 1, 0)   // Lewy górny
+        };
+
+        foreach (Vector3Int direction in directions)
+        {
+            Vector3Int neighbor = position + direction;
+            if (hexTilemap.HasTile(neighbor)) // Sprawdzamy, czy kafelek jest dostêpny
+            {
+                neighbors.Add(neighbor);
+            }
+        }
+
+        return neighbors;
+    }
+
 }

@@ -60,6 +60,20 @@ public class HexTilemapPathfinding : MonoBehaviour
             {
                 enemyMovement.MoveEnemyAlongPath();
             }
+
+            if (!enemyMovement.isEnemyMoving && currentPlayerPos != lastPlayerPos) // SprawdŸ, czy pozycja gracza siê zmieni³a
+            {
+                if (currentEnemyPos == lastEnemyPos) // Jeœli przeciwnik nie zmieni³ pozycji, nie generuj nowej œcie¿ki
+                {
+                    Debug.Log("Przeciwnik nie zmieni³ pozycji, œcie¿ka nie zostanie zaktualizowana.");
+                    return;
+                }
+
+                path = FindPath(currentEnemyPos, currentPlayerPos);
+                Debug.Log("Zaktualizowano œcie¿kê: " + string.Join(" -> ", path));
+                lastPlayerPos = currentPlayerPos;
+            }
+
         }
     }
 
