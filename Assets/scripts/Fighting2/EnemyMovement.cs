@@ -88,18 +88,16 @@ public class EnemyMovement : MonoBehaviour
 
                 Vector3Int alternativeHexPosition = FindAlternativeTile(targetHexPosition, path[^1]); // path[^1] = cel koñcowy
 
-                if (alternativeHexPosition != targetHexPosition)
+                if (alternativeHexPosition == Vector3Int.zero)
                 {
-                    Debug.Log($"Przeciwnik {gameObject.name} zmierza na alternatywny kafelek: {alternativeHexPosition}.");
-                    path = new List<Vector3Int> { alternativeHexPosition }; // Ustawiamy now¹ œcie¿kê
-                    currentPathIndex = 0;
-                    targetHexPosition = alternativeHexPosition;
+                    Debug.LogWarning($"Brak dostêpnych alternatywnych kafelków dla przeciwnika {gameObject.name}. Zatrzymanie ruchu.");
+                    EndEnemyMovement();
                     return;
                 }
 
-                Debug.LogWarning($"Brak dostêpnych alternatywnych kafelków dla przeciwnika {gameObject.name}. Zatrzymanie ruchu.");
-                EndEnemyMovement();
-                return;
+                Debug.Log($"Przeciwnik {gameObject.name} zmierza na alternatywny kafelek: {alternativeHexPosition}.");
+                path.Insert(currentPathIndex, alternativeHexPosition); // Dodajemy alternatywny kafelek do œcie¿ki
+                targetHexPosition = alternativeHexPosition;
 
             }
 
@@ -156,6 +154,13 @@ public class EnemyMovement : MonoBehaviour
         hasMoved = false;
     }
 
+
+
+
+
+
+
+
     private Vector3Int FindAlternativeTile(Vector3Int blockedTile, Vector3Int targetTile)
     {
         Queue<Vector3Int> openSet = new Queue<Vector3Int>();
@@ -185,8 +190,8 @@ public class EnemyMovement : MonoBehaviour
         }
 
         // Jeœli nie znaleziono alternatywnego kafelka, zwracamy pozycjê pocz¹tkow¹
-        Debug.LogWarning($"Nie znaleziono alternatywnego kafelka dla {blockedTile}.");
-        return blockedTile;
+        Debug.LogWarning($"Nie znaleziono alternatywnego kafelka dla {blockedTile}. Zwracanie Vector3Int.zero.");
+        return Vector3Int.zero;
     }
 
     private List<Vector3Int> GetNeighbors(Vector3Int position)
