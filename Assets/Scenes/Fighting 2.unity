@@ -760,7 +760,7 @@ MonoBehaviour:
   playerUnit: {fileID: 1323855100}
   enemyUnit: {fileID: 1845817486}
   movementRange: 3
-  enemyMovement: {fileID: 1845817482}
+  enemyMovement: {fileID: 1845817498}
   playerMovement: {fileID: 1098599819}
   turnManager: {fileID: 2848338075193348446}
   tileManager: {fileID: 2002097039}
@@ -2561,6 +2561,7 @@ MonoBehaviour:
   isAttackMode1: 0
   isAttackMode2: 0
   canUseAdvancedAttack: 1
+  isAlive: 1
   playerDamageBasic: 10
   playerDamageAdvanced: 20
 --- !u!95 &1323855109
@@ -3817,17 +3818,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 933385094}
   offset: {x: 0, y: 1, z: 0}
---- !u!114 &1845817482 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
-  m_PrefabInstance: {fileID: 1070220613740402151}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1721634232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b83707b6a3af1aa4aa3f8db1d0034e09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1845817486 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1016463608500058957, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
@@ -3848,7 +3838,7 @@ MonoBehaviour:
   player: {fileID: 965607011}
   enemyHealthBar: {fileID: 1093270953}
   playerAbilities: {fileID: 1323855101}
-  enemyMovement: {fileID: 1845817482}
+  enemyMovement: {fileID: 1845817498}
   turnManager: {fileID: 2848338075193348446}
   hasTakenDamage: 0
   isAlive: 1
@@ -3873,6 +3863,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1845817498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721634232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b83707b6a3af1aa4aa3f8db1d0034e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hexTilemap: {fileID: 943148697}
+  hexTilemapPathfinding: {fileID: 419332255}
+  playerMovement: {fileID: 1098599819}
+  turnManager: {fileID: 2848338075193348446}
+  tileManager: {fileID: 2002097039}
+  isEnemyMoving: 0
+  isActive: 0
+  hasMoved: 0
 --- !u!1 &1847597376 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7863324744924397090, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
@@ -4657,8 +4667,7 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1016463608500058957, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
@@ -4721,9 +4730,6 @@ MonoBehaviour:
   hexTilemap: {fileID: 943148697}
   hexTilemapPathfinding: {fileID: 419332256}
   playerMovement: {fileID: 1098599819}
-  playerTransform: {fileID: 1323855100}
-  batMateTransform: {fileID: 1847597381}
-  enemy1Transform: {fileID: 1845817486}
   turnManager: {fileID: 2848338075193348446}
   tileManager: {fileID: 2002097039}
   isEnemyMoving: 0
@@ -5005,7 +5011,7 @@ PrefabInstance:
     - target: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       propertyPath: enemy
       value: 
-      objectReference: {fileID: 1845817482}
+      objectReference: {fileID: 0}
     - target: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       propertyPath: hexMap
       value: 
@@ -5136,6 +5142,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 1721634232}
     - target: {fileID: 4880936987349269460, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: hexGrid
       value: 
@@ -5273,6 +5283,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1845817498}
+    - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1845817490}
     - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       insertIndex: -1
@@ -5356,13 +5369,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 1098599819}
-  enemyMovement: {fileID: 1845817482}
+  enemyMovement: {fileID: 1845817498}
   enemy2Movement: {fileID: 2070549773}
   batMateMovement: {fileID: 1847597377}
   playerAbilities: {fileID: 1323855101}
   enemyAbilities: {fileID: 1845817490}
   enemy2Abilities: {fileID: 2070549777}
   batMateAbilities: {fileID: 1847597382}
+  tileManager: {fileID: 2002097039}
+  hexTilemap: {fileID: 943148697}
   BasicAttackButton: {fileID: 1440956011}
   AdvancedAttackButton: {fileID: 924042638}
   isEnemyTurn: 0
@@ -8593,7 +8608,7 @@ PrefabInstance:
     - target: {fileID: 5381925969437563596, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
       propertyPath: enemy
       value: 
-      objectReference: {fileID: 1845817482}
+      objectReference: {fileID: 0}
     - target: {fileID: 5381925969437563596, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
       propertyPath: hexTilemap
       value: 

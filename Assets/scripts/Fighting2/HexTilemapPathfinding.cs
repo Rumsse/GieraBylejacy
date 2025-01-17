@@ -130,7 +130,11 @@ public class HexTilemapPathfinding : MonoBehaviour
             // Sprawdzamy s¹siadów
             foreach (Vector3Int neighbor in GetNeighbors(current))
             {
-                if (closedSet.Contains(neighbor) || tileManager.IsTileOccupied(neighbor)) continue;
+                if (closedSet.Contains(neighbor) || tileManager.IsTileOccupied(neighbor))
+                {
+                    Debug.Log($"OOOOOOO Neighbor {neighbor} jest zajêty, pomijamy.");
+                    continue;
+                }
 
                 float tentativeGScore = gScore[current] + Cost(current, neighbor);
 

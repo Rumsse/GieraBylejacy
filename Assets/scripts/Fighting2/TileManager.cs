@@ -10,14 +10,9 @@ public class TileManager : MonoBehaviour
     private Dictionary<Vector3Int, GameObject> occupiedTiles = new Dictionary<Vector3Int, GameObject>();
 
 
-    private void Update()
-    {
-        //OnDrawGizmos();
-    }
-
     public bool IsTileOccupied(Vector3Int tilePosition)
     {
-        return occupiedTiles.ContainsKey(tilePosition);
+        return occupiedTiles.ContainsKey(tilePosition) && occupiedTiles[tilePosition] != null;
     }
 
 
@@ -72,6 +67,13 @@ public class TileManager : MonoBehaviour
 
     public void UpdateTileOccupation(Vector3Int oldPosition, Vector3Int newPosition, GameObject occupier)
     {
+        if (occupier == null)
+        {
+            Debug.LogWarning("Próba aktualizacji kafla z obiektem, który zosta³ zniszczony.");
+            return;
+        }
+
+        Debug.Log($"UpdateTileOccupation: Occupier = {occupier.name}, Old Position = {oldPosition}, New Position = {newPosition}");
         ReleaseTile(oldPosition); 
         OccupyTile(newPosition, occupier); 
     }

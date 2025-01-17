@@ -11,9 +11,6 @@ public class Enemy2Movement : MonoBehaviour
     public Tilemap hexTilemap;
     public HexTilemapPathfindingForEnemy2 hexTilemapPathfinding;
     public PlayerMovement playerMovement;
-    public Transform playerTransform;
-    public Transform batMateTransform;
-    public Transform enemy1Transform;
     public TurnManager turnManager;
     public TileManager tileManager;
 
@@ -84,13 +81,16 @@ public class Enemy2Movement : MonoBehaviour
             {
                 transform.position = targetWorldPosition;
 
-                Vector3Int newHexPosition = hexTilemap.WorldToCell(transform.position);
-                Debug.Log($"Enemy {gameObject.name} moved to {newHexPosition}. Previous position: {currentHexPosition}.");
+                if (gameObject != null)
+                {
+                    Vector3Int newHexPosition = hexTilemap.WorldToCell(transform.position);
+                    Debug.Log($"Enemy {gameObject.name} moved to {newHexPosition}. Previous position: {currentHexPosition}.");
 
-                tileManager.UpdateTileOccupation(currentHexPosition, newHexPosition, gameObject);
-                currentHexPosition = newHexPosition;
+                    tileManager.UpdateTileOccupation(currentHexPosition, newHexPosition, gameObject);
+                    currentHexPosition = newHexPosition;
 
-                currentPathIndex++;
+                    currentPathIndex++;
+                }
             }
         }
         else
