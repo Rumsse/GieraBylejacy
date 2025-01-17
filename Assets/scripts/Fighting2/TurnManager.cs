@@ -220,6 +220,14 @@ public class TurnManager : MonoBehaviour
 
     public void EndEnemyTurn()
     {
+        foreach (EnemyAbilities enemy in EnemyAbilities.activeEnemies)
+        {
+            if (enemy.isAlive)
+            {
+                enemy.AttackPlayer();
+            }
+        }
+
         Debug.Log("Koniec tury przeciwnika");
         isEnemyTurn = false;
         NextTurn();
@@ -245,6 +253,14 @@ public class TurnManager : MonoBehaviour
 
     public void EndEnemy2Turn()
     {
+        foreach (Enemy2Abilities enemy in Enemy2Abilities.activeEnemies)
+        {
+            if (enemy.isAlive)
+            {
+                enemy.AttackPlayer();
+            }
+        }
+
         Debug.Log("Koniec tury drugiego przeciwnika");
         isEnemyTurn = false;
         NextTurn();
@@ -293,34 +309,6 @@ public class TurnManager : MonoBehaviour
                 currentTurnIndex %= activeCharacters.Count;
             }
         }
-    }
-
-
-
-
-
-
-
-    bool IsInAttackRange(Vector3 attackerPos, Vector3 targetPos) // OGARN¥Æ TO W JAKIMŒ INNYM SKRYPCIE CZY COŒ
-    {
-        // Pobierz pozycje heksów na siatce Tilemap
-        Vector3Int attackerHexPos = playerMovement.hexTilemap.WorldToCell(attackerPos);
-        Vector3Int targetHexPos = playerMovement.hexTilemap.WorldToCell(targetPos);
-
-        // Zamieñ pozycje na obiekty Hex
-        Hex attackerHex = new Hex(attackerHexPos.x, attackerHexPos.y);
-        Hex targetHex = new Hex(targetHexPos.x, targetHexPos.y);
-
-        // SprawdŸ, czy target znajduje siê w s¹siaduj¹cych heksach
-        foreach (var neighbor in attackerHex.GetAllNeighbors())
-        {
-            if (neighbor.q == targetHex.q && neighbor.r == targetHex.r)
-            {
-                return true; // Target jest w zasiêgu ataku
-            }
-        }
-
-        return false; // Target nie jest w zasiêgu ataku
     }
 
 

@@ -1,19 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class EnemyAbilities : MonoBehaviour
 {
     public GameObject player;
     public HealthBar enemyHealthBar;
     public PlayerAbilities playerAbilities;
+    public PlayerMovement playerMovement;
     public EnemyMovement enemyMovement;
     public TurnManager turnManager;
+    public Tilemap hexTilemap;
 
     private int maxHealth = 50;
     private int currentHealth;
     public bool hasTakenDamage = false;
     public bool isAlive = true;
+    public bool isInAttackRange;
 
     public static List<EnemyAbilities> activeEnemies = new List<EnemyAbilities>();
 
@@ -49,17 +53,19 @@ public class EnemyAbilities : MonoBehaviour
 
     public void AttackPlayer()
     {
-        if (enemyMovement.hasMoved)
+        Vector3Int playerHexPos = hexTilemap.WorldToCell(player.transform.position);
+        Vector3Int enemyHexPos = hexTilemap.WorldToCell(transform.position);
+
+        int distance = HexDistance(enemyHexPos, playerHexPos);
+
+        if (distance <= 1)
         {
-
+            int damageAmount = 10;
+            playerAbilities.TakeDamage(damageAmount);
+            Debug.Log($"Przeciwnik zadaje graczowi {damageAmount} obra¿eñ! Dystans: {distance}");
         }
-    }
 
-    //private bool IsPlayerNearby()
-    //{
-        //float distance = Vector3.Distance(transform.position, player.position);
-        //return distance <= 1.1f;
-    //}
+    }
 
     private int HexDistance(Vector3Int a, Vector3Int b)
     {

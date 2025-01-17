@@ -4144,10 +4144,13 @@ MonoBehaviour:
   player: {fileID: 965607011}
   enemyHealthBar: {fileID: 1093270953}
   playerAbilities: {fileID: 1323855101}
+  playerMovement: {fileID: 1098599819}
   enemyMovement: {fileID: 1845817498}
   turnManager: {fileID: 2848338075193348446}
+  hexTilemap: {fileID: 943148697}
   hasTakenDamage: 0
   isAlive: 1
+  isInAttackRange: 0
 --- !u!95 &1845817494
 Animator:
   serializedVersion: 5
@@ -5056,8 +5059,10 @@ MonoBehaviour:
   player: {fileID: 965607011}
   enemyHealthBar: {fileID: 1617653710}
   playerAbilities: {fileID: 1323855101}
+  playerMovement: {fileID: 1098599819}
   enemyMovement: {fileID: 2070549773}
   turnManager: {fileID: 2848338075193348446}
+  hexTilemap: {fileID: 943148697}
   hasTakenDamage: 0
   isAlive: 1
 --- !u!1 &2101283946
