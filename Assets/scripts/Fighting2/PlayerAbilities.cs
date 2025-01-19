@@ -146,8 +146,8 @@ public class PlayerAbilities : MonoBehaviour
         Collider2D hitCollider = Physics2D.OverlapPoint(mouseWorldPos);
 
         Vector3Int playerHexPos = hexTilemap.WorldToCell(transform.position);
-        Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
-        Vector3Int enemy2HexPos = hexTilemap.WorldToCell(enemy2.transform.position);
+        Vector3Int enemyHexPos = enemy != null ? hexTilemap.WorldToCell(enemy.transform.position) : Vector3Int.zero;
+        Vector3Int enemy2HexPos = enemy2 != null ? hexTilemap.WorldToCell(enemy2.transform.position) : Vector3Int.zero;
 
 
         if (canUseAdvancedAttack)
@@ -232,7 +232,7 @@ public class PlayerAbilities : MonoBehaviour
         {
             gameObject.SetActive(false);
             Debug.Log("Gracz zosta³ pokonany!");
-            SceneManager.LoadSceneAsync(4);
+            SceneManager.LoadSceneAsync(5);
         }
     }
 

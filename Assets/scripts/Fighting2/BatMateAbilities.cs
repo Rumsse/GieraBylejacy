@@ -8,7 +8,10 @@ public class BatMateAbilities : MonoBehaviour
 {
     public Button BasicAttackButton;
     public HealthBar batMateHealthBar;
+    public EnemyAbilities enemyAbilities;
+    public Enemy2Abilities enemy2Abilities;
     public GameObject enemy;
+    public GameObject enemy2;
     public Tilemap hexTilemap;
     public TurnManager turnManager;
     public HealthBar healthBar;
@@ -16,17 +19,13 @@ public class BatMateAbilities : MonoBehaviour
 
     public AudioManager audioManager;
 
-    public int maxHealth = 20;
-    public int currentHealth;
+
     public int batMateDamageBasic = 5;
     public bool isAlive = true;
     public bool isAttackMode1 = false;
 
 
-    private void Start()
-    {
-        currentHealth = maxHealth;
-    }
+
 
     void Update()
     {
@@ -36,7 +35,7 @@ public class BatMateAbilities : MonoBehaviour
         }
     }
 
-    void SelectBasicAttackMode()
+    public void SelectBasicAttackMode()
     {
         isAttackMode1 ^= true;
 
@@ -63,7 +62,8 @@ public class BatMateAbilities : MonoBehaviour
         Collider2D hitCollider = Physics2D.OverlapPoint(mouseWorldPos);
 
         Vector3Int playerHexPos = hexTilemap.WorldToCell(transform.position);
-        Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
+        Vector3Int enemyHexPos = enemy != null ? hexTilemap.WorldToCell(enemy.transform.position) : Vector3Int.zero;
+        Vector3Int enemy2HexPos = enemy2 != null ? hexTilemap.WorldToCell(enemy2.transform.position) : Vector3Int.zero;
 
 
         if (hitCollider != null && hitCollider.CompareTag("Enemy"))
@@ -71,7 +71,7 @@ public class BatMateAbilities : MonoBehaviour
             EnemyAbilities enemy = hitCollider.GetComponent<EnemyAbilities>();
             if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 1) && !enemy.hasTakenDamage)
             {
-                enemy.TakeDamage(5);
+                StartCoroutine(DelayedDamage(enemy, 5));
                 Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + 5);
             }
             else
@@ -82,6 +82,26 @@ public class BatMateAbilities : MonoBehaviour
         else
         {
             Debug.Log("Promieñ nie trafi³ w przeciwnika.");
+        }
+
+
+
+        if (hitCollider != null && hitCollider.CompareTag("Enemy2"))
+        {
+            Enemy2Abilities enemy2 = hitCollider.GetComponent<Enemy2Abilities>();
+            if (enemy2 != null && (HexDistance(playerHexPos, enemy2HexPos) <= 1) && !enemy2.hasTakenDamage)
+            {
+                StartCoroutine(DelayedDamage2(enemy2, 5));
+
+            }
+            else
+            {
+                //Debug.Log("Przeciwnik ju¿ otrzyma³ obra¿enia");
+            }
+        }
+        else
+        {
+            //Debug.Log("Promieñ nie trafi³ w przeciwnika.");
         }
 
     }
@@ -102,6 +122,31 @@ public class BatMateAbilities : MonoBehaviour
             gameObject.SetActive(false);
             Debug.Log("Bat Mate zosta³ pokonany!");
         }
+
+    }
+
+    IEnumerator DelayedDamage(EnemyAbilities enemy, int damage)
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (enemy != null && !enemy.hasTakenDamage)
+        {
+            enemy.TakeDamage(damage);
+            //Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
+        }
+
+    }
+
+    IEnumerator DelayedDamage2(Enemy2Abilities enemy, int damage)
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (enemy != null && !enemy.hasTakenDamage)
+        {
+            enemy.TakeDamage(damage);
+            //Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
+        }
+
 
     }
 

@@ -18,7 +18,8 @@ public class Pause : MonoBehaviour
     {
         WinScreen.SetActive(false);
         Time.timeScale = 1;
-        SceneManager.LoadSceneAsync(2);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadSceneAsync(currentSceneIndex + 1);
     }
 
 }
