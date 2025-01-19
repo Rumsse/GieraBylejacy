@@ -3944,10 +3944,10 @@ MonoBehaviour:
   buttonHover: {fileID: 8300000, guid: b6d7613f9158eec45bf5803ab28acc9f, type: 3}
   musicClips:
   - {fileID: 8300000, guid: 96a1036e789be4942a66271726225577, type: 3}
-  - {fileID: 8300000, guid: cdb84f2791a6da44b817b66ba728ed53, type: 3}
-  - {fileID: 8300000, guid: 07bfb5399e8d53d4d9ec12186f5b730c, type: 3}
-  - {fileID: 8300000, guid: 6cbad9f2a4c47b24f9349d66eddc57cd, type: 3}
-  - {fileID: 8300000, guid: 6cbad9f2a4c47b24f9349d66eddc57cd, type: 3}
+  - {fileID: 8300000, guid: 0a8d7e7ae26d8ee4eac831f7d7da65c5, type: 3}
+  - {fileID: 8300000, guid: f389dcd8294ea9842937f9d758979370, type: 3}
+  - {fileID: 8300000, guid: 1dcd8c414c51ed946bd85f77642a8b95, type: 3}
+  - {fileID: 8300000, guid: 50147ae9a8387864d9f7c2e93f021837, type: 3}
   pitchValues:
   - 0.7
   - 1

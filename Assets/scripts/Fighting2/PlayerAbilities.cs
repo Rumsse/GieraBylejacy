@@ -54,7 +54,7 @@ public class PlayerAbilities : MonoBehaviour
         if (isAttackMode1)
         {
             audioManager.Buttons(audioManager.buttonClicked);
-            BasicAttackButton.GetComponent<Image>().color = Color.red;
+            BasicAttackButton.GetComponent<Image>().color = new Color(0.6509434f, 0.5209707f, 0.5127714f);
             //Debug.Log("Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaæ.");
         }
         else
@@ -126,7 +126,7 @@ public class PlayerAbilities : MonoBehaviour
         if (isAttackMode2)
         {
             audioManager.Buttons(audioManager.buttonClicked);
-            AdvancedAttackButton.GetComponent<Image>().color = Color.red;
+            AdvancedAttackButton.GetComponent<Image>().color = new Color(0.6509434f, 0.5209707f, 0.5127714f);
             //Debug.Log("2Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaæ.");
         }
         else
