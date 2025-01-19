@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static TurnManager;
 
 
-public class BatMateMovementPuzzle : MonoBehaviour
+public class PlayerMovementFire : MonoBehaviour
 {
     public Tilemap hexTilemap;
-    public TileManager tileManager;
+    public TileManagerPuzzle tileManager;
 
-    private int maxMoveDistance = 4;
+    Animator animator;
+
     private float moveSpeed = 3f;
-    private float yOffset = 0.3f;
+    private int maxMoveDistance = 4;
+    private float yOffset = 0.5f;
 
-    public bool hasMoved = true;
-    public bool isActive = false;
-    public bool isBatMateMoving = false;
+    public bool hasMoved = false;
+    public bool isActive = true;
     public bool isAlive;
 
     private Vector3 targetPosition;
@@ -24,9 +24,12 @@ public class BatMateMovementPuzzle : MonoBehaviour
     private Vector3 occupiedTileOffset = new Vector3(0, -0.5f, 0);
 
 
+
     void Start()
     {
         targetPosition = transform.position;
+        animator = GetComponent<Animator>();
+
         Vector3Int startHex = tileManager.GetTilePosition(transform.position);
         currentHexPosition = tileManager.GetTilePosition(transform.position);
         tileManager.OccupyTile(startHex, gameObject);
@@ -34,12 +37,10 @@ public class BatMateMovementPuzzle : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !hasMoved && isActive) // Gracz mo¿e klikn¹æ tylko raz na turê
+        if (Input.GetMouseButtonDown(0) && !hasMoved) // Gracz mo¿e klikn¹æ tylko raz na turê
         {
             HandleMouseClick();
         }
-
-        MoveBatMateToTarget();
 
     }
 
@@ -57,7 +58,7 @@ public class BatMateMovementPuzzle : MonoBehaviour
             // Tworzymy obiekty Hex z pozycji bie¿¹cej i docelowej
             Hex playerHex = new Hex(hexTilemap.WorldToCell(transform.position).x, hexTilemap.WorldToCell(transform.position).y);
             Hex targetHex = new Hex(hexPosition.x, hexPosition.y);
-
+            ;
             if (Vector3.Distance(currentHexPosition, hexPosition) <= maxMoveDistance)
             {
                 if (!tileManager.IsTileOccupied(hexPosition))
@@ -65,7 +66,7 @@ public class BatMateMovementPuzzle : MonoBehaviour
                     currentHexPosition = hexPosition;
 
                     targetPosition = targetWorldPosition;
-                    StartCoroutine(MoveBatMateToTarget());
+                    StartCoroutine(MovePlayerToTarget());
                 }
                 else
                 {
@@ -83,8 +84,11 @@ public class BatMateMovementPuzzle : MonoBehaviour
         }
     }
 
-    IEnumerator MoveBatMateToTarget()
+
+    IEnumerator MovePlayerToTarget()
     {
+        animator.SetBool("isWalking", true);
+
         while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
@@ -97,6 +101,7 @@ public class BatMateMovementPuzzle : MonoBehaviour
         tileManager.UpdateTileOccupation(currentHexPosition, newHexPosition, gameObject);
         currentHexPosition = newHexPosition;
 
+        animator.SetBool("isWalking", false);
         hasMoved = true;
     }
 

@@ -5,10 +5,10 @@ using UnityEngine.Tilemaps;
 using static TurnManager;
 
 
-public class BatMateMovementPuzzle : MonoBehaviour
+public class BatMateMovementFire : MonoBehaviour
 {
     public Tilemap hexTilemap;
-    public TileManager tileManager;
+    public TileManagerPuzzle tileManager;
 
     private int maxMoveDistance = 4;
     private float moveSpeed = 3f;

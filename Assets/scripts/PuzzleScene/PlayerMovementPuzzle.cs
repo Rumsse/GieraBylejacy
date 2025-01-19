@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 public class PlayerMovementPuzzle : MonoBehaviour
 {
     public Tilemap hexTilemap;
-    public TileManagerPuzzle tileManager;
+    public TileManager tileManager;
 
     Animator animator;
 
