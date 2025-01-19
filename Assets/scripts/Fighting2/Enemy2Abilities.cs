@@ -12,9 +12,9 @@ public class Enemy2Abilities : MonoBehaviour
     public Enemy2Movement enemyMovement;
     public TurnManager turnManager;
     public Tilemap hexTilemap;
+    public HealthBar healthBar;
+    public CharactersData characterData;
 
-    private int maxHealth = 50;
-    private int currentHealth;
     public bool hasTakenDamage = false;
     public bool isAlive = true;
 
@@ -23,32 +23,25 @@ public class Enemy2Abilities : MonoBehaviour
 
     void Start()
     {
-        currentHealth = maxHealth;
         Enemy2Abilities.activeEnemies.Add(this);
     }
 
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(int damage)
     {
-        currentHealth -= amount;
-        currentHealth = Mathf.Max(currentHealth, 0);
-        UpdateHealthUI();
+        characterData.TakeDamage(damage);
+        healthBar.UpdateHealthUI();
         hasTakenDamage = true;
 
-        if (currentHealth <= 0)
+        if (characterData.health <= 0)
         {
-            isAlive = false;
             turnManager.OnCharacterDeath(gameObject);
             Enemy2Abilities.activeEnemies.Remove(this);
+            Debug.Log("Przeciwnik zosta³ pokonany!");
             Destroy(gameObject);
-            Debug.Log("Przeciwnik nr2 zosta³ pokonany!");
         }
     }
 
-    private void UpdateHealthUI()
-    {
-        enemyHealthBar.SetHealth(currentHealth);
-    }
 
     public void AttackPlayer()
     {
@@ -60,7 +53,7 @@ public class Enemy2Abilities : MonoBehaviour
         if (distance <= 1)
         {
             int damageAmount = 10;
-            playerAbilities.TakeDamage(damageAmount);
+            //playerAbilities.TakeDamage(damageAmount);
             Debug.Log($"Przeciwnik zadaje graczowi {damageAmount} obra¿eñ! Dystans: {distance}");
         }
 

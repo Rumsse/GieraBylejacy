@@ -356,9 +356,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 50
+  m_MaxValue: 60
   m_WholeNumbers: 1
-  m_Value: 50
+  m_Value: 60
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -577,9 +577,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 50
+  m_MaxValue: 60
   m_WholeNumbers: 1
-  m_Value: 50
+  m_Value: 60
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1339,6 +1339,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 2119924164}
   soundsSource: {fileID: 1416567715}
+  mixer: {fileID: 0}
+  musicSlider: {fileID: 0}
   walkingMC: {fileID: 0}
   flyingBAT: {fileID: 0}
 --- !u!4 &807395013
@@ -2409,6 +2411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 285528408}
   offset: {x: 0, y: 1, z: 0}
+  characterData: {fileID: 11400000, guid: a2d6b938d56b0264caef972679cac203, type: 2}
 --- !u!114 &1098599819 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
@@ -2575,6 +2578,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 1024085746}
   offset: {x: 0, y: 1, z: 0}
+  characterData: {fileID: 11400000, guid: ec93c5bc07048c44f9bf6e76935c6419, type: 2}
 --- !u!1 &1182462469
 GameObject:
   m_ObjectHideFlags: 0
@@ -2709,6 +2713,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1182462469}
   m_CullTransparentMesh: 1
+--- !u!114 &1263690872 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8724178939727863813, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
+  m_PrefabInstance: {fileID: 7963742998644274399}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a7f39cdffc1e214da983137974d5668, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1323855100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1232210129897247516, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
@@ -2732,7 +2747,8 @@ MonoBehaviour:
   enemy2: {fileID: 2070549765}
   hexTilemap: {fileID: 943148697}
   turnManager: {fileID: 2848338075193348446}
-  playerHealthBar: {fileID: 1774097602}
+  healthBar: {fileID: 1774097602}
+  characterData: {fileID: 11400000, guid: ec93c5bc07048c44f9bf6e76935c6419, type: 2}
   animator: {fileID: 1323855109}
   BasicAttackButton: {fileID: 1440956011}
   AdvancedAttackButton: {fileID: 924042638}
@@ -4044,6 +4060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 156012185}
   offset: {x: 0, y: 1, z: 0}
+  characterData: {fileID: 11400000, guid: d66a39d3e09028f40834bf86b22bc03d, type: 2}
 --- !u!224 &1617653711
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4124,6 +4141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 933385094}
   offset: {x: 0, y: 1, z: 0}
+  characterData: {fileID: 11400000, guid: ec93c5bc07048c44f9bf6e76935c6419, type: 2}
 --- !u!4 &1845817486 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1016463608500058957, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
@@ -4148,6 +4166,8 @@ MonoBehaviour:
   enemyMovement: {fileID: 1845817498}
   turnManager: {fileID: 2848338075193348446}
   hexTilemap: {fileID: 943148697}
+  healthBar: {fileID: 1093270953}
+  characterData: {fileID: 11400000, guid: a2d6b938d56b0264caef972679cac203, type: 2}
   hasTakenDamage: 0
   isAlive: 1
   isInAttackRange: 0
@@ -5063,6 +5083,8 @@ MonoBehaviour:
   enemyMovement: {fileID: 2070549773}
   turnManager: {fileID: 2848338075193348446}
   hexTilemap: {fileID: 943148697}
+  healthBar: {fileID: 1617653710}
+  characterData: {fileID: 11400000, guid: d66a39d3e09028f40834bf86b22bc03d, type: 2}
   hasTakenDamage: 0
   isAlive: 1
 --- !u!1 &2101283946
@@ -9044,6 +9066,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3540011957423807853, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
+      propertyPath: m_Value
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3540011957423807853, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
+      propertyPath: m_MaxValue
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 5381925969437563596, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
       propertyPath: enemy
       value: 
@@ -9101,6 +9131,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1721634232}
     - target: {fileID: 7702391544596530969, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 1263690872}
+    - target: {fileID: 7702391544596530969, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
       propertyPath: hexTilemap
       value: 
       objectReference: {fileID: 943148697}
@@ -9108,6 +9142,10 @@ PrefabInstance:
       propertyPath: turnManager
       value: 
       objectReference: {fileID: 2848338075193348446}
+    - target: {fileID: 7702391544596530969, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
+      propertyPath: characterData
+      value: 
+      objectReference: {fileID: 11400000, guid: 574e6f9be0b523442bec142124589c7c, type: 2}
     - target: {fileID: 7702391544596530969, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
       propertyPath: BasicAttackButton
       value: 
@@ -9124,6 +9162,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8724178939727863813, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
+      propertyPath: characterData
+      value: 
+      objectReference: {fileID: 11400000, guid: 574e6f9be0b523442bec142124589c7c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

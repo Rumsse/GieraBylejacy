@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7973e41e1618084f875746c9a157a08, type: 3}
   m_Name: Enemy1Data
   m_EditorClassIdentifier: 
-  characterName: 
-  health: 0
+  characterName: Enemy1
+  maxHealth: 60
+  health: 60
   isAlive: 1

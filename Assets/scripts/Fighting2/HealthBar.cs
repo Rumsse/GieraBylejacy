@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D.Animation;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,19 +8,33 @@ public class HealthBar : MonoBehaviour
 {
     public Slider slider;
     public Vector3 offset = new Vector3(0, 1, 0);
+    public CharactersData characterData;
 
 
-    public void SetMaxHealth(int currentHealth)
+    void Start()
     {
-        slider.maxValue = currentHealth;
-        slider.value = currentHealth;
+        SetMaxHealth(characterData.maxHealth);
+        SetHealth(characterData.health);
+
+        characterData.OnHealthChanged += UpdateHealthUI;
     }
 
-    public void SetHealth(int currentHealth)
+    public void SetMaxHealth(int maxHealth)
     {
-        slider.value = currentHealth;
+        slider.maxValue = maxHealth;
+        slider.value = maxHealth;
     }
 
-    //jak coœ nie bêdzie dzia³aæ poprawnie upewniæ siê, ¿e obiekt enemy ma tak¹ sam¹ wartoœæ maxHealth co maxvalue w sliderze w fill (healhbar)
+    public void SetHealth(int health)
+    {
+        slider.value = health;
+    }
+
+    public void UpdateHealthUI()
+    {
+        SetHealth(characterData.health);
+    }
+
+    //jak coœ nie dzia³a upewniæ siê ¿e w healthbar (child of character), gdzie jest przypisany ten skrypt jest przypisany scriptable object do CharactersData
 
 }

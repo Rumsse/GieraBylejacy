@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D.Animation;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -12,9 +13,9 @@ public class EnemyAbilities : MonoBehaviour
     public EnemyMovement enemyMovement;
     public TurnManager turnManager;
     public Tilemap hexTilemap;
+    public HealthBar healthBar;
+    public CharactersData characterData;
 
-    private int maxHealth = 50;
-    private int currentHealth;
     public bool hasTakenDamage = false;
     public bool isAlive = true;
     public bool isInAttackRange;
@@ -24,32 +25,25 @@ public class EnemyAbilities : MonoBehaviour
 
     void Start()
     {
-        currentHealth = maxHealth;
         EnemyAbilities.activeEnemies.Add(this);
     }
 
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(int damage)
     {
-        currentHealth -= amount;
-        currentHealth = Mathf.Max(currentHealth, 0);
-        UpdateHealthUI();
+        characterData.TakeDamage(damage);
+        healthBar.UpdateHealthUI();
         hasTakenDamage = true;
 
-        if (currentHealth <= 0)
+        if (characterData.health <= 0)
         {
-            isAlive = false;
             turnManager.OnCharacterDeath(gameObject);
             EnemyAbilities.activeEnemies.Remove(this);
-            Destroy(gameObject);
             Debug.Log("Przeciwnik zosta³ pokonany!");
+            Destroy(gameObject);
         }
     }
 
-    private void UpdateHealthUI()
-    {
-        enemyHealthBar.SetHealth(currentHealth);
-    }
 
     public void AttackPlayer()
     {
@@ -60,9 +54,11 @@ public class EnemyAbilities : MonoBehaviour
 
         if (distance <= 1)
         {
-            int damageAmount = 10;
-            playerAbilities.TakeDamage(damageAmount);
-            Debug.Log($"Przeciwnik zadaje graczowi {damageAmount} obra¿eñ! Dystans: {distance}");
+            int damage = 20;
+            var playerCharacterData = player.GetComponent<PlayerAbilities>().characterData;
+
+            playerAbilities.TakeDamage(damage);
+            Debug.Log($"Przeciwnik zadaje graczowi {damage} obra¿eñ! Dystans: {distance}");
         }
 
     }

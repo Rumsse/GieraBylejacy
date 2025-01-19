@@ -11,6 +11,8 @@ public class BatMateAbilities : MonoBehaviour
     public GameObject enemy;
     public Tilemap hexTilemap;
     public TurnManager turnManager;
+    public HealthBar healthBar;
+    public CharactersData characterData;
 
     public int maxHealth = 20;
     public int currentHealth;
@@ -86,19 +88,18 @@ public class BatMateAbilities : MonoBehaviour
         return Mathf.Max(Mathf.Abs(a.x - b.x), Mathf.Abs(a.y - b.y));
     }
 
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
-        if (currentHealth <= 0)
+        characterData.TakeDamage(damage);
+        healthBar.UpdateHealthUI();
+
+        if (characterData.health <= 0)
         {
-            isAlive = false;
             turnManager.OnCharacterDeath(gameObject);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
             Debug.Log("Bat Mate zosta³ pokonany!");
         }
+
     }
 
-    private void UpdateHealthUI()
-    {
-        batMateHealthBar.SetHealth(currentHealth);
-    }
 }
