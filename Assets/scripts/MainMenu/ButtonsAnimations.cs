@@ -5,7 +5,9 @@ using UnityEngine.EventSystems;
 
 public class ButtonsAnimations : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    [SerializeField] private AudioManager audioManager;
     private Animator animator;
+
 
     void Start()
     {
@@ -14,6 +16,7 @@ public class ButtonsAnimations : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        audioManager.Buttons(audioManager.buttonHover);
         animator.SetBool("isHover", true);
     }
 
@@ -25,6 +28,8 @@ public class ButtonsAnimations : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public void OnPointerClick(PointerEventData eventData)
     {
         StartCoroutine(ClickEffect());
+        audioManager.Buttons(audioManager.buttonClicked);
+
     }
 
     private IEnumerator ClickEffect()

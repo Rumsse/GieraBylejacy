@@ -16,6 +16,8 @@ public class TurnManager1 : MonoBehaviour
     public Button BasicAttackButton;
     public Button AdvancedAttackButton;
 
+    public AudioManager audioManager;
+
     public bool isPlayerTurn = true;
     public float enemyMoveDelay = 0.01f;
 
@@ -63,6 +65,8 @@ public class TurnManager1 : MonoBehaviour
 
     public void EndPlayerTurn()
     {
+        audioManager.Buttons(audioManager.buttonClicked);
+
         isPlayerTurn = false;
         Debug.Log("Koniec tury gracza");
 

@@ -1001,6 +1001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitionAnimator: {fileID: 0}
+  audioManager: {fileID: 807395012}
   transitionTime: 1
   optionsPanel: {fileID: 0}
 --- !u!1 &632823903
@@ -1339,10 +1340,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 2119924164}
   soundsSource: {fileID: 1416567715}
-  mixer: {fileID: 0}
+  mixer: {fileID: 24100000, guid: cee066d78e2a32b4b805c5695eebc0ed, type: 2}
+  masterSlider: {fileID: 0}
   musicSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
   walkingMC: {fileID: 0}
   flyingBAT: {fileID: 0}
+  buttonClicked: {fileID: 8300000, guid: 1ad353ee65668df4a93f34531d0875ec, type: 3}
+  buttonHover: {fileID: 8300000, guid: b6d7613f9158eec45bf5803ab28acc9f, type: 3}
 --- !u!4 &807395013
 Transform:
   m_ObjectHideFlags: 0
@@ -2750,6 +2755,7 @@ MonoBehaviour:
   healthBar: {fileID: 1774097602}
   characterData: {fileID: 11400000, guid: ec93c5bc07048c44f9bf6e76935c6419, type: 2}
   animator: {fileID: 1323855109}
+  audioManager: {fileID: 807395012}
   BasicAttackButton: {fileID: 1440956011}
   AdvancedAttackButton: {fileID: 924042638}
   isAttackMode1: 0
@@ -5839,6 +5845,7 @@ MonoBehaviour:
   batMateAbilities: {fileID: 1847597382}
   tileManager: {fileID: 2002097039}
   hexTilemap: {fileID: 943148697}
+  audioManager: {fileID: 807395012}
   BasicAttackButton: {fileID: 1440956011}
   AdvancedAttackButton: {fileID: 924042638}
   isEnemyTurn: 0
@@ -9142,6 +9149,10 @@ PrefabInstance:
       propertyPath: turnManager
       value: 
       objectReference: {fileID: 2848338075193348446}
+    - target: {fileID: 7702391544596530969, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 807395012}
     - target: {fileID: 7702391544596530969, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
       propertyPath: characterData
       value: 

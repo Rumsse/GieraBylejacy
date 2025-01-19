@@ -20,6 +20,8 @@ public class TurnManager : MonoBehaviour
     public TileManager tileManager;
     public Tilemap hexTilemap;
 
+    public AudioManager audioManager;
+
     public Button BasicAttackButton;
     public Button AdvancedAttackButton;
 
@@ -161,6 +163,7 @@ public class TurnManager : MonoBehaviour
 
     void EndPlayerTurn()
     {
+        audioManager.Buttons(audioManager.buttonClicked);
         Debug.Log("Koniec tury gracza");
 
         playerAbilities.isAttackMode1 = false;

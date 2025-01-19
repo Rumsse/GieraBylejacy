@@ -7,6 +7,8 @@ public class MainMenu : MonoBehaviour
 {
 
     public Animator transitionAnimator;
+    public AudioManager audioManager;
+
     public float transitionTime = 1f;
     public GameObject optionsPanel;
 
@@ -23,6 +25,7 @@ public class MainMenu : MonoBehaviour
 
     public void GoBackToMainMenu()
     {
+        audioManager.Buttons(audioManager.buttonClicked);
         StartCoroutine(LoadSceneWithTransition(0));
     }
 
@@ -35,6 +38,7 @@ public class MainMenu : MonoBehaviour
 
     public void ExitOptionPanel()
     {
+        audioManager.Buttons(audioManager.buttonClicked);
         optionsPanel.SetActive(false);
     }
 

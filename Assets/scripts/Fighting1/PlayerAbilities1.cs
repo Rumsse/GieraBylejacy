@@ -14,6 +14,7 @@ public class PlayerAbilities1 : MonoBehaviour
     public TurnManager1 turnManager;
 
     public Animator animator;
+    public AudioManager audioManager;
 
     public bool isAttackMode1 = false;
     public bool isAttackMode2 = false;
@@ -52,6 +53,7 @@ public class PlayerAbilities1 : MonoBehaviour
 
         if (isAttackMode1)
         {
+            audioManager.Buttons(audioManager.buttonClicked);
             BasicAttackButton.GetComponent<Image>().color = Color.red;
             Debug.Log("Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaæ.");
         }
@@ -101,6 +103,7 @@ public class PlayerAbilities1 : MonoBehaviour
 
         if (isAttackMode2)
         {
+            audioManager.Buttons(audioManager.buttonClicked);
             AdvancedAttackButton.GetComponent<Image>().color = Color.red;
             Debug.Log("2Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaæ.");
         }

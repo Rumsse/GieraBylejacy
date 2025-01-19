@@ -14,6 +14,8 @@ public class BatMateAbilities : MonoBehaviour
     public HealthBar healthBar;
     public CharactersData characterData;
 
+    public AudioManager audioManager;
+
     public int maxHealth = 20;
     public int currentHealth;
     public int batMateDamageBasic = 5;
@@ -40,6 +42,7 @@ public class BatMateAbilities : MonoBehaviour
 
         if (isAttackMode1)
         {
+            audioManager.Buttons(audioManager.buttonClicked);
             BasicAttackButton.GetComponent<Image>().color = Color.red;
             Debug.Log("Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaæ.");
         }
