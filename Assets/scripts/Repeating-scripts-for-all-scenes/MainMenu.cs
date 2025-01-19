@@ -20,6 +20,7 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        audioManager.Buttons(audioManager.buttonClicked);
         Application.Quit();
     }
 

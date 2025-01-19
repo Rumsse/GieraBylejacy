@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D.Animation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -12,6 +13,8 @@ public class PlayerAbilities1 : MonoBehaviour
     public GameObject enemy;
     public Tilemap hexTilemap;
     public TurnManager1 turnManager;
+    public HealthBar healthBar;
+    public CharactersData characterData;
 
     public Animator animator;
     public AudioManager audioManager;
@@ -21,18 +24,12 @@ public class PlayerAbilities1 : MonoBehaviour
     public Button BasicAttackButton;
     public Button AdvancedAttackButton;
 
-    public HealthBar1 playerHealthBar;
-    public int maxHealth = 100;
-    public int currentHealth;
     public int playerDamageBasic = 10;
     public int playerDamageAdvanced = 20;
     public bool canUseAdvancedAttack = true;
 
 
-    private void Start()
-    {
-        currentHealth = maxHealth;
-    }
+
 
     void Update()
     {
@@ -178,25 +175,19 @@ public class PlayerAbilities1 : MonoBehaviour
     }
 
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(int damage)
     {
-        currentHealth -= amount;
-        currentHealth = Mathf.Max(currentHealth, 0);
-        UpdateHealthUI();
+        characterData.TakeDamage(damage);
+        healthBar.UpdateHealthUI();
 
-        if (currentHealth <= 0)
+        if (characterData.health <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
             Debug.Log("Gracz zosta³ pokonany!");
             SceneManager.LoadSceneAsync(3);
         }
     }
 
-
-    private void UpdateHealthUI()
-    {
-        playerHealthBar.SetHealth(currentHealth);
-    }
 
     IEnumerator DelayedDamage(EnemyAbilities1 enemy, int damage)
     {

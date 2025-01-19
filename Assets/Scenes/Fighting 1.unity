@@ -2014,11 +2014,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1093270951}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 478d88c32456ac04781ae08155d98eeb, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a7f39cdffc1e214da983137974d5668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 285528408}
   offset: {x: 0, y: 1, z: 0}
+  characterData: {fileID: 11400000, guid: 130ac24fb3f88fa41b4768ed851a11b7, type: 2}
 --- !u!1 &1101616720
 GameObject:
   m_ObjectHideFlags: 0
@@ -2258,7 +2259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 1024085746}
   offset: {x: 0, y: 1, z: 0}
-  characterData: {fileID: 0}
+  characterData: {fileID: 11400000, guid: ec93c5bc07048c44f9bf6e76935c6419, type: 2}
 --- !u!1 &1182462469
 GameObject:
   m_ObjectHideFlags: 0
@@ -2415,15 +2416,14 @@ MonoBehaviour:
   enemy: {fileID: 1721634232}
   hexTilemap: {fileID: 943148697}
   turnManager: {fileID: 2848338075193348446}
+  healthBar: {fileID: 1165098678}
+  characterData: {fileID: 11400000, guid: ec93c5bc07048c44f9bf6e76935c6419, type: 2}
   animator: {fileID: 1323855103}
   audioManager: {fileID: 2120388215}
   isAttackMode1: 0
   isAttackMode2: 0
   BasicAttackButton: {fileID: 1440956011}
   AdvancedAttackButton: {fileID: 924042638}
-  playerHealthBar: {fileID: 1774097602}
-  maxHealth: 100
-  currentHealth: 0
   playerDamageBasic: 10
   playerDamageAdvanced: 20
   canUseAdvancedAttack: 1
@@ -3682,11 +3682,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1774097600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 478d88c32456ac04781ae08155d98eeb, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a7f39cdffc1e214da983137974d5668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 933385094}
   offset: {x: 0, y: 1, z: 0}
+  characterData: {fileID: 11400000, guid: ec93c5bc07048c44f9bf6e76935c6419, type: 2}
 --- !u!1 &1816613085
 GameObject:
   m_ObjectHideFlags: 0
@@ -3718,7 +3719,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -3853,14 +3854,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 965607011}
-  enemyHealthBar: {fileID: 1093270953}
   playerAbilities: {fileID: 1323855101}
   playerMovement: {fileID: 1323855107}
   enemyMovement: {fileID: 1845817491}
   pause: {fileID: 519420034}
   hexTilemap: {fileID: 943148697}
-  maxHealth: 50
-  currentHealth: 0
+  healthBar: {fileID: 1093270953}
+  characterData: {fileID: 11400000, guid: 130ac24fb3f88fa41b4768ed851a11b7, type: 2}
   hasTakenDamage: 0
 --- !u!95 &1845817499
 Animator:
