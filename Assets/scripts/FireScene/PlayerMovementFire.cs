@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 public class PlayerMovementFire : MonoBehaviour
 {
     public Tilemap hexTilemap;
-    public TileManagerPuzzle tileManager;
+    public TileManager tileManager;
 
     Animator animator;
 

@@ -13,7 +13,7 @@ public class EnemyMovement1 : MonoBehaviour
     public PlayerMovement1 playerMovement;
 
     public TurnManager1 turnManager;
-    public TileManager1 tileManager;
+    public TileManager tileManager;
 
     public bool isEnemyMoving = false;
     public bool isActive = false;

@@ -8,7 +8,7 @@ using static TurnManager;
 public class BatMateMovementFire : MonoBehaviour
 {
     public Tilemap hexTilemap;
-    public TileManagerPuzzle tileManager;
+    public TileManager tileManager;
 
     private int maxMoveDistance = 4;
     private float moveSpeed = 3f;

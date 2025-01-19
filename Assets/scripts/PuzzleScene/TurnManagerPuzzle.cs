@@ -12,7 +12,7 @@ public class TurnManagerPuzzle : MonoBehaviour
 {
     public PlayerMovementPuzzle playerMovement;
     public BatMateMovementPuzzle batMateMovement;
-    public TileManagerPuzzle tileManager;
+    public TileManager tileManager;
     public Tilemap hexTilemap;
 
     public AudioManager audioManager;

@@ -13,7 +13,7 @@ public class HexTilemapPathfinding1 : MonoBehaviour
     public EnemyMovement1 enemyMovement;
     public PlayerMovement1 playerMovement;
     public TurnManager1 turnManager;
-    public TileManager1 tileManager;
+    public TileManager tileManager;
 
     private List<Vector3Int> path = new List<Vector3Int>();  // Lista punktów œcie¿ki
 

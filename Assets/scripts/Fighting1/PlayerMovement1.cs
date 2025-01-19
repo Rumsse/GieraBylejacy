@@ -8,7 +8,7 @@ public class PlayerMovement1 : MonoBehaviour
 {
     public Tilemap hexTilemap;
     public PlayerAbilities1 playerAbilities;
-    public TileManager1 tileManager;
+    public TileManager tileManager;
 
     Animator animator;
 
