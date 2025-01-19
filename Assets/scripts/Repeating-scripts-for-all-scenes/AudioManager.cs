@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
@@ -25,20 +26,62 @@ public class AudioManager : MonoBehaviour
 
 
 
+    public AudioClip[] musicClips;
+    public float[] pitchValues;
+
+
+
+
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        
+        musicSource.Stop();
+
+        PlayMusic(scene.buildIndex);
     }
 
-    public void PlaySounds()
+    public void PlayMusic(int sceneIndex)
     {
-        
+
+        if (musicSource != null)
+        {
+            musicSource.Stop(); 
+            musicSource.clip = musicClips[sceneIndex];
+            musicSource.pitch = GetPitchForScene(sceneIndex);
+            musicSource.Play(); 
+        }
     }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private float GetPitchForScene(int sceneIndex)
+    {
+        if (sceneIndex < pitchValues.Length)
+        {
+            return pitchValues[sceneIndex];
+        }
+        else
+        {
+            return 1f; 
+        }
+    }
+
+
+
+
+
 
     public void SetMasterVolume()
     {
@@ -57,6 +100,9 @@ public class AudioManager : MonoBehaviour
         float volume = sfxSlider.value;
         mixer.SetFloat("sfx", Mathf.Log10(volume) * 20);
     }
+
+
+
 
     public void Buttons(AudioClip clip)
     {
