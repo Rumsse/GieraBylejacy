@@ -6,41 +6,49 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class TriggerTile : MonoBehaviour
 {
-    public Tilemap triggerTilemap;
+    public Tilemap tilemap;
     public TileBase triggerTile;
+    public TileBase healthTile;
     public GameObject player;
     public GameObject batMate;
     public Vector3Int playerTilePosition;
     public Vector3Int batMateTilePosition;
 
+    public CharactersData characterDataPlayer;
+    public CharactersData characterDataBatmate;
+
     private HashSet<Vector3Int> TriggeredTiles = new HashSet<Vector3Int>();
+    private HashSet<Vector3Int> HealingTiles = new HashSet<Vector3Int>();
 
 
 
     void Update()
     {
         CheckTrigger();
+        CheckHealthTilePlayer();
+        CheckHealthTileBatmate();
     }
 
     void CheckTrigger()
     {
         if (IsPlayerOnTriggerTile(player) && IsPlayerOnTriggerTile(batMate))
         {
-            OpenDoor();
+            OpenGate();
         }
+
     }
 
     private bool IsPlayerOnTriggerTile(GameObject player)
     {
-        Vector3Int tilePosition = triggerTilemap.WorldToCell(player.transform.position);
-        return triggerTilemap.GetTile(tilePosition) == triggerTile;
+        Vector3Int tilePosition = tilemap.WorldToCell(player.transform.position);
+        return tilemap.GetTile(tilePosition) == triggerTile;
     }
 
 
-    void OpenDoor()
+    void OpenGate()
     {
         //Animator
-        //unlockedDoorAnimation.SetTrigger("Unlocked");
+        //unlockedGateAnimation.SetTrigger("Unlocked");
         UnityEngine.SceneManagement.SceneManager.LoadScene(3);
     }
 
@@ -50,6 +58,27 @@ public class TriggerTile : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(3);
     }
 
+    private bool IsPlayerOnHealthTile(GameObject player)
+    {
+        Vector3Int tilePosition = tilemap.WorldToCell(player.transform.position);
+        return tilemap.GetTile(tilePosition) == healthTile;
+    }
+
+    void CheckHealthTilePlayer()
+    {
+        if (IsPlayerOnHealthTile(player))
+        {
+            characterDataPlayer.Heal(100);
+        }
+    }
+
+    void CheckHealthTileBatmate()
+    {
+        if (IsPlayerOnHealthTile(batMate))
+        {
+            characterDataBatmate.Heal(40);
+        }
+    }
 
 
 }
