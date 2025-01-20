@@ -1136,6 +1136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionAnimator: {fileID: 8311379132033754647}
   audioManager: {fileID: 807395012}
+  gameManager: {fileID: 1019302423}
   transitionTime: 1
   optionsPanel: {fileID: 760338176}
 --- !u!114 &519420034
@@ -2313,6 +2314,56 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1019302422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1019302424}
+  - component: {fileID: 1019302423}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1019302423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019302422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 854ebb99778c7534d83086e1045de272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characters:
+  - {fileID: 11400000, guid: ec93c5bc07048c44f9bf6e76935c6419, type: 2}
+  - {fileID: 11400000, guid: 130ac24fb3f88fa41b4768ed851a11b7, type: 2}
+  - {fileID: 11400000, guid: 574e6f9be0b523442bec142124589c7c, type: 2}
+  - {fileID: 11400000, guid: a2d6b938d56b0264caef972679cac203, type: 2}
+  - {fileID: 11400000, guid: d66a39d3e09028f40834bf86b22bc03d, type: 2}
+--- !u!4 &1019302424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019302422}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.2655929, y: 0.50173837, z: 0.03312918}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1024085744
 GameObject:
   m_ObjectHideFlags: 0
@@ -6251,6 +6302,7 @@ MonoBehaviour:
   AdvancedAttackButton: {fileID: 924042638}
   isEnemyTurn: 0
   enemyMoveDelay: 1.3
+  EnemyCount: 0
   currentTurn: 0
   turnCounter: 0
   turnImage: {fileID: 1603689851}
@@ -9999,3 +10051,4 @@ SceneRoots:
   - {fileID: 80871701}
   - {fileID: 2002097040}
   - {fileID: 807395013}
+  - {fileID: 1019302424}

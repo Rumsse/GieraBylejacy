@@ -39,9 +39,15 @@ public class CharactersData : ScriptableObject
             }
 
             OnHealthChanged?.Invoke();
-
         }
-
     }
+
+    public void ResetData()
+    {
+        health = maxHealth;
+        isAlive = true;
+    }
+
+
 
 }

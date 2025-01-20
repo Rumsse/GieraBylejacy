@@ -1161,6 +1161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionAnimator: {fileID: 1869246537}
   audioManager: {fileID: 1921032837}
+  gameManager: {fileID: 1703762439}
   transitionTime: 1
   optionsPanel: {fileID: 997318898}
 --- !u!114 &1238674723 stripped
@@ -1376,10 +1377,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characters:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: ec93c5bc07048c44f9bf6e76935c6419, type: 2}
+  - {fileID: 11400000, guid: 130ac24fb3f88fa41b4768ed851a11b7, type: 2}
+  - {fileID: 11400000, guid: 574e6f9be0b523442bec142124589c7c, type: 2}
+  - {fileID: 11400000, guid: a2d6b938d56b0264caef972679cac203, type: 2}
+  - {fileID: 11400000, guid: d66a39d3e09028f40834bf86b22bc03d, type: 2}
 --- !u!1 &1739182679
 GameObject:
   m_ObjectHideFlags: 0
