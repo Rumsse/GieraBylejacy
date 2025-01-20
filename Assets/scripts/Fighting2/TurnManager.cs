@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.U2D;
 using UnityEngine.UI;
 
@@ -16,6 +17,8 @@ public class TurnManager : MonoBehaviour
     public EnemyAbilities enemyAbilities;
     public Enemy2Abilities enemy2Abilities;
     public BatMateAbilities batMateAbilities;
+    public TileManager tileManager;
+    public Tilemap hexTilemap;
 
     public Button BasicAttackButton;
     public Button AdvancedAttackButton;
@@ -30,7 +33,7 @@ public class TurnManager : MonoBehaviour
     public Image turnImage;
     public Sprite[] characterSprites;
     public GameObject[] characters;
-    public List<GameObject> activeCharacters;
+    public List<GameObject> activeCharacters = new List<GameObject>();
 
 
     public enum TurnState
@@ -61,21 +64,35 @@ public class TurnManager : MonoBehaviour
             return;
         }
 
-        if (!activeCharacters[currentTurnIndex].activeSelf)
+        GameObject currentCharacter = activeCharacters[currentTurnIndex];
+
+        if (currentCharacter == null)
         {
-            currentTurnIndex = (currentTurnIndex + 1) % activeCharacters.Count;
+            NextTurn();
+            return;
         }
 
-        GameObject currentCharacter = activeCharacters[currentTurnIndex];
+        while (!activeCharacters[currentTurnIndex].activeSelf)
+        {
+            currentTurnIndex = (currentTurnIndex + 1) % activeCharacters.Count;
+            currentTurn = (TurnState)(((int)currentTurn + 1) % 4);
+        }
 
         switch (currentTurn)
         {
             case TurnState.Player:
-                playerMovement.isActive = true;
-                batMateMovement.isActive = false;
-                enemyMovement.isActive = false;
-                enemy2Movement.isActive = false;
-                StartPlayerTurn();
+                if (playerAbilities.isAlive)
+                {
+                    playerMovement.isActive = true;
+                    batMateMovement.isActive = false;
+                    enemyMovement.isActive = false;
+                    enemy2Movement.isActive = false;
+                    StartPlayerTurn();
+                }
+                else
+                {
+                    EndPlayerTurn();
+                }
                 break;
             case TurnState.BatMate:
                 if (batMateAbilities.isAlive)
@@ -112,7 +129,7 @@ public class TurnManager : MonoBehaviour
                     batMateMovement.isActive = false;
                     enemyMovement.isActive = false;
                     enemy2Movement.isActive = true;
-                    StartEnemy2Turn(); 
+                    StartEnemy2Turn();
                 }
                 else
                 {
@@ -120,6 +137,14 @@ public class TurnManager : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    void NextTurn()
+    {
+        currentTurnIndex = (currentTurnIndex + 1) % activeCharacters.Count;
+        currentTurn = (TurnState)(((int)currentTurn + 1) % 4);
+        UpdateTurnIndicator();
+        StartTurn();
     }
 
 
@@ -146,13 +171,9 @@ public class TurnManager : MonoBehaviour
         BasicAttackButton.GetComponent<Image>().color = Color.white;
         AdvancedAttackButton.GetComponent<Image>().color = Color.white;
 
-        currentTurn = (TurnState)(((int)currentTurn + 1) % 4);
-        currentTurnIndex = (currentTurnIndex + 1) % characters.Length;
-        UpdateTurnIndicator();
-
         playerAbilities.OnOneTurnEnd();
 
-        StartTurn();
+        NextTurn();
     }
 
     void StartBatMateTurn()
@@ -162,9 +183,7 @@ public class TurnManager : MonoBehaviour
 
         if (batMateMovement.hasMoved && Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Koniec3");
             EndBatMateTurn();
-            Debug.Log("Koniec4");
         }
     }
 
@@ -177,20 +196,8 @@ public class TurnManager : MonoBehaviour
 
         BasicAttackButton.GetComponent<Image>().color = Color.white;
 
-        currentTurn = (TurnState)(((int)currentTurn + 1) % 4);
-        currentTurnIndex = (currentTurnIndex + 1) % characters.Length;
-        UpdateTurnIndicator();
+        NextTurn();
 
-        StartTurn();
-        Debug.Log("Koniec2");
-
-    }
-
-    System.Collections.IEnumerator StartEnemyTurnWithDelay() //useless for now
-    {
-        yield return new WaitForSeconds(enemyMoveDelay);
-        Debug.Log("OpóŸnienie zakoñczone, zaczynam turê przeciwnika.");
-        StartEnemyTurn();
     }
 
     void StartEnemyTurn()
@@ -213,13 +220,17 @@ public class TurnManager : MonoBehaviour
 
     public void EndEnemyTurn()
     {
-        Debug.Log("Koniec tury przeciwnika");
-        currentTurn = (TurnState)(((int)currentTurn + 1) % 4);
-        currentTurnIndex = (currentTurnIndex + 1) % characters.Length;
-        UpdateTurnIndicator();
-        isEnemyTurn = false;
+        foreach (EnemyAbilities enemy in EnemyAbilities.activeEnemies)
+        {
+            if (enemy.isAlive)
+            {
+                enemy.AttackPlayer();
+            }
+        }
 
-        StartTurn();
+        Debug.Log("Koniec tury przeciwnika");
+        isEnemyTurn = false;
+        NextTurn();
     }
 
     public void StartEnemy2Turn()
@@ -229,7 +240,7 @@ public class TurnManager : MonoBehaviour
         enemy2Movement.ResetMovement();
 
         Vector3Int playerHexPos = playerMovement.hexTilemap.WorldToCell(playerMovement.transform.position); //Pobiera pozycje gracza i przeciwnika
-        Vector3Int enemyHexPos = enemyMovement.hexTilemap.WorldToCell(enemyMovement.transform.position);
+        Vector3Int enemy2HexPos = enemy2Movement.hexTilemap.WorldToCell(enemy2Movement.transform.position);
 
         enemy2Movement.isEnemyMoving = true;
 
@@ -242,13 +253,17 @@ public class TurnManager : MonoBehaviour
 
     public void EndEnemy2Turn()
     {
-        Debug.Log("Koniec tury drugiego przeciwnika");
-        currentTurn = (TurnState)(((int)currentTurn + 1) % 4);
-        currentTurnIndex = (currentTurnIndex + 1) % characters.Length;
-        UpdateTurnIndicator();
-        isEnemyTurn = false;
+        foreach (Enemy2Abilities enemy in Enemy2Abilities.activeEnemies)
+        {
+            if (enemy.isAlive)
+            {
+                enemy.AttackPlayer();
+            }
+        }
 
-        StartTurn();
+        Debug.Log("Koniec tury drugiego przeciwnika");
+        isEnemyTurn = false;
+        NextTurn();
     }
 
     public void UpdateTurnIndicator()
@@ -285,35 +300,15 @@ public class TurnManager : MonoBehaviour
         {
             activeCharacters.Remove(deadCharacter);
             Debug.Log(deadCharacter.name + " zosta³ usuniêty z aktywnych postaci.");
-        }
-    }
 
+            Vector3Int currentHexPosition = hexTilemap.WorldToCell(transform.position);
+            tileManager.ReleaseTile(currentHexPosition);
 
-
-
-
-
-
-    bool IsInAttackRange(Vector3 attackerPos, Vector3 targetPos) // OGARN¥Æ TO W JAKIMŒ INNYM SKRYPCIE CZY COŒ
-    {
-        // Pobierz pozycje heksów na siatce Tilemap
-        Vector3Int attackerHexPos = playerMovement.hexTilemap.WorldToCell(attackerPos);
-        Vector3Int targetHexPos = playerMovement.hexTilemap.WorldToCell(targetPos);
-
-        // Zamieñ pozycje na obiekty Hex
-        Hex attackerHex = new Hex(attackerHexPos.x, attackerHexPos.y);
-        Hex targetHex = new Hex(targetHexPos.x, targetHexPos.y);
-
-        // SprawdŸ, czy target znajduje siê w s¹siaduj¹cych heksach
-        foreach (var neighbor in attackerHex.GetAllNeighbors())
-        {
-            if (neighbor.q == targetHex.q && neighbor.r == targetHex.r)
+            if (activeCharacters.Count > 0 && activeCharacters[currentTurnIndex] == deadCharacter)
             {
-                return true; // Target jest w zasiêgu ataku
+                currentTurnIndex %= activeCharacters.Count;
             }
         }
-
-        return false; // Target nie jest w zasiêgu ataku
     }
 
 

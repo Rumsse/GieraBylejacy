@@ -31,7 +31,6 @@ public class HexTilemapPathfinding : MonoBehaviour
         // Wyszukiwanie œcie¿ki do gracza na pocz¹tku gry
         path = FindPath(startEnemyPos, startPlayerPos);
         enemyMovement.SetPath(path);  // Inicjalizowanie œcie¿ki w EnemyMovement
-
     }
 
     private void Update()
@@ -44,6 +43,7 @@ public class HexTilemapPathfinding : MonoBehaviour
             if (!enemyMovement.isEnemyMoving && currentPlayerPos != lastPlayerPos) // SprawdŸ, czy pozycja gracza siê zmieni³a
             {
                 path = FindPath(currentEnemyPos, currentPlayerPos);
+                Debug.Log("GGGGPrzeciwnik1 œcie¿ka: " + string.Join(" -> ", path));
                 lastPlayerPos = currentPlayerPos;
                 Debug.Log("Nowa pozycja gracza w siatce: " + currentPlayerPos);
                 Debug.Log("Zaktualizowano œcie¿kê: " + string.Join(" -> ", path));
@@ -60,6 +60,20 @@ public class HexTilemapPathfinding : MonoBehaviour
             {
                 enemyMovement.MoveEnemyAlongPath();
             }
+
+            if (!enemyMovement.isEnemyMoving && currentPlayerPos != lastPlayerPos) // SprawdŸ, czy pozycja gracza siê zmieni³a
+            {
+                if (currentEnemyPos == lastEnemyPos) // Jeœli przeciwnik nie zmieni³ pozycji, nie generuj nowej œcie¿ki
+                {
+                    Debug.Log("Przeciwnik nie zmieni³ pozycji, œcie¿ka nie zostanie zaktualizowana.");
+                    return;
+                }
+
+                path = FindPath(currentEnemyPos, currentPlayerPos);
+                Debug.Log("Zaktualizowano œcie¿kê: " + string.Join(" -> ", path));
+                lastPlayerPos = currentPlayerPos;
+            }
+
         }
     }
 
@@ -130,7 +144,11 @@ public class HexTilemapPathfinding : MonoBehaviour
             // Sprawdzamy s¹siadów
             foreach (Vector3Int neighbor in GetNeighbors(current))
             {
-                if (closedSet.Contains(neighbor) || tileManager.IsTileOccupied(neighbor)) continue;
+                if (closedSet.Contains(neighbor) || tileManager.IsTileOccupied(neighbor))
+                {
+                    Debug.Log($"OOOOOOO Neighbor {neighbor} jest zajêty, pomijamy.");
+                    continue;
+                }
 
                 float tentativeGScore = gScore[current] + Cost(current, neighbor);
 

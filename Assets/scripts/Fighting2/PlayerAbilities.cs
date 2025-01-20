@@ -24,6 +24,7 @@ public class PlayerAbilities : MonoBehaviour
     public bool isAttackMode1 = false;
     public bool isAttackMode2 = false;
     public bool canUseAdvancedAttack = true;
+    public bool isAlive = true;
 
     private int maxHealth = 100;
     private int currentHealth;
@@ -56,12 +57,12 @@ public class PlayerAbilities : MonoBehaviour
         if (isAttackMode1)
         {
             BasicAttackButton.GetComponent<Image>().color = Color.red;
-            Debug.Log("Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaæ.");
+            //Debug.Log("Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaæ.");
         }
         else
         {
             BasicAttackButton.GetComponent<Image>().color = Color.white;
-            Debug.Log("Tryb ataku wy³¹czony.");
+            //Debug.Log("Tryb ataku wy³¹czony.");
         }
 
     }
@@ -75,8 +76,8 @@ public class PlayerAbilities : MonoBehaviour
         Collider2D hitCollider = Physics2D.OverlapPoint(mouseWorldPos);
 
         Vector3Int playerHexPos = hexTilemap.WorldToCell(transform.position);
-        Vector3Int enemyHexPos = hexTilemap.WorldToCell(enemy.transform.position);
-        Vector3Int enemy2HexPos = hexTilemap.WorldToCell(enemy2.transform.position);
+        Vector3Int enemyHexPos = enemy != null ? hexTilemap.WorldToCell(enemy.transform.position) : Vector3Int.zero;
+        Vector3Int enemy2HexPos = enemy2 != null ? hexTilemap.WorldToCell(enemy2.transform.position) : Vector3Int.zero;
 
 
         if (hitCollider != null && hitCollider.CompareTag("Enemy"))
@@ -89,12 +90,12 @@ public class PlayerAbilities : MonoBehaviour
             }
             else
             {
-                Debug.Log("Przeciwnik ju¿ otrzyma³ obra¿enia");
+                //Debug.Log("Przeciwnik ju¿ otrzyma³ obra¿enia");
             }
         }
         else
         {
-            Debug.Log("Promieñ nie trafi³ w przeciwnika.");
+            //Debug.Log("Promieñ nie trafi³ w przeciwnika.");
         }
 
 
@@ -110,12 +111,12 @@ public class PlayerAbilities : MonoBehaviour
             }
             else
             {
-                Debug.Log("Przeciwnik ju¿ otrzyma³ obra¿enia");
+                //Debug.Log("Przeciwnik ju¿ otrzyma³ obra¿enia");
             }
         }
         else
         {
-            Debug.Log("Promieñ nie trafi³ w przeciwnika.");
+            //Debug.Log("Promieñ nie trafi³ w przeciwnika.");
         }
 
     }
@@ -127,12 +128,12 @@ public class PlayerAbilities : MonoBehaviour
         if (isAttackMode2)
         {
             AdvancedAttackButton.GetComponent<Image>().color = Color.red;
-            Debug.Log("2Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaæ.");
+            //Debug.Log("2Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaæ.");
         }
         else
         {
             AdvancedAttackButton.GetComponent<Image>().color = Color.white;
-            Debug.Log("2Tryb ataku wy³¹czony.");
+            //Debug.Log("2Tryb ataku wy³¹czony.");
         }
 
     }
@@ -165,12 +166,12 @@ public class PlayerAbilities : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("2Przeciwnik ju¿ otrzyma³ obra¿enia");
+                    //Debug.Log("2Przeciwnik ju¿ otrzyma³ obra¿enia");
                 }
             }
             else
             {
-                Debug.Log("2Promieñ nie trafi³ w przeciwnika.");
+                //Debug.Log("2Promieñ nie trafi³ w przeciwnika.");
             }
 
 
@@ -187,17 +188,17 @@ public class PlayerAbilities : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("2Przeciwnik ju¿ otrzyma³ obra¿enia");
+                    //Debug.Log("2Przeciwnik ju¿ otrzyma³ obra¿enia");
                 }
             }
             else
             {
-                Debug.Log("2Promieñ nie trafi³ w przeciwnika.");
+                //Debug.Log("2Promieñ nie trafi³ w przeciwnika.");
             }
         }
         else
         {
-            Debug.Log("Advance Attack jest niedostêpny w tej turze");
+            //Debug.Log("Advance Attack jest niedostêpny w tej turze");
         }
 
     }
@@ -212,7 +213,7 @@ public class PlayerAbilities : MonoBehaviour
         if (turnManager.turnCounter == 0)
         {
             canUseAdvancedAttack = true;
-            Debug.Log("Advanced Attack jest ju¿ dostêpny");
+            //Debug.Log("Advanced Attack jest ju¿ dostêpny");
         }
     }
 
@@ -250,7 +251,7 @@ public class PlayerAbilities : MonoBehaviour
         if (enemy != null && !enemy.hasTakenDamage)
         {
             enemy.TakeDamage(damage);
-            Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
+            //Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
         }
 
         animator.SetBool("isAttacking", false);
@@ -264,7 +265,7 @@ public class PlayerAbilities : MonoBehaviour
         if (enemy != null && !enemy.hasTakenDamage)
         {
             enemy.TakeDamage(damage);
-            Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
+            //Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
         }
 
         animator.SetBool("isAttacking", false);
