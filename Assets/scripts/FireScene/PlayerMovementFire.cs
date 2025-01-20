@@ -12,7 +12,7 @@ public class PlayerMovementFire : MonoBehaviour
     Animator animator;
 
     private float moveSpeed = 3f;
-    private int maxMoveDistance = 4;
+    private int maxMoveDistance = 6;
     private float yOffset = 0.5f;
 
     public bool hasMoved = false;

@@ -10,7 +10,7 @@ public class BatMateMovementFire : MonoBehaviour
     public Tilemap hexTilemap;
     public TileManager tileManager;
 
-    private int maxMoveDistance = 4;
+    private int maxMoveDistance = 6;
     private float moveSpeed = 3f;
     private float yOffset = 0.3f;
 
