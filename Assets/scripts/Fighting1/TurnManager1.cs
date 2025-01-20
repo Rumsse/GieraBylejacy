@@ -13,8 +13,6 @@ public class TurnManager1 : MonoBehaviour
     public EnemyMovement1 enemyMovement;
     public PlayerAbilities1 playerAbilities;
     public EnemyAbilities1 enemyAbilities;
-    public Button BasicAttackButton;
-    public Button AdvancedAttackButton;
 
     public AudioManager audioManager;
 
@@ -80,9 +78,6 @@ public class TurnManager1 : MonoBehaviour
         playerAbilities.isAttackMode1 = false;
         playerAbilities.isAttackMode2 = false;
 
-        BasicAttackButton.GetComponent<Image>().color = Color.white;
-        AdvancedAttackButton.GetComponent<Image>().color = Color.white;
-
         currentTurnIndex = (currentTurnIndex + 1) % characters.Length;
         UpdateTurnIndicator();
 
@@ -124,33 +119,6 @@ public class TurnManager1 : MonoBehaviour
     }
 
 
-
-
-
-
-
-
-    bool IsInAttackRange(Vector3 attackerPos, Vector3 targetPos) // OGARN¥Æ TO W JAKIMŒ INNYM SKRYPCIE CZY COŒ
-    {
-        // Pobierz pozycje heksów na siatce Tilemap
-        Vector3Int attackerHexPos = playerMovement.hexTilemap.WorldToCell(attackerPos);
-        Vector3Int targetHexPos = playerMovement.hexTilemap.WorldToCell(targetPos);
-
-        // Zamieñ pozycje na obiekty Hex
-        Hex attackerHex = new Hex(attackerHexPos.x, attackerHexPos.y);
-        Hex targetHex = new Hex(targetHexPos.x, targetHexPos.y);
-
-        // SprawdŸ, czy target znajduje siê w s¹siaduj¹cych heksach
-        foreach (var neighbor in attackerHex.GetAllNeighbors())
-        {
-            if (neighbor.q == targetHex.q && neighbor.r == targetHex.r)
-            {
-                return true; // Target jest w zasiêgu ataku
-            }
-        }
-
-        return false; // Target nie jest w zasiêgu ataku
-    }
 
 
 }

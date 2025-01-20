@@ -23,9 +23,6 @@ public class TurnManager : MonoBehaviour
 
     public AudioManager audioManager;
 
-    public Button BasicAttackButton;
-    public Button AdvancedAttackButton;
-
     public bool isEnemyTurn;
     public float enemyMoveDelay = 1.3f;
     public int EnemyCount;
@@ -190,9 +187,6 @@ public class TurnManager : MonoBehaviour
         enemyAbilities.hasTakenDamage = false;
         enemy2Abilities.hasTakenDamage = false;
 
-        BasicAttackButton.GetComponent<Image>().color = Color.white;
-        AdvancedAttackButton.GetComponent<Image>().color = Color.white;
-
         playerAbilities.OnOneTurnEnd();
 
         NextTurn();
@@ -221,8 +215,6 @@ public class TurnManager : MonoBehaviour
         batMateAbilities.isAttackMode1 = false;
         enemyAbilities.hasTakenDamage = false;
         enemy2Abilities.hasTakenDamage = false;
-
-        BasicAttackButton.GetComponent<Image>().color = Color.white;
 
         NextTurn();
 

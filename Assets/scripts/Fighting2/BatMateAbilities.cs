@@ -42,12 +42,10 @@ public class BatMateAbilities : MonoBehaviour
         if (isAttackMode1)
         {
             audioManager.Buttons(audioManager.buttonClicked);
-            BasicAttackButton.GetComponent<Image>().color = new Color(0.6509434f, 0.5209707f, 0.5127714f);
             Debug.Log("Tryb ataku aktywny! Kliknij na przeciwnika, aby zaatakowaæ.");
         }
         else
         {
-            BasicAttackButton.GetComponent<Image>().color = Color.white;
             Debug.Log("Tryb ataku wy³¹czony.");
         }
 

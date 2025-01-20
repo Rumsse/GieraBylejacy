@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
-using static TurnManager;
 
 
 public class TurnManagerPuzzle : MonoBehaviour
