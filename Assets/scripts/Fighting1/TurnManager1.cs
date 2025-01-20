@@ -65,6 +65,12 @@ public class TurnManager1 : MonoBehaviour
 
     public void EndPlayerTurn()
     {
+        if (!playerMovement.hasMoved)
+        {
+            Debug.Log("Musisz siê poruszyæ, zanim zakoñczysz turê!");
+            return;
+        }
+
         audioManager.Buttons(audioManager.buttonClicked);
 
         isPlayerTurn = false;

@@ -163,6 +163,12 @@ public class TurnManager : MonoBehaviour
 
     void EndPlayerTurn()
     {
+        if (!playerMovement.hasMoved)
+        {
+            Debug.Log("Musisz siê poruszyæ, zanim zakoñczysz turê!");
+            return;
+        }
+
         audioManager.Buttons(audioManager.buttonClicked);
         Debug.Log("Koniec tury gracza");
 
@@ -192,6 +198,12 @@ public class TurnManager : MonoBehaviour
 
     void EndBatMateTurn()
     {
+        if (!batMateMovement.hasMoved)
+        {
+            Debug.Log("Musisz siê poruszyæ, zanim zakoñczysz turê!");
+            return;
+        }
+
         Debug.Log("Koniec tury bat mate'a");
         batMateAbilities.isAttackMode1 = false;
         enemyAbilities.hasTakenDamage = false;

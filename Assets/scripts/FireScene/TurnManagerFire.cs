@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
-using static TurnManager;
 
 
 public class TurnManagerFire : MonoBehaviour
@@ -108,6 +107,12 @@ public class TurnManagerFire : MonoBehaviour
 
     public void EndPlayerTurn()
     {
+        if (!playerMovement.hasMoved)
+        {
+            Debug.Log("Musisz siê poruszyæ, zanim zakoñczysz turê!");
+            return;
+        }
+
         Debug.Log("Koniec tury gracza");
         NextTurn();
     }
@@ -125,6 +130,12 @@ public class TurnManagerFire : MonoBehaviour
 
     void EndBatMateTurn()
     {
+        if (!batMateMovement.hasMoved)
+        {
+            Debug.Log("Bat Mate musi siê poruszyæ przed zakoñczeniem tury!");
+            return;
+        }
+
         Debug.Log("Koniec tury bat mate'a");
         NextTurn();
     }

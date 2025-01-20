@@ -108,6 +108,12 @@ public class TurnManagerPuzzle : MonoBehaviour
 
     public void EndPlayerTurn()
     {
+        if (!playerMovement.hasMoved)
+        {
+            Debug.Log("Musisz siê poruszyæ, zanim zakoñczysz turê!");
+            return;
+        }
+
         Debug.Log("Koniec tury gracza");
         NextTurn();
     }
@@ -125,6 +131,12 @@ public class TurnManagerPuzzle : MonoBehaviour
 
     void EndBatMateTurn()
     {
+        if (!batMateMovement.hasMoved)
+        {
+            Debug.Log("Musisz siê poruszyæ, zanim zakoñczysz turê!");
+            return;
+        }
+
         Debug.Log("Koniec tury bat mate'a");
         NextTurn();
     }
