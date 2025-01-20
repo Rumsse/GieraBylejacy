@@ -17,8 +17,8 @@ public class BatMateAbilities : MonoBehaviour
     public HealthBar healthBar;
     public CharactersData characterData;
 
+    public Animator animator;
     public AudioManager audioManager;
-
 
     public int batMateDamageBasic = 5;
     public bool isAlive = true;
@@ -71,6 +71,7 @@ public class BatMateAbilities : MonoBehaviour
             EnemyAbilities enemy = hitCollider.GetComponent<EnemyAbilities>();
             if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 1) && !enemy.hasTakenDamage)
             {
+                animator.SetBool("isAttacking", true);
                 StartCoroutine(DelayedDamage(enemy, 5));
                 Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + 5);
             }
@@ -91,6 +92,7 @@ public class BatMateAbilities : MonoBehaviour
             Enemy2Abilities enemy2 = hitCollider.GetComponent<Enemy2Abilities>();
             if (enemy2 != null && (HexDistance(playerHexPos, enemy2HexPos) <= 1) && !enemy2.hasTakenDamage)
             {
+                animator.SetBool("isAttacking", true);
                 StartCoroutine(DelayedDamage2(enemy2, 5));
 
             }
@@ -136,6 +138,8 @@ public class BatMateAbilities : MonoBehaviour
             //Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
         }
 
+        animator.SetBool("isAttacking", false);
+
     }
 
     IEnumerator DelayedDamage2(Enemy2Abilities enemy, int damage)
@@ -148,6 +152,7 @@ public class BatMateAbilities : MonoBehaviour
             //Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
         }
 
+        animator.SetBool("isAttacking", false);
 
     }
 

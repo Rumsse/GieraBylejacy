@@ -10,6 +10,8 @@ public class BatMateMovement : MonoBehaviour
     public Tilemap hexTilemap;
     public TileManager tileManager;
 
+    Animator animator;
+
     private int maxMoveDistance = 4;
     private float moveSpeed = 3f;
     private float yOffset = 0.3f;
@@ -25,6 +27,8 @@ public class BatMateMovement : MonoBehaviour
     void Start()
     {
         targetPosition = transform.position;
+        animator = GetComponent<Animator>();
+
         Vector3Int startHex = tileManager.GetTilePosition(transform.position);
         currentHexPosition = tileManager.GetTilePosition(transform.position);
         tileManager.OccupyTile(startHex, gameObject);
@@ -83,6 +87,8 @@ public class BatMateMovement : MonoBehaviour
 
     IEnumerator MoveBatMateToTarget()
     {
+        //animator.SetBool("isWalking", true);
+
         while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
@@ -95,6 +101,7 @@ public class BatMateMovement : MonoBehaviour
         tileManager.UpdateTileOccupation(currentHexPosition, newHexPosition, gameObject);
         currentHexPosition = newHexPosition;
 
+        //animator.SetBool("isWalking", false);
         hasMoved = true;
     }
 

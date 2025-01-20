@@ -5973,6 +5973,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1323855109}
+    - target: {fileID: 7326795965058517676, guid: c43646ca662cc574a8e2a9307309da86, type: 3}
       propertyPath: moveSpeed
       value: 3
       objectReference: {fileID: 0}
@@ -9848,6 +9852,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5381925969437563596, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1847597383}
+    - target: {fileID: 5381925969437563596, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
       propertyPath: hexTilemap
       value: 
       objectReference: {fileID: 943148697}
@@ -9903,6 +9911,10 @@ PrefabInstance:
       propertyPath: enemy2
       value: 
       objectReference: {fileID: 2070549765}
+    - target: {fileID: 7702391544596530969, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1847597383}
     - target: {fileID: 7702391544596530969, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
       propertyPath: healthBar
       value: 
