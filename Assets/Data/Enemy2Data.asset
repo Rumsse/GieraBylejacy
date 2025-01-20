@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Enemy2
   maxHealth: 60
-  health: 60
+  health: 5
   isAlive: 1

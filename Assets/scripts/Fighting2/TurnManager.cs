@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using UnityEngine.U2D;
 using UnityEngine.UI;
@@ -27,6 +28,7 @@ public class TurnManager : MonoBehaviour
 
     public bool isEnemyTurn;
     public float enemyMoveDelay = 1.3f;
+    public int EnemyCount;
 
     public TurnState currentTurn = TurnState.Player;
     public int turnCounter = 0;
@@ -53,9 +55,20 @@ public class TurnManager : MonoBehaviour
         activeCharacters.Add(enemyMovement.gameObject);
         activeCharacters.Add(enemy2Movement.gameObject);
 
+        EnemyCount = 2;
+
         currentTurn = TurnState.Player;
         UpdateTurnIndicator();
         StartTurn();
+    }
+
+    private void Update()
+    {
+        if (EnemyCount == 0)
+        {
+            Debug.Log("Wszyscy przeciwnicy s¹ martwi");
+            SceneManager.LoadSceneAsync(4);
+        }
     }
 
 
@@ -316,15 +329,42 @@ public class TurnManager : MonoBehaviour
             activeCharacters.Remove(deadCharacter);
             Debug.Log(deadCharacter.name + " zosta³ usuniêty z aktywnych postaci.");
 
-            Vector3Int currentHexPosition = hexTilemap.WorldToCell(transform.position);
+            Vector3Int currentHexPosition = hexTilemap.WorldToCell(deadCharacter.transform.position);
             tileManager.ReleaseTile(currentHexPosition);
+
+            if (deadCharacter.TryGetComponent<PlayerAbilities>(out var playerAbilities))
+            {
+                playerAbilities.isAlive = false;
+            }
+            else if (deadCharacter.TryGetComponent<EnemyAbilities>(out var enemyAbilities))
+            {
+                enemyAbilities.isAlive = false;
+                EnemyCount--;
+            }
+            else if (deadCharacter.TryGetComponent<Enemy2Abilities>(out var enemy2Abilities))
+            {
+                enemy2Abilities.isAlive = false;
+                EnemyCount--; 
+            }
+            else if (deadCharacter.TryGetComponent<BatMateAbilities>(out var batMateAbilities))
+            {
+                batMateAbilities.isAlive = false;
+            }
 
             if (activeCharacters.Count > 0 && activeCharacters[currentTurnIndex] == deadCharacter)
             {
                 currentTurnIndex %= activeCharacters.Count;
             }
+
+            // Sprawdzenie, czy wszyscy przeciwnicy s¹ martwi
+            if (EnemyCount <= 0)
+            {
+                Debug.Log("Wszyscy przeciwnicy zginêli! Przechodzimy do nastêpnej sceny.");
+                SceneManager.LoadScene(4); 
+            }
         }
     }
+
 
 
 }
