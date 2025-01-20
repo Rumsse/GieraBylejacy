@@ -9819,6 +9819,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1721634232}
     - target: {fileID: 7702391544596530969, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
+      propertyPath: enemy2
+      value: 
+      objectReference: {fileID: 2070549765}
+    - target: {fileID: 7702391544596530969, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1263690872}
@@ -9838,6 +9842,14 @@ PrefabInstance:
       propertyPath: characterData
       value: 
       objectReference: {fileID: 11400000, guid: 574e6f9be0b523442bec142124589c7c, type: 2}
+    - target: {fileID: 7702391544596530969, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
+      propertyPath: enemyAbilities
+      value: 
+      objectReference: {fileID: 1845817490}
+    - target: {fileID: 7702391544596530969, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
+      propertyPath: enemy2Abilities
+      value: 
+      objectReference: {fileID: 2070549777}
     - target: {fileID: 7702391544596530969, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
       propertyPath: BasicAttackButton
       value: 
