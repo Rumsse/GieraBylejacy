@@ -121,6 +121,7 @@ public class BatMateAbilities : MonoBehaviour
             turnManager.OnCharacterDeath(gameObject);
             gameObject.SetActive(false);
             Debug.Log("Bat Mate zosta³ pokonany!");
+            isAlive = false;
         }
 
     }

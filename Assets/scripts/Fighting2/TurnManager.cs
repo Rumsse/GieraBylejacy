@@ -222,7 +222,7 @@ public class TurnManager : MonoBehaviour
         enemyMovement.ResetMovement();
 
         Vector3Int playerHexPos = playerMovement.hexTilemap.WorldToCell(playerMovement.transform.position); //Pobiera pozycje gracza i przeciwnika
-        Vector3Int enemyHexPos = enemyMovement.hexTilemap.WorldToCell(enemyMovement.transform.position);
+        Vector3Int enemyHexPos = enemyMovement != null ? hexTilemap.WorldToCell(enemyMovement.transform.position) : Vector3Int.zero;
 
         enemyMovement.isEnemyMoving = true;
 
@@ -255,7 +255,7 @@ public class TurnManager : MonoBehaviour
         enemy2Movement.ResetMovement();
 
         Vector3Int playerHexPos = playerMovement.hexTilemap.WorldToCell(playerMovement.transform.position); //Pobiera pozycje gracza i przeciwnika
-        Vector3Int enemy2HexPos = enemy2Movement.hexTilemap.WorldToCell(enemy2Movement.transform.position);
+        Vector3Int enemy2HexPos = enemy2Movement != null ? hexTilemap.WorldToCell(enemy2Movement.transform.position) : Vector3Int.zero;
 
         enemy2Movement.isEnemyMoving = true;
 

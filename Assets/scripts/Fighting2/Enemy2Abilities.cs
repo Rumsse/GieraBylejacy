@@ -38,6 +38,7 @@ public class Enemy2Abilities : MonoBehaviour
             turnManager.OnCharacterDeath(gameObject);
             Enemy2Abilities.activeEnemies.Remove(this);
             Debug.Log("Przeciwnik zosta³ pokonany!");
+            isAlive = false;
             Destroy(gameObject);
         }
     }
