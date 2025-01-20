@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Ground1
+  m_Name: new_collider
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: c4ca1b32a3bd3c04cba716bc4b72fddf, type: 3}
-  m_Color: {r: 0.45812565, g: 0.5882353, b: 0.3764706, a: 0.3764706}
+  m_Sprite: {fileID: 21300000, guid: 73305c6f649873e4e9ea9f4fcb31d7fe, type: 3}
+  m_Color: {r: 0.5456123, g: 0.6320754, b: 0.5616538, a: 1}
   m_Transform:
     e00: 1
     e01: 0
