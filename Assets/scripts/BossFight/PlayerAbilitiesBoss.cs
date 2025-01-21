@@ -280,11 +280,14 @@ public class PlayerAbilitiesBoss : MonoBehaviour
         playerDamageAdvanced *= effect.DamageModifier;
     }
 
-    private void RemoveEffect(StatusEffect effect)
+    private void RemoveStatus(StatusEffect effect)
     {
         Debug.Log("Efekt zakoñczony: " + effect.EffectName);
 
         playerMovement.maxMoveDistance -= effect.MovementReduction;
+        playerDamageBasic %= effect.DamageModifier;
+        playerDamageAdvanced %= effect.DamageModifier;
+
         activeEffects.Remove(effect);
     }
 

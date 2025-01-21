@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: player
   maxHealth: 100
-  health: 100
+  health: 80
   isAlive: 1

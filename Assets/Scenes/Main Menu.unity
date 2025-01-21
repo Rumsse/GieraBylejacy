@@ -1678,8 +1678,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f389dcd8294ea9842937f9d758979370, type: 3}
   - {fileID: 8300000, guid: 1dcd8c414c51ed946bd85f77642a8b95, type: 3}
   - {fileID: 8300000, guid: 50147ae9a8387864d9f7c2e93f021837, type: 3}
+  - {fileID: 8300000, guid: 47619df5ab5971647ae996c298d1f6a9, type: 3}
+  - {fileID: 8300000, guid: 96a1036e789be4942a66271726225577, type: 3}
   pitchValues:
   - 0.7
+  - 1
+  - 1
   - 1
   - 1
   - 1
@@ -1799,7 +1803,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 0.7
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2006,6 +2010,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 567870051}
     m_Modifications:
     - target: {fileID: 130797901072552599, guid: 18b19bfea609d824abc9ffefc64a2021, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 130797901072552599, guid: 18b19bfea609d824abc9ffefc64a2021, type: 3}
+      propertyPath: m_MaxValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 130797901072552599, guid: 18b19bfea609d824abc9ffefc64a2021, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1921032837}
@@ -2170,6 +2182,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8197315593526994374, guid: 18b19bfea609d824abc9ffefc64a2021, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197315593526994374, guid: 18b19bfea609d824abc9ffefc64a2021, type: 3}
+      propertyPath: m_MaxValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197315593526994374, guid: 18b19bfea609d824abc9ffefc64a2021, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1921032837}
@@ -2180,6 +2200,14 @@ PrefabInstance:
     - target: {fileID: 8252190606377479678, guid: 18b19bfea609d824abc9ffefc64a2021, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8553406773051343339, guid: 18b19bfea609d824abc9ffefc64a2021, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8553406773051343339, guid: 18b19bfea609d824abc9ffefc64a2021, type: 3}
+      propertyPath: m_MaxValue
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8553406773051343339, guid: 18b19bfea609d824abc9ffefc64a2021, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target

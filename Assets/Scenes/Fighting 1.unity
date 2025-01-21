@@ -1062,6 +1062,10 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2120388215}
+    - target: {fileID: 130797901072552599, guid: 18b19bfea609d824abc9ffefc64a2021, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetMasterVolume
+      objectReference: {fileID: 0}
     - target: {fileID: 538361999176188400, guid: 18b19bfea609d824abc9ffefc64a2021, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.499975
@@ -1230,6 +1234,10 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2120388215}
+    - target: {fileID: 8197315593526994374, guid: 18b19bfea609d824abc9ffefc64a2021, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetSFXVolume
+      objectReference: {fileID: 0}
     - target: {fileID: 8252190606377479678, guid: 18b19bfea609d824abc9ffefc64a2021, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.499975
@@ -1242,6 +1250,10 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2120388215}
+    - target: {fileID: 8553406773051343339, guid: 18b19bfea609d824abc9ffefc64a2021, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetMusicVolume
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2680,7 +2692,7 @@ MonoBehaviour:
   healthBar: {fileID: 1165098678}
   characterData: {fileID: 11400000, guid: ec93c5bc07048c44f9bf6e76935c6419, type: 2}
   animator: {fileID: 1323855103}
-  audioManager: {fileID: 2120388215}
+  audioManager: {fileID: 0}
   isAttackMode1: 0
   isAttackMode2: 0
   BasicAttackButton: {fileID: 1440956011}
@@ -4005,7 +4017,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 1705330909354975418, guid: cee066d78e2a32b4b805c5695eebc0ed, type: 2}
   m_audioClip: {fileID: 8300000, guid: 63762470dc039d44bbab17d7b9f85c91, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -4965,8 +4977,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f389dcd8294ea9842937f9d758979370, type: 3}
   - {fileID: 8300000, guid: 1dcd8c414c51ed946bd85f77642a8b95, type: 3}
   - {fileID: 8300000, guid: 50147ae9a8387864d9f7c2e93f021837, type: 3}
+  - {fileID: 8300000, guid: 47619df5ab5971647ae996c298d1f6a9, type: 3}
+  - {fileID: 8300000, guid: 96a1036e789be4942a66271726225577, type: 3}
   pitchValues:
   - 0.7
+  - 1
+  - 1
   - 1
   - 1
   - 1
@@ -5453,7 +5469,7 @@ MonoBehaviour:
   enemyMovement: {fileID: 1845817491}
   playerAbilities: {fileID: 1323855101}
   enemyAbilities: {fileID: 1845817495}
-  audioManager: {fileID: 2120388215}
+  audioManager: {fileID: 0}
   isPlayerTurn: 1
   enemyMoveDelay: 1.3
   hexTilemapPathfinding: {fileID: 419332255}

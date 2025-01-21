@@ -25,6 +25,7 @@ public class Enemy2AbilitiesBoss : MonoBehaviour
     void Start()
     {
         activeEnemies.Add(this);
+        characterData.ResetData();
     }
 
 

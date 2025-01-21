@@ -821,8 +821,22 @@ MonoBehaviour:
   flyingBAT: {fileID: 0}
   buttonClicked: {fileID: 8300000, guid: 1ad353ee65668df4a93f34531d0875ec, type: 3}
   buttonHover: {fileID: 8300000, guid: b6d7613f9158eec45bf5803ab28acc9f, type: 3}
-  musicClips: []
-  pitchValues: []
+  musicClips:
+  - {fileID: 8300000, guid: 96a1036e789be4942a66271726225577, type: 3}
+  - {fileID: 8300000, guid: 0a8d7e7ae26d8ee4eac831f7d7da65c5, type: 3}
+  - {fileID: 8300000, guid: f389dcd8294ea9842937f9d758979370, type: 3}
+  - {fileID: 8300000, guid: 1dcd8c414c51ed946bd85f77642a8b95, type: 3}
+  - {fileID: 8300000, guid: 50147ae9a8387864d9f7c2e93f021837, type: 3}
+  - {fileID: 8300000, guid: 47619df5ab5971647ae996c298d1f6a9, type: 3}
+  - {fileID: 8300000, guid: 96a1036e789be4942a66271726225577, type: 3}
+  pitchValues:
+  - 0.7
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
 --- !u!4 &1020861411
 Transform:
   m_ObjectHideFlags: 0

@@ -2242,9 +2242,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f389dcd8294ea9842937f9d758979370, type: 3}
   - {fileID: 8300000, guid: 1dcd8c414c51ed946bd85f77642a8b95, type: 3}
   - {fileID: 8300000, guid: 50147ae9a8387864d9f7c2e93f021837, type: 3}
-  - {fileID: 8300000, guid: 50147ae9a8387864d9f7c2e93f021837, type: 3}
+  - {fileID: 8300000, guid: 47619df5ab5971647ae996c298d1f6a9, type: 3}
+  - {fileID: 8300000, guid: 96a1036e789be4942a66271726225577, type: 3}
   pitchValues:
   - 0.7
+  - 1
   - 1
   - 1
   - 1
@@ -3846,6 +3848,7 @@ MonoBehaviour:
   playerAbilities: {fileID: 1323855113}
   tileManager: {fileID: 2002097039}
   moveSpeed: 3
+  maxMoveDistance: 4
   hasMoved: 0
   isActive: 1
 --- !u!1 &1393369900
