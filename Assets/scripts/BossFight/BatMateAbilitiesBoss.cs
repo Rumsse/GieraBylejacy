@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class BatMateAbilitiesBoss : MonoBehaviour
 {
     public Button BasicAttackButton;
-    public HealthBar batMateHealthBar;
     public EnemyAbilitiesBoss enemyAbilities;
     public Enemy2AbilitiesBoss enemy2Abilities;
     public GameObject enemy;
