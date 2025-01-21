@@ -288,8 +288,8 @@ public class PlayerAbilitiesBoss : MonoBehaviour
         playerMovement.GetComponent<SpriteRenderer>().color = Color.white;
 
         playerMovement.maxMoveDistance -= effect.MovementReduction;
-        playerDamageBasic *= 10;
-        playerDamageAdvanced *= 20;
+        playerDamageBasic = 10;
+        playerDamageAdvanced = 20;
 
         activeEffects.Remove(effect);
     }
