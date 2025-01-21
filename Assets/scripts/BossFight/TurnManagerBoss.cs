@@ -34,7 +34,6 @@ public class TurnManagerBoss : MonoBehaviour
     public TurnState currentTurn = TurnState.Player;
     public int turnCounter = 0;
     private int currentTurnIndex = 0;
-    private int currentTurnCooldown = 0;
 
     public Image turnImage;
     public Sprite[] characterSprites;
@@ -70,7 +69,7 @@ public class TurnManagerBoss : MonoBehaviour
     {
         if (EnemyCount == 0)
         {
-            Debug.Log("Wszyscy przeciwnicy s¹ martwi");
+            //Debug.Log("Wszyscy przeciwnicy s¹ martwi");
             SceneManager.LoadSceneAsync(4);
         }
     }

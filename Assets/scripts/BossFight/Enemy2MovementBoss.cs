@@ -51,28 +51,28 @@ public class Enemy2MovementBoss : MonoBehaviour
     {
         path1 = newPath;
         currentPathIndex = 0; // Resetujemy indeks œcie¿ki
-        Debug.Log("Œcie¿ka ustawiona: " + string.Join(", ", newPath.Select(p => p.ToString())));
+        //Debug.Log("Œcie¿ka ustawiona: " + string.Join(", ", newPath.Select(p => p.ToString())));
     }
 
     public void MoveEnemyAlongPath()
     {
         if (path1 == null || path1.Count == 0)
         {
-            Debug.Log("Brak œcie¿ki do przebycia.");
+            //Debug.Log("Brak œcie¿ki do przebycia.");
             EndEnemyMovement();
             return;
         }
 
         if (currentPathIndex >= path1.Count || currentPathIndex >= movementRange)
         {
-            Debug.Log($"Ruch zakoñczony! Index: {currentPathIndex}, Range: {movementRange}, Path Count: {path1.Count}");
+            //Debug.Log($"Ruch zakoñczony! Index: {currentPathIndex}, Range: {movementRange}, Path Count: {path1.Count}");
             EndEnemyMovement();
             return;
         }
 
         if (currentHexPosition == targetPosition)
         {
-            Debug.Log($"Przeciwnik {gameObject.name} osi¹gn¹³ cel na {currentHexPosition}. Zatrzymanie.");
+            //Debug.Log($"Przeciwnik {gameObject.name} osi¹gn¹³ cel na {currentHexPosition}. Zatrzymanie.");
             isEnemyMoving = false;
             return;
         }
@@ -84,18 +84,18 @@ public class Enemy2MovementBoss : MonoBehaviour
 
             if (tileManager.IsTileOccupied(targetHexPosition))
             {
-                Debug.LogWarning($"WWWWWWWWW Przeciwnik {gameObject.name} koliduje z innym przeciwnikiem na {targetHexPosition}. Generujê now¹ œcie¿kê.");
+                //Debug.LogWarning($"WWWWWWWWW Przeciwnik {gameObject.name} koliduje z innym przeciwnikiem na {targetHexPosition}. Generujê now¹ œcie¿kê.");
 
                 Vector3Int alternativeHexPosition = FindAlternativeTile(targetHexPosition, path1[^1]); // path[^1] = cel koñcowy
 
                 if (alternativeHexPosition == Vector3Int.zero)
                 {
-                    Debug.LogWarning($"Brak dostêpnych alternatywnych kafelków dla przeciwnika {gameObject.name}. Zatrzymanie ruchu.");
+                    //Debug.LogWarning($"Brak dostêpnych alternatywnych kafelków dla przeciwnika {gameObject.name}. Zatrzymanie ruchu.");
                     EndEnemyMovement();
                     return;
                 }
 
-                Debug.Log($"Przeciwnik {gameObject.name} zmierza na alternatywny kafelek: {alternativeHexPosition}.");
+                //Debug.Log($"Przeciwnik {gameObject.name} zmierza na alternatywny kafelek: {alternativeHexPosition}.");
                 path1.Insert(currentPathIndex, alternativeHexPosition); // Dodajemy alternatywny kafelek do œcie¿ki
                 targetHexPosition = alternativeHexPosition;
 
@@ -110,14 +110,14 @@ public class Enemy2MovementBoss : MonoBehaviour
                 if (gameObject != null)
                 {
                     Vector3Int newHexPosition = hexTilemap.WorldToCell(transform.position);
-                    Debug.Log($"Enemy {gameObject.name} moved to {newHexPosition}. Previous position: {currentHexPosition}.");
+                    //Debug.Log($"Enemy {gameObject.name} moved to {newHexPosition}. Previous position: {currentHexPosition}.");
 
                     tileManager.UpdateTileOccupation(currentHexPosition, newHexPosition, gameObject);
                     currentHexPosition = newHexPosition;
 
                     if (currentPathIndex == path1.Count - 1)
                     {
-                        Debug.Log($"Przeciwnik {gameObject.name} dotar³ na alternatywny kafelek {newHexPosition}. Zatrzymanie ruchu.");
+                        //Debug.Log($"Przeciwnik {gameObject.name} dotar³ na alternatywny kafelek {newHexPosition}. Zatrzymanie ruchu.");
                         isEnemyMoving = false;
                         EndEnemyMovement();
                         return;
@@ -173,7 +173,7 @@ public class Enemy2MovementBoss : MonoBehaviour
 
                 if (!tileManager.IsTileOccupied(neighbor)) // Jeœli kafelek jest wolny
                 {
-                    Debug.Log($"Znaleziono alternatywny kafelek {neighbor}.");
+                    //Debug.Log($"Znaleziono alternatywny kafelek {neighbor}.");
                     return neighbor;
                 }
 
@@ -182,7 +182,7 @@ public class Enemy2MovementBoss : MonoBehaviour
         }
 
         // Jeœli nie znaleziono alternatywnego kafelka, zwracamy pozycjê pocz¹tkow¹
-        Debug.LogWarning($"Nie znaleziono alternatywnego kafelka dla {blockedTile}. Zwracanie Vector3Int.zero.");
+        //Debug.LogWarning($"Nie znaleziono alternatywnego kafelka dla {blockedTile}. Zwracanie Vector3Int.zero.");
         return Vector3Int.zero;
     }
 

@@ -6,10 +6,10 @@ using UnityEngine.Tilemaps;
 public class BossAbilities : MonoBehaviour
 {
     public GameObject player; 
-    private PlayerAbilitiesBoss playerAbilities;
+    public PlayerAbilitiesBoss playerAbilities;
 
     public int TurnsBetweenDebuff = 3;
-    private int currentTurnCooldown = 0;
+    public int currentTurnCooldown = 0;
 
     public void OnBossTurn()
     {
@@ -29,7 +29,7 @@ public class BossAbilities : MonoBehaviour
 
     public void ApplyDebuff()
     {
-        StatusEffect debuff = new StatusEffect("Os³abienie", 3, 0.5f, -1); //nazwa, czas trwania w turach, modyfikator ataku (0.5 = 50%), zmniejszenie ruchu
+        StatusEffect debuff = new StatusEffect("Os³abienie", 3, 0.5f, -2); //nazwa, czas trwania w turach, modyfikator ataku (0.5 = 50%), zmniejszenie ruchu
         playerAbilities.ApplyStatus(debuff);
         Debug.Log("Boss rzuci³ os³abienie na gracza");
     }

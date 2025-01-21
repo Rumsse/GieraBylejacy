@@ -688,7 +688,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 965607011}
+  playerAbilities: {fileID: 1323855113}
   TurnsBetweenDebuff: 3
+  currentTurnCooldown: 0
   batmate: {fileID: 1847597376}
   playerMovement: {fileID: 1323855114}
   batMateAbilities: {fileID: 1847597387}
@@ -3809,7 +3811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f83cc7872b59140b72bb2ffd06bb90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 0}
+  playerMovement: {fileID: 1323855114}
   enemyAbilities: {fileID: 1845817502}
   enemy2Abilities: {fileID: 2070549781}
   enemy: {fileID: 1721634232}

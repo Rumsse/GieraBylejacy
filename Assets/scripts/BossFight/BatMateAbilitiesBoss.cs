@@ -75,12 +75,12 @@ public class BatMateAbilitiesBoss : MonoBehaviour
             }
             else
             {
-                Debug.Log("Przeciwnik ju¿ otrzyma³ obra¿enia");
+                //Debug.Log("Przeciwnik ju¿ otrzyma³ obra¿enia");
             }
         }
         else
         {
-            Debug.Log("Promieñ nie trafi³ w przeciwnika.");
+            //Debug.Log("Promieñ nie trafi³ w przeciwnika.");
         }
 
 
@@ -92,6 +92,7 @@ public class BatMateAbilitiesBoss : MonoBehaviour
             {
                 animator.SetBool("isAttacking", true);
                 StartCoroutine(DelayedDamage2(enemy2, 5));
+                Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + 5);
 
             }
             else

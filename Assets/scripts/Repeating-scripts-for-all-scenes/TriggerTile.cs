@@ -35,7 +35,6 @@ public class TriggerTile : MonoBehaviour
     {
         if (IsPlayerOnTriggerTile(player) && IsPlayerOnTriggerTile(batMate))
         {
-            Debug.Log("p i b s¹ na tile");
             OpenGate();
         }
 

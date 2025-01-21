@@ -44,16 +44,16 @@ public class HexPathfindingForEnemy2Boss : MonoBehaviour
             if (!enemyMovement.isEnemyMoving && currentPlayerPos != lastPlayerPos) // SprawdŸ, czy pozycja gracza siê zmieni³a
             {
                 path1 = FindPath1(currentEnemyPos, currentPlayerPos);
-                Debug.Log("Przeciwnik2 œcie¿ka: " + string.Join(" -> ", path1));
+                //Debug.Log("Przeciwnik2 œcie¿ka: " + string.Join(" -> ", path1));
                 lastPlayerPos = currentPlayerPos;
-                Debug.Log("Nowa pozycja gracza w siatce: " + currentPlayerPos);
-                Debug.Log("Zaktualizowano œcie¿kê: " + string.Join(" -> ", path1));
+                //Debug.Log("Nowa pozycja gracza w siatce: " + currentPlayerPos);
+                //Debug.Log("Zaktualizowano œcie¿kê: " + string.Join(" -> ", path1));
             }
 
             if (currentEnemyPos != lastEnemyPos) // SprawdŸ, czy pozycja przeciwnika siê zmieni³a
             {
                 lastEnemyPos = currentEnemyPos;
-                Debug.Log("Nowa pozycja przeciwnika w siatce: " + currentEnemyPos);
+                //Debug.Log("Nowa pozycja przeciwnika w siatce: " + currentEnemyPos);
             }
 
 
@@ -65,12 +65,12 @@ public class HexPathfindingForEnemy2Boss : MonoBehaviour
             {
                 if (currentEnemyPos == lastEnemyPos) // Jeœli przeciwnik nie zmieni³ pozycji, nie generuj nowej œcie¿ki
                 {
-                    Debug.Log("Przeciwnik nie zmieni³ pozycji, œcie¿ka nie zostanie zaktualizowana.");
+                    //Debug.Log("Przeciwnik nie zmieni³ pozycji, œcie¿ka nie zostanie zaktualizowana.");
                     return;
                 }
 
                 path1 = FindPath1(currentEnemyPos, currentPlayerPos);
-                Debug.Log("Zaktualizowano œcie¿kê: " + string.Join(" -> ", path1));
+                //Debug.Log("Zaktualizowano œcie¿kê: " + string.Join(" -> ", path1));
                 lastPlayerPos = currentPlayerPos;
             }
 
@@ -132,7 +132,7 @@ public class HexPathfindingForEnemy2Boss : MonoBehaviour
                     totalPath = totalPath.GetRange(0, movementRange);
                 }
 
-                Debug.Log("Œcie¿ka: " + string.Join(" -> ", totalPath));
+                //Debug.Log("Œcie¿ka: " + string.Join(" -> ", totalPath));
 
                 path1 = totalPath;
                 return totalPath;

@@ -30,8 +30,8 @@ public class PlayerAbilitiesBoss : MonoBehaviour
     public bool canUseAdvancedAttack = true;
     public bool isAlive = true;
 
-    public int playerDamageBasic = 10;
-    public int playerDamageAdvanced = 20;
+    public float playerDamageBasic = 10;
+    public float playerDamageAdvanced = 20;
 
     private List<StatusEffect> activeEffects = new List<StatusEffect>();
 
@@ -231,7 +231,7 @@ public class PlayerAbilitiesBoss : MonoBehaviour
         {
             gameObject.SetActive(false);
             Debug.Log("Gracz zosta³ pokonany!");
-            SceneManager.LoadSceneAsync(5);
+            SceneManager.LoadSceneAsync(6);
         }
     }
 
@@ -275,15 +275,16 @@ public class PlayerAbilitiesBoss : MonoBehaviour
         activeEffects.Add(effect);
         Debug.Log("Gracz otrzyma³ efekt: " + effect.EffectName);
 
-
-        playerMovement.moveSpeed += effect.MovementReduction;
+        playerMovement.maxMoveDistance += effect.MovementReduction;
+        playerDamageBasic *= effect.DamageModifier;
+        playerDamageAdvanced *= effect.DamageModifier;
     }
 
     private void RemoveEffect(StatusEffect effect)
     {
         Debug.Log("Efekt zakoñczony: " + effect.EffectName);
 
-        playerMovement.moveSpeed -= effect.MovementReduction;
+        playerMovement.maxMoveDistance -= effect.MovementReduction;
         activeEffects.Remove(effect);
     }
 

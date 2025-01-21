@@ -25,7 +25,7 @@ public class TileManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"Tile at {tilePosition} is already occupied!");
+            //Debug.LogWarning($"Tile at {tilePosition} is already occupied!");
             
         }
     }
@@ -35,12 +35,12 @@ public class TileManager : MonoBehaviour
     {
         if (occupiedTiles.ContainsKey(tilePosition))
         {
-            Debug.Log($"Releasing tile at {tilePosition}, previously occupied by {occupiedTiles[tilePosition].name}.");
+            //Debug.Log($"Releasing tile at {tilePosition}, previously occupied by {occupiedTiles[tilePosition].name}.");
             occupiedTiles.Remove(tilePosition);
         }
         else
         {
-            Debug.LogWarning($"Attempted to release tile at {tilePosition}, but it is not occupied!");
+            //Debug.LogWarning($"Attempted to release tile at {tilePosition}, but it is not occupied!");
         }
     }
 
@@ -55,7 +55,7 @@ public class TileManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"Cannot move from {fromPosition} to {toPosition}. Target tile might be occupied or source tile is empty.");
+            //Debug.LogWarning($"Cannot move from {fromPosition} to {toPosition}. Target tile might be occupied or source tile is empty.");
             return false;
         }
     }
@@ -69,11 +69,11 @@ public class TileManager : MonoBehaviour
     {
         if (occupier == null)
         {
-            Debug.LogWarning("Próba aktualizacji kafla z obiektem, który zosta³ zniszczony.");
+            //Debug.LogWarning("Próba aktualizacji kafla z obiektem, który zosta³ zniszczony.");
             return;
         }
 
-        Debug.Log($"UpdateTileOccupation: Occupier = {occupier.name}, Old Position = {oldPosition}, New Position = {newPosition}");
+        //Debug.Log($"UpdateTileOccupation: Occupier = {occupier.name}, Old Position = {oldPosition}, New Position = {newPosition}");
         ReleaseTile(oldPosition); 
         OccupyTile(newPosition, occupier); 
     }
