@@ -34,6 +34,7 @@ public class TurnManagerBoss : MonoBehaviour
     public TurnState currentTurn = TurnState.Player;
     public int turnCounter = 0;
     private int currentTurnIndex = 0;
+    private int currentTurnCooldown = 0;
 
     public Image turnImage;
     public Sprite[] characterSprites;
@@ -321,6 +322,8 @@ public class TurnManagerBoss : MonoBehaviour
         Vector3Int bossHexPos = bossMovement != null ? hexTilemap.WorldToCell(bossMovement.transform.position) : Vector3Int.zero;
 
         bossMovement.isEnemyMoving = true;
+
+        bossAbilities.OnBossTurn();
 
         if (bossMovement.hasMoved)
         {

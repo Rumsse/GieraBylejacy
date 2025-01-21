@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: EnemyDataScene1
   m_EditorClassIdentifier: 
   characterName: EnemyScene1
-  maxHealth: 60
-  health: 60
+  maxHealth: 50
+  health: 50
   isAlive: 1

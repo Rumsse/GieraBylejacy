@@ -11,15 +11,32 @@ public class BossAbilities : MonoBehaviour
     public int TurnsBetweenDebuff = 3;
     private int currentTurnCooldown = 0;
 
-
-
-
-    public void PerformDebuff()
+    public void OnBossTurn()
     {
-        StatusEffect debuff = new StatusEffect("Os³abienie", 3, 0.5f, -1); 
+        if (!isAlive)
+        {
+            return; 
+        }
+
+        currentTurnCooldown++;
+
+        if (currentTurnCooldown >= TurnsBetweenDebuff)
+        {
+            ApplyDebuff();
+            currentTurnCooldown = 0;
+        }
+    }
+
+    public void ApplyDebuff()
+    {
+        StatusEffect debuff = new StatusEffect("Os³abienie", 3, 0.5f, -1); //nazwa, czas trwania w turach, modyfikator ataku (0.5 = 50%), zmniejszenie ruchu
         playerAbilities.ApplyStatus(debuff);
         Debug.Log("Boss rzuci³ os³abienie na gracza");
     }
+
+
+
+
 
 
 
