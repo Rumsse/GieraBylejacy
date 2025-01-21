@@ -27,6 +27,7 @@ public class TriggerTile : MonoBehaviour
     void Update()
     {
         CheckTrigger();
+        CheckTrigger2();
         CheckHealthTilePlayer();
         CheckHealthTileBatmate();
     }

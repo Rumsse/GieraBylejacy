@@ -30,8 +30,8 @@ public class PlayerAbilitiesBoss : MonoBehaviour
     public bool canUseAdvancedAttack = true;
     public bool isAlive = true;
 
-    public float playerDamageBasic = 10;
-    public float playerDamageAdvanced = 20;
+    public int playerDamageBasic = 10;
+    public int playerDamageAdvanced = 20;
 
     private List<StatusEffect> activeEffects = new List<StatusEffect>();
 
@@ -85,7 +85,7 @@ public class PlayerAbilitiesBoss : MonoBehaviour
             if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 1) && !enemy.hasTakenDamage)
             {
                 animator.SetBool("isAttacking", true);
-                StartCoroutine(DelayedDamage(enemy, 10));
+                StartCoroutine(DelayedDamage(enemy, playerDamageBasic));
             }
             else
             {
@@ -105,7 +105,7 @@ public class PlayerAbilitiesBoss : MonoBehaviour
             if (enemy2 != null && (HexDistance(playerHexPos, enemy2HexPos) <= 1) && !enemy2.hasTakenDamage)
             {
                 animator.SetBool("isAttacking", true);
-                StartCoroutine(DelayedDamage2(enemy2, 10));
+                StartCoroutine(DelayedDamage2(enemy2, playerDamageBasic));
 
             }
             else
@@ -157,7 +157,7 @@ public class PlayerAbilitiesBoss : MonoBehaviour
                 if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 2) && !enemy.hasTakenDamage)
                 {
                     animator.SetBool("isAttacking", true);
-                    StartCoroutine(DelayedDamage(enemy, 20));
+                    StartCoroutine(DelayedDamage(enemy, playerDamageAdvanced));
 
                     canUseAdvancedAttack = false;
                     turnManager.turnCounter = 4;
@@ -179,7 +179,7 @@ public class PlayerAbilitiesBoss : MonoBehaviour
                 if (enemy2 != null && (HexDistance(playerHexPos, enemy2HexPos) <= 2) && !enemy2.hasTakenDamage)
                 {
                     animator.SetBool("isAttacking", true);
-                    StartCoroutine(DelayedDamage2(enemy2, 20));
+                    StartCoroutine(DelayedDamage2(enemy2, playerDamageAdvanced));
 
                     canUseAdvancedAttack = false;
                     turnManager.turnCounter = 4;
@@ -242,7 +242,7 @@ public class PlayerAbilitiesBoss : MonoBehaviour
         if (enemy != null && !enemy.hasTakenDamage)
         {
             enemy.TakeDamage(damage);
-            //Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
+            Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
         }
 
         animator.SetBool("isAttacking", false);
@@ -256,7 +256,7 @@ public class PlayerAbilitiesBoss : MonoBehaviour
         if (enemy != null && !enemy.hasTakenDamage)
         {
             enemy.TakeDamage(damage);
-            //Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
+            Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
         }
 
         animator.SetBool("isAttacking", false);
@@ -274,22 +274,41 @@ public class PlayerAbilitiesBoss : MonoBehaviour
     {
         activeEffects.Add(effect);
         Debug.Log("Gracz otrzyma³ efekt: " + effect.EffectName);
+        playerMovement.GetComponent<SpriteRenderer>().color = new Color(0.5137255f, 0.8431373f, 0.5215687f);
 
         playerMovement.maxMoveDistance += effect.MovementReduction;
-        playerDamageBasic *= effect.DamageModifier;
-        playerDamageAdvanced *= effect.DamageModifier;
+        playerDamageBasic = effect.BasicDamageModifier;
+        playerDamageAdvanced = effect.AdvancedDamageModifier;
+
     }
 
     private void RemoveStatus(StatusEffect effect)
     {
         Debug.Log("Efekt zakoñczony: " + effect.EffectName);
+        playerMovement.GetComponent<SpriteRenderer>().color = Color.white;
 
         playerMovement.maxMoveDistance -= effect.MovementReduction;
-        playerDamageBasic %= effect.DamageModifier;
-        playerDamageAdvanced %= effect.DamageModifier;
+        playerDamageBasic *= 10;
+        playerDamageAdvanced *= 20;
 
         activeEffects.Remove(effect);
     }
+
+    public void UpdateStatusEffects()
+    {
+        for (int i = activeEffects.Count - 1; i >= 0; i--)
+        {
+            StatusEffect effect = activeEffects[i];
+            effect.Duration--;
+
+            if (effect.Duration <= 0)
+            {
+                RemoveStatus(effect);
+            }
+        }
+
+    }
+
 
 
 }

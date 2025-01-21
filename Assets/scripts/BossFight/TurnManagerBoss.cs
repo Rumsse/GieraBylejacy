@@ -70,7 +70,7 @@ public class TurnManagerBoss : MonoBehaviour
         if (EnemyCount == 0)
         {
             //Debug.Log("Wszyscy przeciwnicy s¹ martwi");
-            SceneManager.LoadSceneAsync(4);
+            SceneManager.LoadSceneAsync(6);
         }
     }
 
@@ -204,8 +204,9 @@ public class TurnManagerBoss : MonoBehaviour
             return;
         }
 
-        audioManager.Buttons(audioManager.buttonClicked);
         Debug.Log("Koniec tury gracza");
+
+        playerAbilities.UpdateStatusEffects();
 
         playerAbilities.isAttackMode1 = false;
         playerAbilities.isAttackMode2 = false;

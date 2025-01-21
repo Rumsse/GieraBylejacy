@@ -180,7 +180,7 @@ public class PlayerAbilities1 : MonoBehaviour
         {
             gameObject.SetActive(false);
             Debug.Log("Gracz zosta³ pokonany!");
-            SceneManager.LoadSceneAsync(4);
+            SceneManager.LoadSceneAsync(6);
         }
     }
 

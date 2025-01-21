@@ -6,14 +6,16 @@ public class StatusEffect
 {
     public string EffectName; 
     public int Duration; 
-    public float DamageModifier; // Modyfikator obra¿eñ (np. 0.5 dla 50%)
-    public int MovementReduction; // Modyfikator ruchu (np. -1)
+    public int BasicDamageModifier; 
+    public int AdvancedDamageModifier; 
+    public int MovementReduction; 
 
-    public StatusEffect(string name, int duration, float damageMod, int movementRed)
+    public StatusEffect(string name, int duration, int damageMod1, int damageMod2, int movementRed)
     {
         EffectName = name;
         Duration = duration;
-        DamageModifier = damageMod;
+        BasicDamageModifier = damageMod1;
+        AdvancedDamageModifier = damageMod2;
         MovementReduction = movementRed;
     }
 }

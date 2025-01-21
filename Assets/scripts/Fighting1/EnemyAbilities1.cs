@@ -51,7 +51,7 @@ public class EnemyAbilities1 : MonoBehaviour
 
         if (distance <= 1)
         {
-            int damage = 20;
+            int damage = 10;
             var playerCharacterData = player.GetComponent<PlayerAbilities1>().characterData;
 
             playerAbilities.TakeDamage(damage);
