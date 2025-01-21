@@ -7,7 +7,6 @@ public class Enemy2AbilitiesBoss : MonoBehaviour
 {
     public GameObject player;
     public GameObject batmate;
-    public HealthBar enemyHealthBar;
     public PlayerAbilitiesBoss playerAbilities;
     public PlayerMovementBoss playerMovement;
     public BatMateAbilitiesBoss batMateAbilities;
@@ -63,7 +62,7 @@ public class Enemy2AbilitiesBoss : MonoBehaviour
         if (distance2 <= 1)
         {
             int damage = 5;
-            var batmateCharacterData = batmate.GetComponent<BatMateAbilities>().characterData;
+            var batmateCharacterData = batmate.GetComponent<BatMateAbilitiesBoss>().characterData;
 
             batMateAbilities.TakeDamage(damage);
             Debug.Log($"Przeciwnik zadaje batmatowi {damage} obra¿eñ! Dystans: {distance}");

@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
-using static UnityEditor.Experimental.GraphView.GraphView;
+
 
 public class TriggerTile : MonoBehaviour
 {
     public Tilemap tilemap;
     public TileBase triggerTile;
     public TileBase healthTile;
+    public TileBase trigger2Tile;
     public GameObject player;
     public GameObject batMate;
     public Vector3Int playerTilePosition;
@@ -55,7 +57,7 @@ public class TriggerTile : MonoBehaviour
 
     IEnumerator LoadNextScene()
     {
-        yield return new WaitForSeconds(2f); 
+        yield return new WaitForSeconds(2f);
         UnityEngine.SceneManagement.SceneManager.LoadScene(3);
     }
 
@@ -80,6 +82,27 @@ public class TriggerTile : MonoBehaviour
             characterDataBatmate.Heal(40);
         }
     }
+
+    void CheckTrigger2()
+    {
+        if (IsPlayerOnTrigger2Tile(player) && IsPlayerOnTrigger2Tile(batMate))
+        {
+            NextScene();
+        }
+
+    }
+
+    private bool IsPlayerOnTrigger2Tile(GameObject player)
+    {
+        Vector3Int tilePosition = tilemap.WorldToCell(player.transform.position);
+        return tilemap.GetTile(tilePosition) == trigger2Tile;
+    }
+
+    void NextScene()
+    {
+        SceneManager.LoadScene(5);
+    }
+
 
 
 }

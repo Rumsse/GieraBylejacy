@@ -8,7 +8,6 @@ public class EnemyAbilitiesBoss : MonoBehaviour
 {
     public GameObject player;
     public GameObject batmate;
-    public HealthBar enemyHealthBar;
     public PlayerAbilitiesBoss playerAbilities;
     public PlayerMovementBoss playerMovement;
     public BatMateAbilitiesBoss batMateAbilities;
@@ -57,7 +56,7 @@ public class EnemyAbilitiesBoss : MonoBehaviour
         if (distance <= 1)
         {
             int damage = 20;
-            var playerCharacterData = player.GetComponent<PlayerAbilities>().characterData;
+            var playerCharacterData = player.GetComponent<PlayerAbilitiesBoss>().characterData;
 
             playerAbilities.TakeDamage(damage);
             Debug.Log($"Przeciwnik zadaje graczowi {damage} obra¿eñ! Dystans: {distance}");
@@ -67,7 +66,7 @@ public class EnemyAbilitiesBoss : MonoBehaviour
         if (distance2 <= 1)
         {
             int damage = 5;
-            var batmateCharacterData = batmate.GetComponent<BatMateAbilities>().characterData;
+            var batmateCharacterData = batmate.GetComponent<BatMateAbilitiesBoss>().characterData;
 
             batMateAbilities.TakeDamage(damage);
             Debug.Log($"Przeciwnik zadaje batmatowi {damage} obra¿eñ! Dystans: {distance}");

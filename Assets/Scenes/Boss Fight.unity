@@ -2591,8 +2591,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerAbilities, Assembly-CSharp
+      - m_Target: {fileID: 1323855113}
+        m_TargetAssemblyTypeName: PlayerAbilitiesBoss, Assembly-CSharp
         m_MethodName: SelectAdvancedAttackMode
         m_Mode: 1
         m_Arguments:
@@ -4117,8 +4117,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerAbilities, Assembly-CSharp
+      - m_Target: {fileID: 1323855113}
+        m_TargetAssemblyTypeName: PlayerAbilitiesBoss, Assembly-CSharp
         m_MethodName: SelectBasicAttackMode
         m_Mode: 1
         m_Arguments:
@@ -4129,8 +4129,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BatMateAbilities, Assembly-CSharp
+      - m_Target: {fileID: 1847597387}
+        m_TargetAssemblyTypeName: BatMateAbilitiesBoss, Assembly-CSharp
         m_MethodName: SelectBasicAttackMode
         m_Mode: 1
         m_Arguments:
@@ -5310,15 +5310,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 965607011}
   batmate: {fileID: 1847597376}
-  enemyHealthBar: {fileID: 0}
   playerAbilities: {fileID: 1323855113}
   playerMovement: {fileID: 1323855114}
   batMateAbilities: {fileID: 1847597387}
   enemyMovement: {fileID: 1845817503}
   turnManager: {fileID: 2848338075193348448}
   hexTilemap: {fileID: 943148697}
-  healthBar: {fileID: 0}
-  characterData: {fileID: 0}
+  healthBar: {fileID: 1093270953}
+  characterData: {fileID: 11400000, guid: a2d6b938d56b0264caef972679cac203, type: 2}
   hasTakenDamage: 0
   isAlive: 1
   isInAttackRange: 0
@@ -5870,8 +5869,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
+      - m_Target: {fileID: 2848338075193348448}
+        m_TargetAssemblyTypeName: TurnManagerBoss, Assembly-CSharp
         m_MethodName: EndPlayerTurn
         m_Mode: 1
         m_Arguments:
@@ -6170,15 +6169,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 965607011}
   batmate: {fileID: 1847597376}
-  enemyHealthBar: {fileID: 0}
   playerAbilities: {fileID: 1323855113}
   playerMovement: {fileID: 1323855114}
   batMateAbilities: {fileID: 1847597387}
   enemyMovement: {fileID: 2070549782}
   turnManager: {fileID: 2848338075193348448}
   hexTilemap: {fileID: 943148697}
-  healthBar: {fileID: 0}
-  characterData: {fileID: 0}
+  healthBar: {fileID: 1617653710}
+  characterData: {fileID: 11400000, guid: d66a39d3e09028f40834bf86b22bc03d, type: 2}
   hasTakenDamage: 0
   isAlive: 1
 --- !u!114 &2070549782
@@ -7070,12 +7068,7 @@ MonoBehaviour:
   - {fileID: 1721634232}
   - {fileID: 2070549765}
   - {fileID: 214660370}
-  activeCharacters:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  activeCharacters: []
 --- !u!1001 &6570375150689132612
 PrefabInstance:
   m_ObjectHideFlags: 0

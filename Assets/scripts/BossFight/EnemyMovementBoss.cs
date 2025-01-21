@@ -158,9 +158,6 @@ public class EnemyMovementBoss : MonoBehaviour
 
 
 
-
-
-
     private Vector3Int FindAlternativeTile(Vector3Int blockedTile, Vector3Int targetTile)
     {
         Queue<Vector3Int> openSet = new Queue<Vector3Int>();

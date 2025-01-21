@@ -171,7 +171,7 @@ public class TurnManagerBoss : MonoBehaviour
         }
     }
 
-    void EndPlayerTurn()
+    public void EndPlayerTurn()
     {
         if (!playerMovement.hasMoved)
         {
@@ -240,7 +240,7 @@ public class TurnManagerBoss : MonoBehaviour
 
     public void EndEnemyTurn()
     {
-        foreach (EnemyAbilities enemy in EnemyAbilities.activeEnemies)
+        foreach (EnemyAbilitiesBoss enemy in EnemyAbilitiesBoss.activeEnemies)
         {
             if (enemy.isAlive)
             {
@@ -273,7 +273,7 @@ public class TurnManagerBoss : MonoBehaviour
 
     public void EndEnemy2Turn()
     {
-        foreach (Enemy2Abilities enemy in Enemy2Abilities.activeEnemies)
+        foreach (Enemy2AbilitiesBoss enemy in Enemy2AbilitiesBoss.activeEnemies)
         {
             if (enemy.isAlive)
             {
@@ -324,21 +324,21 @@ public class TurnManagerBoss : MonoBehaviour
             Vector3Int currentHexPosition = hexTilemap.WorldToCell(deadCharacter.transform.position);
             tileManager.ReleaseTile(currentHexPosition);
 
-            if (deadCharacter.TryGetComponent<PlayerAbilities>(out var playerAbilities))
+            if (deadCharacter.TryGetComponent<PlayerAbilitiesBoss>(out var playerAbilities))
             {
                 playerAbilities.isAlive = false;
             }
-            else if (deadCharacter.TryGetComponent<EnemyAbilities>(out var enemyAbilities))
+            else if (deadCharacter.TryGetComponent<EnemyAbilitiesBoss>(out var enemyAbilities))
             {
                 enemyAbilities.isAlive = false;
                 EnemyCount--;
             }
-            else if (deadCharacter.TryGetComponent<Enemy2Abilities>(out var enemy2Abilities))
+            else if (deadCharacter.TryGetComponent<Enemy2AbilitiesBoss>(out var enemy2Abilities))
             {
                 enemy2Abilities.isAlive = false;
                 EnemyCount--;
             }
-            else if (deadCharacter.TryGetComponent<BatMateAbilities>(out var batMateAbilities))
+            else if (deadCharacter.TryGetComponent<BatMateAbilitiesBoss>(out var batMateAbilities))
             {
                 batMateAbilities.isAlive = false;
             }

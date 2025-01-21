@@ -78,7 +78,7 @@ public class PlayerAbilitiesBoss : MonoBehaviour
 
         if (hitCollider != null && hitCollider.CompareTag("Enemy"))
         {
-            EnemyAbilities enemy = hitCollider.GetComponent<EnemyAbilities>();
+            EnemyAbilitiesBoss enemy = hitCollider.GetComponent<EnemyAbilitiesBoss>();
             if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 1) && !enemy.hasTakenDamage)
             {
                 animator.SetBool("isAttacking", true);
@@ -98,7 +98,7 @@ public class PlayerAbilitiesBoss : MonoBehaviour
 
         if (hitCollider != null && hitCollider.CompareTag("Enemy2"))
         {
-            Enemy2Abilities enemy2 = hitCollider.GetComponent<Enemy2Abilities>();
+            Enemy2AbilitiesBoss enemy2 = hitCollider.GetComponent<Enemy2AbilitiesBoss>();
             if (enemy2 != null && (HexDistance(playerHexPos, enemy2HexPos) <= 1) && !enemy2.hasTakenDamage)
             {
                 animator.SetBool("isAttacking", true);
@@ -150,7 +150,7 @@ public class PlayerAbilitiesBoss : MonoBehaviour
         {
             if (hitCollider != null && hitCollider.CompareTag("Enemy"))
             {
-                EnemyAbilities enemy = hitCollider.GetComponent<EnemyAbilities>();
+                EnemyAbilitiesBoss enemy = hitCollider.GetComponent<EnemyAbilitiesBoss>();
                 if (enemy != null && (HexDistance(playerHexPos, enemyHexPos) <= 2) && !enemy.hasTakenDamage)
                 {
                     animator.SetBool("isAttacking", true);
@@ -172,7 +172,7 @@ public class PlayerAbilitiesBoss : MonoBehaviour
 
             if (hitCollider != null && hitCollider.CompareTag("Enemy2"))
             {
-                Enemy2Abilities enemy2 = hitCollider.GetComponent<Enemy2Abilities>();
+                Enemy2AbilitiesBoss enemy2 = hitCollider.GetComponent<Enemy2AbilitiesBoss>();
                 if (enemy2 != null && (HexDistance(playerHexPos, enemy2HexPos) <= 2) && !enemy2.hasTakenDamage)
                 {
                     animator.SetBool("isAttacking", true);
@@ -232,7 +232,7 @@ public class PlayerAbilitiesBoss : MonoBehaviour
         }
     }
 
-    IEnumerator DelayedDamage(EnemyAbilities enemy, int damage)
+    IEnumerator DelayedDamage(EnemyAbilitiesBoss enemy, int damage)
     {
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
@@ -246,7 +246,7 @@ public class PlayerAbilitiesBoss : MonoBehaviour
 
     }
 
-    IEnumerator DelayedDamage2(Enemy2Abilities enemy, int damage)
+    IEnumerator DelayedDamage2(Enemy2AbilitiesBoss enemy, int damage)
     {
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
