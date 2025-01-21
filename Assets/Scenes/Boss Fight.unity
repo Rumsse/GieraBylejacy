@@ -689,7 +689,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 965607011}
   TurnsBetweenDebuff: 3
+  batmate: {fileID: 1847597376}
+  playerMovement: {fileID: 1323855114}
+  batMateAbilities: {fileID: 1847597387}
+  enemyMovement: {fileID: 214660376}
+  turnManager: {fileID: 2848338075193348448}
+  hexTilemap: {fileID: 943148697}
+  healthBar: {fileID: 2085571210}
+  characterData: {fileID: 11400000, guid: eb7b6aa0785175e4ebb7b8a20374aea7, type: 2}
+  hasTakenDamage: 0
   isAlive: 1
+  isInAttackRange: 0
 --- !u!1 &215064919
 GameObject:
   m_ObjectHideFlags: 0
@@ -1333,7 +1343,7 @@ GameObject:
   - component: {fileID: 465307410}
   - component: {fileID: 465307409}
   m_Layer: 5
-  m_Name: EnemyHealthbar2
+  m_Name: BossHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6274,7 +6284,7 @@ GameObject:
   - component: {fileID: 2085571209}
   - component: {fileID: 2085571210}
   m_Layer: 5
-  m_Name: EnemyHealthbar2
+  m_Name: BossHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

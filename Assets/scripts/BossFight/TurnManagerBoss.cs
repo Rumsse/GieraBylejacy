@@ -314,20 +314,30 @@ public class TurnManagerBoss : MonoBehaviour
     public void StartBossTurn()
     {
         isEnemyTurn = true;
-        Debug.Log("Tura drugiego przeciwnika");
+        Debug.Log("Tura Bossa");
+        bossMovement.ResetMovement();
 
         Vector3Int playerHexPos = playerMovement.hexTilemap.WorldToCell(playerMovement.transform.position); //Pobiera pozycje gracza i przeciwnika
         Vector3Int bossHexPos = bossMovement != null ? hexTilemap.WorldToCell(bossMovement.transform.position) : Vector3Int.zero;
 
+        bossMovement.isEnemyMoving = true;
 
-        EndBossTurn();
+        if (bossMovement.hasMoved)
+        {
+            EndBossTurn();
+        }
         
     }
 
     public void EndBossTurn()
     {
-
-
+        foreach (BossAbilities enemy in BossAbilities.activeEnemies)
+        {
+            if (enemy.isAlive)
+            {
+                enemy.AttackPlayer();
+            }
+        }
 
         Debug.Log("Koniec tury drugiego przeciwnika");
         isEnemyTurn = false;
