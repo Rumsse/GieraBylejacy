@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class PlayerAbilitiesBoss : MonoBehaviour
 {
+    public PlayerMovementBoss playerMovement;
     public EnemyAbilitiesBoss enemyAbilities;
     public Enemy2AbilitiesBoss enemy2Abilities;
     public GameObject enemy;
@@ -31,6 +32,8 @@ public class PlayerAbilitiesBoss : MonoBehaviour
 
     public int playerDamageBasic = 10;
     public int playerDamageAdvanced = 20;
+
+    private List<StatusEffect> activeEffects = new List<StatusEffect>();
 
 
 
@@ -259,5 +262,30 @@ public class PlayerAbilitiesBoss : MonoBehaviour
         animator.SetBool("isAttacking", false);
 
     }
+
+
+
+
+
+
+
+
+    public void ApplyStatus(StatusEffect effect)
+    {
+        activeEffects.Add(effect);
+        Debug.Log("Gracz otrzyma³ efekt: " + effect.EffectName);
+
+
+        playerMovement.moveSpeed += effect.MovementReduction;
+    }
+
+    private void RemoveEffect(StatusEffect effect)
+    {
+        Debug.Log("Efekt zakoñczony: " + effect.EffectName);
+
+        playerMovement.moveSpeed -= effect.MovementReduction;
+        activeEffects.Remove(effect);
+    }
+
 
 }

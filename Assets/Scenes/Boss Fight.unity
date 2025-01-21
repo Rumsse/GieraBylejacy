@@ -617,6 +617,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 214660372}
+    - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 214660377}
+    - targetCorrespondingSourceObject: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 214660376}
   m_SourcePrefab: {fileID: 100100000, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
 --- !u!1 &214660370 stripped
 GameObject:
@@ -649,6 +655,41 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &214660376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214660370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd2b399689a781b488fbccd6a9e9dfa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hexTilemap: {fileID: 943148697}
+  hexTilemapPathfinding: {fileID: 419332257}
+  playerMovement: {fileID: 1323855114}
+  turnManager: {fileID: 2848338075193348448}
+  tileManager: {fileID: 2002097039}
+  isEnemyMoving: 0
+  isActive: 0
+  hasMoved: 0
+--- !u!114 &214660377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214660370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ecb027a074a82f4a8230d952dfa5803, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 965607011}
+  TurnsBetweenDebuff: 3
+  isAlive: 1
 --- !u!1 &215064919
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,6 +1112,7 @@ GameObject:
   - component: {fileID: 419332253}
   - component: {fileID: 419332256}
   - component: {fileID: 419332255}
+  - component: {fileID: 419332257}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -1144,6 +1186,26 @@ MonoBehaviour:
   enemyUnit: {fileID: 1845817486}
   movementRange: 3
   enemyMovement: {fileID: 1845817503}
+  playerMovement: {fileID: 1323855114}
+  turnManager: {fileID: 2848338075193348448}
+  tileManager: {fileID: 2002097039}
+--- !u!114 &419332257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419332252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 654e9f0605023fe45a7f007fcf0d9332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hexTilemap: {fileID: 943148697}
+  playerUnit: {fileID: 1323855100}
+  bossUnit: {fileID: 214660371}
+  movementRange: 3
+  bossMovement: {fileID: 214660376}
   playerMovement: {fileID: 1323855114}
   turnManager: {fileID: 2848338075193348448}
   tileManager: {fileID: 2002097039}
@@ -3737,6 +3799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f83cc7872b59140b72bb2ffd06bb90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMovement: {fileID: 0}
   enemyAbilities: {fileID: 1845817502}
   enemy2Abilities: {fileID: 2070549781}
   enemy: {fileID: 1721634232}
@@ -3770,6 +3833,7 @@ MonoBehaviour:
   hexTilemap: {fileID: 943148697}
   playerAbilities: {fileID: 1323855113}
   tileManager: {fileID: 2002097039}
+  moveSpeed: 3
   hasMoved: 0
   isActive: 1
 --- !u!1 &1393369900
@@ -7043,10 +7107,12 @@ MonoBehaviour:
   enemyMovement: {fileID: 1845817503}
   enemy2Movement: {fileID: 2070549782}
   batMateMovement: {fileID: 1847597388}
+  bossMovement: {fileID: 214660376}
   playerAbilities: {fileID: 1323855113}
   enemyAbilities: {fileID: 1845817502}
   enemy2Abilities: {fileID: 2070549781}
   batMateAbilities: {fileID: 1847597387}
+  bossAbilities: {fileID: 214660377}
   tileManager: {fileID: 2002097039}
   hexTilemap: {fileID: 943148697}
   audioManager: {fileID: 807395012}

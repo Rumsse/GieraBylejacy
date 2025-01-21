@@ -12,7 +12,7 @@ public class PlayerMovementBoss : MonoBehaviour
 
     Animator animator;
 
-    private float moveSpeed = 3f;
+    public float moveSpeed = 3f;
     private int maxMoveDistance = 4;
     private float yOffset = 0.5f;
 

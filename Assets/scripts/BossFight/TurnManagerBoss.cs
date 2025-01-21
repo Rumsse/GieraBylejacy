@@ -14,10 +14,14 @@ public class TurnManagerBoss : MonoBehaviour
     public EnemyMovementBoss enemyMovement;
     public Enemy2MovementBoss enemy2Movement;
     public BatMateMovementBoss batMateMovement;
+    public BossMovement bossMovement;
+
     public PlayerAbilitiesBoss playerAbilities;
     public EnemyAbilitiesBoss enemyAbilities;
     public Enemy2AbilitiesBoss enemy2Abilities;
     public BatMateAbilitiesBoss batMateAbilities;
+    public BossAbilities bossAbilities;
+
     public TileManager tileManager;
     public Tilemap hexTilemap;
 
@@ -42,7 +46,8 @@ public class TurnManagerBoss : MonoBehaviour
         Player,
         BatMate,
         Enemy1,
-        Enemy2
+        Enemy2,
+        Boss
     }
 
     private void Start()
@@ -51,6 +56,7 @@ public class TurnManagerBoss : MonoBehaviour
         activeCharacters.Add(batMateMovement.gameObject);
         activeCharacters.Add(enemyMovement.gameObject);
         activeCharacters.Add(enemy2Movement.gameObject);
+        activeCharacters.Add(bossMovement.gameObject);
 
         EnemyCount = 2;
 
@@ -87,7 +93,7 @@ public class TurnManagerBoss : MonoBehaviour
         while (!activeCharacters[currentTurnIndex].activeSelf)
         {
             currentTurnIndex = (currentTurnIndex + 1) % activeCharacters.Count;
-            currentTurn = (TurnState)(((int)currentTurn + 1) % 4);
+            currentTurn = (TurnState)(((int)currentTurn + 1) % 5);
         }
 
         switch (currentTurn)
@@ -99,6 +105,7 @@ public class TurnManagerBoss : MonoBehaviour
                     batMateMovement.isActive = false;
                     enemyMovement.isActive = false;
                     enemy2Movement.isActive = false;
+                    bossMovement.isActive = false;
                     StartPlayerTurn();
                 }
                 else
@@ -113,6 +120,7 @@ public class TurnManagerBoss : MonoBehaviour
                     batMateMovement.isActive = true;
                     enemyMovement.isActive = false;
                     enemy2Movement.isActive = false;
+                    bossMovement.isActive = false;
                     StartBatMateTurn();
                 }
                 else
@@ -127,6 +135,7 @@ public class TurnManagerBoss : MonoBehaviour
                     batMateMovement.isActive = false;
                     enemyMovement.isActive = true;
                     enemy2Movement.isActive = false;
+                    bossMovement.isActive = false;
                     StartEnemyTurn();
                 }
                 else
@@ -141,11 +150,27 @@ public class TurnManagerBoss : MonoBehaviour
                     batMateMovement.isActive = false;
                     enemyMovement.isActive = false;
                     enemy2Movement.isActive = true;
+                    bossMovement.isActive = false;
                     StartEnemy2Turn();
                 }
                 else
                 {
                     EndEnemy2Turn();
+                }
+                break;
+            case TurnState.Boss:
+                if (bossAbilities.isAlive)
+                {
+                    playerMovement.isActive = false;
+                    batMateMovement.isActive = false;
+                    enemyMovement.isActive = false;
+                    enemy2Movement.isActive = false;
+                    bossMovement.isActive = true;
+                    StartBossTurn();
+                }
+                else
+                {
+                    EndBossTurn();
                 }
                 break;
         }
@@ -154,7 +179,7 @@ public class TurnManagerBoss : MonoBehaviour
     void NextTurn()
     {
         currentTurnIndex = (currentTurnIndex + 1) % activeCharacters.Count;
-        currentTurn = (TurnState)(((int)currentTurn + 1) % 4);
+        currentTurn = (TurnState)(((int)currentTurn + 1) % 5);
         UpdateTurnIndicator();
         StartTurn();
     }
@@ -286,6 +311,31 @@ public class TurnManagerBoss : MonoBehaviour
         NextTurn();
     }
 
+    public void StartBossTurn()
+    {
+        isEnemyTurn = true;
+        Debug.Log("Tura drugiego przeciwnika");
+
+        Vector3Int playerHexPos = playerMovement.hexTilemap.WorldToCell(playerMovement.transform.position); //Pobiera pozycje gracza i przeciwnika
+        Vector3Int bossHexPos = bossMovement != null ? hexTilemap.WorldToCell(bossMovement.transform.position) : Vector3Int.zero;
+
+
+        EndBossTurn();
+        
+    }
+
+    public void EndBossTurn()
+    {
+
+
+
+        Debug.Log("Koniec tury drugiego przeciwnika");
+        isEnemyTurn = false;
+        NextTurn();
+    }
+
+
+
     public void UpdateTurnIndicator()
     {
 
@@ -310,6 +360,9 @@ public class TurnManagerBoss : MonoBehaviour
                 break;
             case TurnState.Enemy2:
                 turnImage.sprite = characterSprites[3];
+                break;
+            case TurnState.Boss:
+                turnImage.sprite = characterSprites[4];
                 break;
         }
     }
