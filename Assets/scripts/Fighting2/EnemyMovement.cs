@@ -27,6 +27,7 @@ public class EnemyMovement : MonoBehaviour
     private List<Vector3Int> path;
     private int currentPathIndex = 0;
 
+    public Animator animator;
 
 
     void Start()
@@ -35,6 +36,7 @@ public class EnemyMovement : MonoBehaviour
         Vector3Int startHex = tileManager.GetTilePosition(transform.position);
         currentHexPosition = hexTilemap.WorldToCell(transform.position);
         tileManager.OccupyTile(currentHexPosition, gameObject);
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -44,35 +46,41 @@ public class EnemyMovement : MonoBehaviour
         if (isEnemyMoving)
         {
             MoveEnemyAlongPath();
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
         }
     }
 
     public void SetPath(List<Vector3Int> newPath)
     {
         path = newPath;
-        currentPathIndex = 0; // Resetujemy indeks œcie¿ki
-        Debug.Log("Œcie¿ka ustawiona: " + string.Join(", ", newPath.Select(p => p.ToString())));
+        currentPathIndex = 0; // Resetujemy indeks ï¿½cieï¿½ki
+        Debug.Log("ï¿½cieï¿½ka ustawiona: " + string.Join(", ", newPath.Select(p => p.ToString())));
     }
 
     public void MoveEnemyAlongPath()
     {
         if (path == null || path.Count == 0)
         {
-            Debug.Log("Brak œcie¿ki do przebycia.");
+            Debug.Log("Brak ï¿½cieï¿½ki do przebycia.");
             EndEnemyMovement();
             return;
         }
 
         if (currentPathIndex >= path.Count || currentPathIndex >= movementRange)
         {
-            Debug.Log($"Ruch zakoñczony! Index: {currentPathIndex}, Range: {movementRange}, Path Count: {path.Count}");
+            Debug.Log($"Ruch zakoï¿½czony! Index: {currentPathIndex}, Range: {movementRange}, Path Count: {path.Count}");
             EndEnemyMovement();
             return;
+            
         }
 
         if (currentHexPosition == targetPosition)
         {
-            Debug.Log($"Przeciwnik {gameObject.name} osi¹gn¹³ cel na {currentHexPosition}. Zatrzymanie.");
+            Debug.Log($"Przeciwnik {gameObject.name} osiï¿½gnï¿½ï¿½ cel na {currentHexPosition}. Zatrzymanie.");
             isEnemyMoving = false;
             return;
         }
@@ -84,24 +92,25 @@ public class EnemyMovement : MonoBehaviour
 
             if (tileManager.IsTileOccupied(targetHexPosition))
             {
-                Debug.LogWarning($"WWWWWWWWW Przeciwnik {gameObject.name} koliduje z innym przeciwnikiem na {targetHexPosition}. Generujê now¹ œcie¿kê.");
+                Debug.LogWarning($"WWWWWWWWW Przeciwnik {gameObject.name} koliduje z innym przeciwnikiem na {targetHexPosition}. Generujï¿½ nowï¿½ ï¿½cieï¿½kï¿½.");
 
-                Vector3Int alternativeHexPosition = FindAlternativeTile(targetHexPosition, path[^1]); // path[^1] = cel koñcowy
+                Vector3Int alternativeHexPosition = FindAlternativeTile(targetHexPosition, path[^1]); // path[^1] = cel koï¿½cowy
 
                 if (alternativeHexPosition == Vector3Int.zero)
                 {
-                    Debug.LogWarning($"Brak dostêpnych alternatywnych kafelków dla przeciwnika {gameObject.name}. Zatrzymanie ruchu.");
+                    Debug.LogWarning($"Brak dostï¿½pnych alternatywnych kafelkï¿½w dla przeciwnika {gameObject.name}. Zatrzymanie ruchu.");
                     EndEnemyMovement();
                     return;
                 }
 
                 Debug.Log($"Przeciwnik {gameObject.name} zmierza na alternatywny kafelek: {alternativeHexPosition}.");
-                path.Insert(currentPathIndex, alternativeHexPosition); // Dodajemy alternatywny kafelek do œcie¿ki
+                path.Insert(currentPathIndex, alternativeHexPosition); // Dodajemy alternatywny kafelek do ï¿½cieï¿½ki
                 targetHexPosition = alternativeHexPosition;
 
             }
 
             transform.position = Vector3.MoveTowards(transform.position, targetWorldPosition, moveSpeed * Time.deltaTime);
+        
 
             if (Vector3.Distance(transform.position, targetWorldPosition) < 0.05f)
             {
@@ -109,6 +118,7 @@ public class EnemyMovement : MonoBehaviour
 
                 if (gameObject != null)
                 {
+
                     Vector3Int newHexPosition = hexTilemap.WorldToCell(transform.position);
                     Debug.Log($"Enemy {gameObject.name} moved to {newHexPosition}. Previous position: {currentHexPosition}.");
 
@@ -117,7 +127,7 @@ public class EnemyMovement : MonoBehaviour
 
                     if (currentPathIndex == path.Count - 1)
                     {
-                        Debug.Log($"Przeciwnik {gameObject.name} dotar³ na alternatywny kafelek {newHexPosition}. Zatrzymanie ruchu.");
+                        Debug.Log($"Przeciwnik {gameObject.name} dotarï¿½ na alternatywny kafelek {newHexPosition}. Zatrzymanie ruchu.");
                         isEnemyMoving = false;
                         EndEnemyMovement();
                         return;
@@ -179,17 +189,17 @@ public class EnemyMovement : MonoBehaviour
 
                 visited.Add(neighbor);
 
-                if (!tileManager.IsTileOccupied(neighbor)) // Jeœli kafelek jest wolny
+                if (!tileManager.IsTileOccupied(neighbor)) // Jeï¿½li kafelek jest wolny
                 {
                     Debug.Log($"Znaleziono alternatywny kafelek {neighbor}.");
                     return neighbor;
                 }
 
-                openSet.Enqueue(neighbor); // Dodajemy s¹siada do kolejki
+                openSet.Enqueue(neighbor); // Dodajemy sï¿½siada do kolejki
             }
         }
 
-        // Jeœli nie znaleziono alternatywnego kafelka, zwracamy pozycjê pocz¹tkow¹
+        // Jeï¿½li nie znaleziono alternatywnego kafelka, zwracamy pozycjï¿½ poczï¿½tkowï¿½
         Debug.LogWarning($"Nie znaleziono alternatywnego kafelka dla {blockedTile}. Zwracanie Vector3Int.zero.");
         return Vector3Int.zero;
     }
@@ -202,16 +212,16 @@ public class EnemyMovement : MonoBehaviour
         {
             new Vector3Int(1, 0, 0),   // Prawo
             new Vector3Int(-1, 0, 0),  // Lewo
-            new Vector3Int(0, 1, 0),   // Góra
-            new Vector3Int(0, -1, 0),  // Dó³
+            new Vector3Int(0, 1, 0),   // Gï¿½ra
+            new Vector3Int(0, -1, 0),  // Dï¿½
             new Vector3Int(1, -1, 0),  // Prawy dolny
-            new Vector3Int(-1, 1, 0)   // Lewy górny
+            new Vector3Int(-1, 1, 0)   // Lewy gï¿½rny
         };
 
         foreach (Vector3Int direction in directions)
         {
             Vector3Int neighbor = position + direction;
-            if (hexTilemap.HasTile(neighbor)) // Sprawdzamy, czy kafelek jest dostêpny
+            if (hexTilemap.HasTile(neighbor)) // Sprawdzamy, czy kafelek jest dostï¿½pny
             {
                 neighbors.Add(neighbor);
             }
