@@ -1680,8 +1680,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 50147ae9a8387864d9f7c2e93f021837, type: 3}
   - {fileID: 8300000, guid: 47619df5ab5971647ae996c298d1f6a9, type: 3}
   - {fileID: 8300000, guid: 96a1036e789be4942a66271726225577, type: 3}
+  - {fileID: 8300000, guid: 96a1036e789be4942a66271726225577, type: 3}
   pitchValues:
   - 0.7
+  - 1
   - 1
   - 1
   - 1

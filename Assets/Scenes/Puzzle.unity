@@ -3618,8 +3618,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Continue
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3f1aea0a09da9d84789bc570c4943b33, type: 2}
+  m_sharedMaterial: {fileID: -887553915427786633, guid: 3f1aea0a09da9d84789bc570c4943b33, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4141,8 +4141,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 50147ae9a8387864d9f7c2e93f021837, type: 3}
   - {fileID: 8300000, guid: 47619df5ab5971647ae996c298d1f6a9, type: 3}
   - {fileID: 8300000, guid: 96a1036e789be4942a66271726225577, type: 3}
+  - {fileID: 8300000, guid: 96a1036e789be4942a66271726225577, type: 3}
   pitchValues:
   - 0.7
+  - 1
   - 1
   - 1
   - 1
