@@ -13,7 +13,7 @@ public class BatMateMovementBoss : MonoBehaviour
 
     private int maxMoveDistance = 4;
     private float moveSpeed = 3f;
-    private float yOffset = 0.3f;
+    public float yOffset = 0.3f;
 
     public bool hasMoved = true;
     public bool isActive = false;
@@ -25,7 +25,8 @@ public class BatMateMovementBoss : MonoBehaviour
 
     void Start()
     {
-        targetPosition = transform.position;
+        targetPosition = transform.position + new Vector3(0, yOffset, 0);
+        transform.position = targetPosition;   
         animator = GetComponent<Animator>();
 
         Vector3Int startHex = tileManager.GetTilePosition(transform.position);
@@ -53,7 +54,7 @@ public class BatMateMovementBoss : MonoBehaviour
         if (hexTilemap.HasTile(hexPosition))
         {
             Vector3 targetWorldPosition = hexTilemap.CellToWorld(hexPosition) + hexTilemap.tileAnchor + new Vector3(0, yOffset, 0);
-            Vector3Int currentHexPosition = tileManager.GetTilePosition(transform.position);
+            Vector3Int currentHexPosition = tileManager.GetTilePosition(transform.position - new Vector3(0, yOffset, 0));
 
             // Tworzymy obiekty Hex z pozycji bie¿¹cej i docelowej
             Hex playerHex = new Hex(hexTilemap.WorldToCell(transform.position).x, hexTilemap.WorldToCell(transform.position).y);
@@ -95,7 +96,7 @@ public class BatMateMovementBoss : MonoBehaviour
         }
 
         transform.position = targetPosition;
-        Vector3Int newHexPosition = tileManager.GetTilePosition(transform.position + occupiedTileOffset);
+        Vector3Int newHexPosition = tileManager.GetTilePosition(transform.position - new Vector3(0, yOffset, 0));
 
         tileManager.UpdateTileOccupation(currentHexPosition, newHexPosition, gameObject);
         currentHexPosition = newHexPosition;

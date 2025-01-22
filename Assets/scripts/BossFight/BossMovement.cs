@@ -20,6 +20,7 @@ public class BossMovement : MonoBehaviour
 
     private float moveSpeed = 0.8f;
     private int movementRange = 3;
+    public float offset = 1f;
 
     private Vector3 targetPosition;
     private Vector3Int currentHexPosition;
@@ -31,7 +32,8 @@ public class BossMovement : MonoBehaviour
 
     void Start()
     {
-        targetPosition = transform.position;
+        targetPosition = transform.position + new Vector3(0, offset, 0);
+        transform.position = targetPosition;
         Vector3Int startHex = tileManager.GetTilePosition(transform.position);
         currentHexPosition = hexTilemap.WorldToCell(transform.position);
         tileManager.OccupyTile(currentHexPosition, gameObject);
@@ -82,6 +84,8 @@ public class BossMovement : MonoBehaviour
             Vector3Int targetHexPosition = path[currentPathIndex];
             Vector3 targetWorldPosition = hexTilemap.CellToWorld(targetHexPosition);
 
+            targetWorldPosition.y += offset;
+
             if (tileManager.IsTileOccupied(targetHexPosition))
             {
                 //Debug.LogWarning($"WWWWWWWWW Przeciwnik {gameObject.name} koliduje z innym przeciwnikiem na {targetHexPosition}. Generujê now¹ œcie¿kê.");
@@ -109,7 +113,7 @@ public class BossMovement : MonoBehaviour
 
                 if (gameObject != null)
                 {
-                    Vector3Int newHexPosition = hexTilemap.WorldToCell(transform.position);
+                    Vector3Int newHexPosition = hexTilemap.WorldToCell(transform.position - new Vector3(0, offset, 0));
                     //Debug.Log($"Enemy {gameObject.name} moved to {newHexPosition}. Previous position: {currentHexPosition}.");
 
                     tileManager.UpdateTileOccupation(currentHexPosition, newHexPosition, gameObject);
