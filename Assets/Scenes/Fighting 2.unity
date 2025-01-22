@@ -4820,6 +4820,7 @@ MonoBehaviour:
   isEnemyMoving: 0
   isActive: 0
   hasMoved: 0
+  positionOffsetY: 0.5
   animator: {fileID: 1845817494}
 --- !u!1 &1847597376 stripped
 GameObject:
@@ -5405,7 +5406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1016463608500058957, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.98
+      value: -2.49
       objectReference: {fileID: 0}
     - target: {fileID: 1016463608500058957, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5537,11 +5538,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7002934762677977222, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1
+      value: 1.28
       objectReference: {fileID: 0}
     - target: {fileID: 7002934762677977222, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1
+      value: 1.28
       objectReference: {fileID: 0}
     - target: {fileID: 8028396635752160040, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_FlipX
@@ -5635,6 +5636,7 @@ MonoBehaviour:
   isEnemyMoving: 0
   isActive: 0
   hasMoved: 0
+  positionOffsetY: 0.5
   animator: {fileID: 0}
 --- !u!114 &2070549777
 MonoBehaviour:
@@ -6136,7 +6138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1016463608500058957, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.47
+      value: 0.99
       objectReference: {fileID: 0}
     - target: {fileID: 1016463608500058957, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9942,6 +9944,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5381925969437563596, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
+      propertyPath: yOffset
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5381925969437563596, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
       propertyPath: animator
       value: 
       objectReference: {fileID: 1847597383}
@@ -9959,7 +9965,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6285969050480541048, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.32
+      value: -1.64
       objectReference: {fileID: 0}
     - target: {fileID: 6285969050480541048, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
       propertyPath: m_LocalPosition.z

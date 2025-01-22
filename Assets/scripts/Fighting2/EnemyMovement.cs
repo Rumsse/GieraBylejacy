@@ -20,6 +20,7 @@ public class EnemyMovement : MonoBehaviour
 
     private float moveSpeed = 0.8f;
     private int movementRange = 3;
+    public float positionOffsetY = 0.5f;
 
     private Vector3 targetPosition;
     private Vector3Int currentHexPosition;
@@ -32,7 +33,8 @@ public class EnemyMovement : MonoBehaviour
 
     void Start()
     {
-        targetPosition = transform.position;
+        targetPosition = transform.position + new Vector3(0, positionOffsetY, 0); 
+        transform.position = targetPosition;
         Vector3Int startHex = tileManager.GetTilePosition(transform.position);
         currentHexPosition = hexTilemap.WorldToCell(transform.position);
         tileManager.OccupyTile(currentHexPosition, gameObject);
@@ -90,6 +92,8 @@ public class EnemyMovement : MonoBehaviour
             Vector3Int targetHexPosition = path[currentPathIndex];
             Vector3 targetWorldPosition = hexTilemap.CellToWorld(targetHexPosition);
 
+            targetWorldPosition.y += positionOffsetY;
+
             if (tileManager.IsTileOccupied(targetHexPosition))
             {
                 Debug.LogWarning($"WWWWWWWWW Przeciwnik {gameObject.name} koliduje z innym przeciwnikiem na {targetHexPosition}. Generuj� now� �cie�k�.");
@@ -119,7 +123,7 @@ public class EnemyMovement : MonoBehaviour
                 if (gameObject != null)
                 {
 
-                    Vector3Int newHexPosition = hexTilemap.WorldToCell(transform.position);
+                    Vector3Int newHexPosition = hexTilemap.WorldToCell(transform.position - new Vector3(0, positionOffsetY, 0));
                     Debug.Log($"Enemy {gameObject.name} moved to {newHexPosition}. Previous position: {currentHexPosition}.");
 
                     tileManager.UpdateTileOccupation(currentHexPosition, newHexPosition, gameObject);

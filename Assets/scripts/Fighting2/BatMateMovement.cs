@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static TurnManager;
@@ -14,7 +15,7 @@ public class BatMateMovement : MonoBehaviour
 
     private int maxMoveDistance = 4;
     private float moveSpeed = 3f;
-    private float yOffset = 0.3f;
+    public float yOffset = 0.5f;
 
     public bool hasMoved = true;
     public bool isActive = false;
@@ -26,7 +27,9 @@ public class BatMateMovement : MonoBehaviour
 
     void Start()
     {
-        targetPosition = transform.position;
+        targetPosition = transform.position + new Vector3(0, yOffset, 0);
+        transform.position = targetPosition;
+
         animator = GetComponent<Animator>();
 
         Vector3Int startHex = tileManager.GetTilePosition(transform.position);
@@ -96,7 +99,7 @@ public class BatMateMovement : MonoBehaviour
         }
 
         transform.position = targetPosition;
-        Vector3Int newHexPosition = tileManager.GetTilePosition(transform.position + occupiedTileOffset);
+        Vector3Int newHexPosition = tileManager.GetTilePosition(transform.position - new Vector3(0, yOffset, 0));
 
         tileManager.UpdateTileOccupation(currentHexPosition, newHexPosition, gameObject);
         currentHexPosition = newHexPosition;
