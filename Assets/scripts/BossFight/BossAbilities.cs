@@ -29,7 +29,7 @@ public class BossAbilities : MonoBehaviour
 
     public void ApplyDebuff()
     {
-        StatusEffect debuff = new StatusEffect("Os³abienie", 3, playerAbilities.playerDamageBasic / 2, playerAbilities.playerDamageAdvanced / 2, -2); //nazwa, czas trwania w turach, modyfikator ataku (0.5 = 50%), zmniejszenie ruchu
+        StatusEffect debuff = new StatusEffect("Os³abienie", 2, playerAbilities.playerDamageBasic / 2, playerAbilities.playerDamageAdvanced / 2, -2); //nazwa, czas trwania w turach, modyfikator ataku (0.5 = 50%), zmniejszenie ruchu
         playerAbilities.ApplyStatus(debuff);
         Debug.Log("Boss rzuci³ os³abienie na gracza");
     }

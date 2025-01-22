@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Skeleton1Data
   m_EditorClassIdentifier: 
   characterName: Enemy1
-  maxHealth: 30
-  health: 30
+  maxHealth: 45
+  health: 45
   isAlive: 1

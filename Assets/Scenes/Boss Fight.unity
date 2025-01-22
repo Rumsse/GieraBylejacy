@@ -5437,7 +5437,7 @@ MonoBehaviour:
   turnManager: {fileID: 2848338075193348448}
   hexTilemap: {fileID: 943148697}
   healthBar: {fileID: 1093270953}
-  characterData: {fileID: 11400000, guid: a2d6b938d56b0264caef972679cac203, type: 2}
+  characterData: {fileID: 11400000, guid: 0afeea5a1f1c24e4f8350694c77c5af6, type: 2}
   animator: {fileID: 1845817494}
   hasTakenDamage: 0
   isAlive: 1
@@ -6300,7 +6300,7 @@ MonoBehaviour:
   turnManager: {fileID: 2848338075193348448}
   hexTilemap: {fileID: 943148697}
   healthBar: {fileID: 1617653710}
-  characterData: {fileID: 11400000, guid: d66a39d3e09028f40834bf86b22bc03d, type: 2}
+  characterData: {fileID: 11400000, guid: 7a597cd0f0d76ef4db27eb226dd01d21, type: 2}
   animator: {fileID: 2070549767}
   hasTakenDamage: 0
   isAlive: 1

@@ -20,6 +20,7 @@ public class TurnManager : MonoBehaviour
     public BatMateAbilities batMateAbilities;
     public TileManager tileManager;
     public Tilemap hexTilemap;
+    public Pause pause;
 
     public AudioManager audioManager;
 
@@ -63,8 +64,7 @@ public class TurnManager : MonoBehaviour
     {
         if (EnemyCount == 0)
         {
-            Debug.Log("Wszyscy przeciwnicy s¹ martwi");
-            SceneManager.LoadSceneAsync(4);
+            pause.WinScreenPause();
         }
     }
 
