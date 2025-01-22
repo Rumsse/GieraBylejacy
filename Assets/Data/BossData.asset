@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BossData
   m_EditorClassIdentifier: 
   characterName: Boss
-  maxHealth: 100
-  health: 100
+  maxHealth: 60
+  health: 60
   isAlive: 1

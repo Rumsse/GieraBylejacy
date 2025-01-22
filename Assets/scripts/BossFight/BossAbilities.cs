@@ -37,12 +37,6 @@ public class BossAbilities : MonoBehaviour
 
 
 
-
-
-
-
-
-
     public GameObject batmate;
     public PlayerMovementBoss playerMovement;
     public BatMateAbilitiesBoss batMateAbilities;
@@ -90,7 +84,7 @@ public class BossAbilities : MonoBehaviour
         int distance = HexDistance(enemyHexPos, playerHexPos);
         if (distance <= 1)
         {
-            int damage = 20;
+            int damage = 10;
             var playerCharacterData = player.GetComponent<PlayerAbilitiesBoss>().characterData;
 
             playerAbilities.TakeDamage(damage);
