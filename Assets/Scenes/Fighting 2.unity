@@ -4775,6 +4775,7 @@ MonoBehaviour:
   hexTilemap: {fileID: 943148697}
   healthBar: {fileID: 1093270953}
   characterData: {fileID: 11400000, guid: a2d6b938d56b0264caef972679cac203, type: 2}
+  animator: {fileID: 1845817494}
   hasTakenDamage: 0
   isAlive: 1
   isInAttackRange: 0
@@ -5656,6 +5657,7 @@ MonoBehaviour:
   hexTilemap: {fileID: 943148697}
   healthBar: {fileID: 1617653710}
   characterData: {fileID: 11400000, guid: d66a39d3e09028f40834bf86b22bc03d, type: 2}
+  animator: {fileID: 1845817494}
   hasTakenDamage: 0
   isAlive: 1
 --- !u!1 &2101283946
@@ -6280,11 +6282,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7002934762677977222, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1
+      value: 1.28
       objectReference: {fileID: 0}
     - target: {fileID: 7002934762677977222, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1
+      value: 1.28
       objectReference: {fileID: 0}
     - target: {fileID: 8028396635752160040, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_FlipX

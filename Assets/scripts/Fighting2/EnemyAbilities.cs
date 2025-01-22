@@ -17,6 +17,7 @@ public class EnemyAbilities : MonoBehaviour
     public Tilemap hexTilemap;
     public HealthBar healthBar;
     public CharactersData characterData;
+    public Animator animator;
 
     public bool hasTakenDamage = false;
     public bool isAlive = true;
@@ -41,7 +42,7 @@ public class EnemyAbilities : MonoBehaviour
         {
             turnManager.OnCharacterDeath(gameObject);
             EnemyAbilities.activeEnemies.Remove(this);
-            Debug.Log("Przeciwnik zosta³ pokonany!");
+            Debug.Log("Przeciwnik zostaï¿½ pokonany!");
             Destroy(gameObject);
         }
     }
@@ -60,7 +61,8 @@ public class EnemyAbilities : MonoBehaviour
             var playerCharacterData = player.GetComponent<PlayerAbilities>().characterData;
 
             playerAbilities.TakeDamage(damage);
-            Debug.Log($"Przeciwnik zadaje graczowi {damage} obra¿eñ! Dystans: {distance}");
+            Debug.Log($"Przeciwnik zadaje graczowi {damage} obraï¿½eï¿½! Dystans: {distance}");
+            animator.SetTrigger("Attack");
         }
 
         int distance2 = HexDistance(enemyHexPos, batmateHexPos);
@@ -70,7 +72,8 @@ public class EnemyAbilities : MonoBehaviour
             var batmateCharacterData = batmate.GetComponent<BatMateAbilities>().characterData;
 
             batMateAbilities.TakeDamage(damage);
-            Debug.Log($"Przeciwnik zadaje batmatowi {damage} obra¿eñ! Dystans: {distance}");
+            Debug.Log($"Przeciwnik zadaje batmatowi {damage} obraï¿½eï¿½! Dystans: {distance}");
+            animator.SetTrigger("Attack");
         }
 
     }
