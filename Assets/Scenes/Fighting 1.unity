@@ -4173,6 +4173,7 @@ MonoBehaviour:
   hexTilemap: {fileID: 943148697}
   healthBar: {fileID: 1093270953}
   characterData: {fileID: 11400000, guid: 130ac24fb3f88fa41b4768ed851a11b7, type: 2}
+  animator: {fileID: 1845817499}
   hasTakenDamage: 0
 --- !u!95 &1845817499
 Animator:

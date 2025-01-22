@@ -14,6 +14,7 @@ public class EnemyAbilities1 : MonoBehaviour
     public Tilemap hexTilemap;
     public HealthBar healthBar;
     public CharactersData characterData;
+    public Animator animator;
 
     public bool hasTakenDamage = false;
 
@@ -35,7 +36,7 @@ public class EnemyAbilities1 : MonoBehaviour
         if (characterData.health <= 0)
         {
             EnemyAbilities1.activeEnemies.Remove(this);
-            Debug.Log("Przeciwnik zosta³ pokonany!");
+            Debug.Log("Przeciwnik zostaï¿½ pokonany!");
             Destroy(gameObject);
             pause.WinScreenPause();
         }
@@ -55,8 +56,12 @@ public class EnemyAbilities1 : MonoBehaviour
             var playerCharacterData = player.GetComponent<PlayerAbilities1>().characterData;
 
             playerAbilities.TakeDamage(damage);
-            Debug.Log($"Przeciwnik zadaje graczowi {damage} obra¿eñ! Dystans: {distance}");
+            Debug.Log($"Przeciwnik zadaje graczowi {damage} obraï¿½eï¿½! Dystans: {distance}");
+            
+            animator.SetTrigger("Attack");
+            
         }
+        
 
     }
 
