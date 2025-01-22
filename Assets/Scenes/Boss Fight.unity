@@ -5397,6 +5397,7 @@ MonoBehaviour:
   hexTilemap: {fileID: 943148697}
   healthBar: {fileID: 1093270953}
   characterData: {fileID: 11400000, guid: a2d6b938d56b0264caef972679cac203, type: 2}
+  animator: {fileID: 1845817494}
   hasTakenDamage: 0
   isAlive: 1
   isInAttackRange: 0
@@ -5420,6 +5421,7 @@ MonoBehaviour:
   isEnemyMoving: 0
   isActive: 0
   hasMoved: 0
+  animator: {fileID: 1845817494}
 --- !u!1 &1847597376 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7863324744924397090, guid: 01db7227068467b469cc0220c5f00d02, type: 3}
@@ -6256,6 +6258,7 @@ MonoBehaviour:
   hexTilemap: {fileID: 943148697}
   healthBar: {fileID: 1617653710}
   characterData: {fileID: 11400000, guid: d66a39d3e09028f40834bf86b22bc03d, type: 2}
+  animator: {fileID: 2070549767}
   hasTakenDamage: 0
   isAlive: 1
 --- !u!114 &2070549782
@@ -6278,6 +6281,7 @@ MonoBehaviour:
   isEnemyMoving: 0
   isActive: 0
   hasMoved: 0
+  animator: {fileID: 2070549767}
 --- !u!1 &2085571208
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,8 @@ public class Enemy2AbilitiesBoss : MonoBehaviour
     public HealthBar healthBar;
     public CharactersData characterData;
 
+    public Animator animator;
+
     public bool hasTakenDamage = false;
     public bool isAlive = true;
 
@@ -39,7 +41,7 @@ public class Enemy2AbilitiesBoss : MonoBehaviour
         {
             turnManager.OnCharacterDeath(gameObject);
             activeEnemies.Remove(this);
-            Debug.Log("Przeciwnik zosta³ pokonany!");
+            Debug.Log("Przeciwnik zostaï¿½ pokonany!");
             Destroy(gameObject);
         }
     }
@@ -56,7 +58,8 @@ public class Enemy2AbilitiesBoss : MonoBehaviour
         {
             int damageAmount = 10;
             playerAbilities.TakeDamage(damageAmount);
-            Debug.Log($"Przeciwnik zadaje graczowi {damageAmount} obra¿eñ! Dystans: {distance}");
+            Debug.Log($"Przeciwnik zadaje graczowi {damageAmount} obraï¿½eï¿½! Dystans: {distance}");
+            animator.SetTrigger("Attack");
         }
 
         int distance2 = HexDistance(enemyHexPos, batmateHexPos);
@@ -66,7 +69,8 @@ public class Enemy2AbilitiesBoss : MonoBehaviour
             var batmateCharacterData = batmate.GetComponent<BatMateAbilitiesBoss>().characterData;
 
             batMateAbilities.TakeDamage(damage);
-            Debug.Log($"Przeciwnik zadaje batmatowi {damage} obra¿eñ! Dystans: {distance}");
+            Debug.Log($"Przeciwnik zadaje batmatowi {damage} obraï¿½eï¿½! Dystans: {distance}");
+            animator.SetTrigger("Attack");
         }
 
     }
