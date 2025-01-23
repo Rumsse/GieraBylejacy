@@ -58,7 +58,7 @@ public class TurnManagerBoss : MonoBehaviour
         activeCharacters.Add(enemy2Movement.gameObject);
         activeCharacters.Add(bossMovement.gameObject);
 
-        EnemyCount = 2;
+        EnemyCount = 3;
 
         currentTurn = TurnState.Player;
         UpdateTurnIndicator();
@@ -408,17 +408,22 @@ public class TurnManagerBoss : MonoBehaviour
             {
                 batMateAbilities.isAlive = false;
             }
+            else if (deadCharacter.TryGetComponent<BossAbilities>(out var bossAbilities))
+            {
+                bossAbilities.isAlive = false;
+                EnemyCount--;
+            }
+
 
             if (activeCharacters.Count > 0 && activeCharacters[currentTurnIndex] == deadCharacter)
             {
                 currentTurnIndex %= activeCharacters.Count;
             }
 
-            // Sprawdzenie, czy wszyscy przeciwnicy s¹ martwi
             if (EnemyCount <= 0)
             {
                 Debug.Log("Wszyscy przeciwnicy zginêli! Przechodzimy do nastêpnej sceny.");
-                SceneManager.LoadScene(4);
+                SceneManager.LoadScene(6);
             }
         }
     }

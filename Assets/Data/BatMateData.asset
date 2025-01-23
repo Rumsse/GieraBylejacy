@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BatMateData
   m_EditorClassIdentifier: 
   characterName: BatMate
-  maxHealth: 40
-  health: 40
+  maxHealth: 45
+  health: 45
   isAlive: 1

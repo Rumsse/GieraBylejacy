@@ -5639,7 +5639,7 @@ MonoBehaviour:
   isActive: 0
   hasMoved: 0
   positionOffsetY: 0.5
-  animator: {fileID: 0}
+  animator: {fileID: 2070549767}
 --- !u!114 &2070549777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6422,6 +6422,7 @@ MonoBehaviour:
   batMateAbilities: {fileID: 1847597382}
   tileManager: {fileID: 2002097039}
   hexTilemap: {fileID: 943148697}
+  pause: {fileID: 0}
   audioManager: {fileID: 807395012}
   isEnemyTurn: 0
   enemyMoveDelay: 1.3

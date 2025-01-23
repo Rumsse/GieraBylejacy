@@ -128,7 +128,7 @@ public class BatMateAbilities : MonoBehaviour
 
     IEnumerator DelayedDamage(EnemyAbilities enemy, int damage)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
 
         if (enemy != null && !enemy.hasTakenDamage)
         {
@@ -142,7 +142,7 @@ public class BatMateAbilities : MonoBehaviour
 
     IEnumerator DelayedDamage2(Enemy2Abilities enemy, int damage)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
 
         if (enemy != null && !enemy.hasTakenDamage)
         {
