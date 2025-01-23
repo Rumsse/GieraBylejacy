@@ -76,6 +76,7 @@ public class TurnManager : MonoBehaviour
             return;
         }
 
+        currentTurnIndex %= activeCharacters.Count;
         GameObject currentCharacter = activeCharacters[currentTurnIndex];
 
         if (currentCharacter == null)
@@ -346,6 +347,10 @@ public class TurnManager : MonoBehaviour
             if (activeCharacters.Count > 0 && activeCharacters[currentTurnIndex] == deadCharacter)
             {
                 currentTurnIndex %= activeCharacters.Count;
+            }
+            else
+            {
+                currentTurnIndex = 0;
             }
 
             // Sprawdzenie, czy wszyscy przeciwnicy s¹ martwi

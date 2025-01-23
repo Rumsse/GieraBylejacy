@@ -6105,7 +6105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_Name
-      value: enemy2
+      value: enemy2Boss
       objectReference: {fileID: 0}
     - target: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_Layer
@@ -6942,7 +6942,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_Name
-      value: enemy
+      value: enemyBoss
       objectReference: {fileID: 0}
     - target: {fileID: 4720667512107263101, guid: ce764537bf91c9a46a83479c8de967c4, type: 3}
       propertyPath: m_Layer

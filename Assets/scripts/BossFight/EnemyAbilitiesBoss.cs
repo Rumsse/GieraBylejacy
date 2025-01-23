@@ -26,6 +26,12 @@ public class EnemyAbilitiesBoss : MonoBehaviour
     public static List<EnemyAbilitiesBoss> activeEnemies = new List<EnemyAbilitiesBoss>();
 
 
+    private void Awake()
+    {
+        characterData.ResetData();
+        healthBar.UpdateHealthUI();
+    }
+
     void Start()
     {
         activeEnemies.Add(this);

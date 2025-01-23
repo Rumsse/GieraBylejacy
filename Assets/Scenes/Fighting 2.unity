@@ -6422,7 +6422,7 @@ MonoBehaviour:
   batMateAbilities: {fileID: 1847597382}
   tileManager: {fileID: 2002097039}
   hexTilemap: {fileID: 943148697}
-  pause: {fileID: 0}
+  pause: {fileID: 519420034}
   audioManager: {fileID: 807395012}
   isEnemyTurn: 0
   enemyMoveDelay: 1.3
