@@ -343,12 +343,23 @@ public class TurnManager : MonoBehaviour
                 batMateAbilities.isAlive = false;
             }
 
-            if (activeCharacters.Count > 0 && activeCharacters[currentTurnIndex] == deadCharacter)
+            if (activeCharacters.Count > 0)
             {
-                currentTurnIndex %= activeCharacters.Count;
+                // Sprawdzamy, czy usuwany element jest na indeksie `currentTurnIndex`
+                if (currentTurnIndex < activeCharacters.Count && activeCharacters[currentTurnIndex] == deadCharacter)
+                {
+                    // Jeœli tak, upewniamy siê, ¿e indeks jest w zakresie
+                    currentTurnIndex %= activeCharacters.Count;
+                }
+                else
+                {
+                    // Jeœli nie, resetujemy indeks
+                    currentTurnIndex = 0;
+                }
             }
             else
             {
+                // Jeœli lista jest pusta, ustawiamy indeks na 0
                 currentTurnIndex = 0;
             }
 

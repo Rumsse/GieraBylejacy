@@ -8,6 +8,7 @@ TagManager:
   - BatMate
   - Enemy2
   - TriggerTile
+  - Boss
   layers:
   - Default
   - TransparentFX

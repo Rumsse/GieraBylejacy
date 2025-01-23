@@ -2435,8 +2435,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 574e6f9be0b523442bec142124589c7c, type: 2}
   - {fileID: 11400000, guid: a2d6b938d56b0264caef972679cac203, type: 2}
   - {fileID: 11400000, guid: d66a39d3e09028f40834bf86b22bc03d, type: 2}
-  - {fileID: 11400000, guid: 0afeea5a1f1c24e4f8350694c77c5af6, type: 2}
-  - {fileID: 11400000, guid: 7a597cd0f0d76ef4db27eb226dd01d21, type: 2}
+  - {fileID: 11400000, guid: c30a5cdaae3c8c74a90639d0b8374e71, type: 2}
+  - {fileID: 11400000, guid: d66a39d3e09028f40834bf86b22bc03d, type: 2}
   - {fileID: 11400000, guid: eb7b6aa0785175e4ebb7b8a20374aea7, type: 2}
 --- !u!4 &1019302424
 Transform:
@@ -4670,7 +4670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 156012185}
   offset: {x: 0, y: 1, z: 0}
-  characterData: {fileID: 11400000, guid: d66a39d3e09028f40834bf86b22bc03d, type: 2}
+  characterData: {fileID: 11400000, guid: a2d6b938d56b0264caef972679cac203, type: 2}
 --- !u!224 &1617653711
 RectTransform:
   m_ObjectHideFlags: 0

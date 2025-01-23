@@ -13,6 +13,7 @@ public class PlayerAbilitiesBoss : MonoBehaviour
     public Enemy2AbilitiesBoss enemy2Abilities;
     public GameObject enemy;
     public GameObject enemy2;
+    public GameObject boss;
     public Tilemap hexTilemap;
     public TurnManagerBoss turnManager;
     public HealthBar healthBar;
@@ -76,6 +77,7 @@ public class PlayerAbilitiesBoss : MonoBehaviour
         Vector3Int playerHexPos = hexTilemap.WorldToCell(transform.position);
         Vector3Int enemyHexPos = enemy != null ? hexTilemap.WorldToCell(enemy.transform.position) : Vector3Int.zero;
         Vector3Int enemy2HexPos = enemy2 != null ? hexTilemap.WorldToCell(enemy2.transform.position) : Vector3Int.zero;
+        Vector3Int bossHexPos = boss != null ? hexTilemap.WorldToCell(boss.transform.position) : Vector3Int.zero;
 
 
         if (hitCollider != null && hitCollider.CompareTag("Enemy"))
@@ -117,6 +119,27 @@ public class PlayerAbilitiesBoss : MonoBehaviour
             //Debug.Log("Promieñ nie trafi³ w przeciwnika.");
         }
 
+
+        if (hitCollider != null && hitCollider.CompareTag("Boss"))
+        {
+            BossAbilities boss = hitCollider.GetComponent<BossAbilities>();
+            if (boss != null && (HexDistance(playerHexPos, bossHexPos) <= 1) && !boss.hasTakenDamage)
+            {
+                animator.SetBool("isAttacking", true);
+                StartCoroutine(DelayedDamage3(boss, playerDamageBasic));
+
+            }
+            else
+            {
+                //Debug.Log("Przeciwnik ju¿ otrzyma³ obra¿enia");
+            }
+        }
+        else
+        {
+            //Debug.Log("Promieñ nie trafi³ w przeciwnika.");
+        }
+
+
     }
 
     public void SelectAdvancedAttackMode()
@@ -146,6 +169,7 @@ public class PlayerAbilitiesBoss : MonoBehaviour
         Vector3Int playerHexPos = hexTilemap.WorldToCell(transform.position);
         Vector3Int enemyHexPos = enemy != null ? hexTilemap.WorldToCell(enemy.transform.position) : Vector3Int.zero;
         Vector3Int enemy2HexPos = enemy2 != null ? hexTilemap.WorldToCell(enemy2.transform.position) : Vector3Int.zero;
+        Vector3Int bossHexPos = boss != null ? hexTilemap.WorldToCell(boss.transform.position) : Vector3Int.zero;
 
 
         if (canUseAdvancedAttack)
@@ -183,20 +207,24 @@ public class PlayerAbilitiesBoss : MonoBehaviour
                     canUseAdvancedAttack = false;
                     turnManager.turnCounter = 4;
                 }
-                else
+            }
+
+            if (hitCollider != null && hitCollider.CompareTag("Boss"))
+            {
+                BossAbilities boss = hitCollider.GetComponent<BossAbilities>();
+                if (boss != null && (HexDistance(playerHexPos, bossHexPos) <= 2) && !boss.hasTakenDamage)
                 {
-                    //Debug.Log("2Przeciwnik ju¿ otrzyma³ obra¿enia");
+                    animator.SetBool("isAttacking", true);
+                    StartCoroutine(DelayedDamage3(boss, playerDamageAdvanced));
+
+                    canUseAdvancedAttack = false;
+                    turnManager.turnCounter = 4;
                 }
             }
-            else
-            {
-                //Debug.Log("2Promieñ nie trafi³ w przeciwnika.");
-            }
+
         }
-        else
-        {
-            //Debug.Log("Advance Attack jest niedostêpny w tej turze");
-        }
+
+
 
     }
 
@@ -255,6 +283,21 @@ public class PlayerAbilitiesBoss : MonoBehaviour
         if (enemy != null && !enemy.hasTakenDamage)
         {
             enemy.TakeDamage(damage);
+            Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
+        }
+
+        animator.SetBool("isAttacking", false);
+
+    }
+
+
+    IEnumerator DelayedDamage3(BossAbilities boss, int damage)
+    {
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        if (enemy != null && !boss.hasTakenDamage)
+        {
+            boss.TakeDamage(damage);
             Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
         }
 
