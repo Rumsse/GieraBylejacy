@@ -295,7 +295,7 @@ public class PlayerAbilitiesBoss : MonoBehaviour
     {
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
-        if (enemy != null && !boss.hasTakenDamage)
+        if (boss != null && !boss.hasTakenDamage)
         {
             boss.TakeDamage(damage);
             Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);

@@ -12,6 +12,7 @@ public class BatMateAbilitiesBoss : MonoBehaviour
     public Enemy2AbilitiesBoss enemy2Abilities;
     public GameObject enemy;
     public GameObject enemy2;
+    public GameObject boss;
     public Tilemap hexTilemap;
     public TurnManagerBoss turnManager;
     public HealthBar healthBar;
@@ -62,6 +63,7 @@ public class BatMateAbilitiesBoss : MonoBehaviour
         Vector3Int playerHexPos = hexTilemap.WorldToCell(transform.position);
         Vector3Int enemyHexPos = enemy != null ? hexTilemap.WorldToCell(enemy.transform.position) : Vector3Int.zero;
         Vector3Int enemy2HexPos = enemy2 != null ? hexTilemap.WorldToCell(enemy2.transform.position) : Vector3Int.zero;
+        Vector3Int bossHexPos = boss != null ? hexTilemap.WorldToCell(boss.transform.position) : Vector3Int.zero;
 
 
         if (hitCollider != null && hitCollider.CompareTag("Enemy"))
@@ -104,6 +106,27 @@ public class BatMateAbilitiesBoss : MonoBehaviour
         {
             //Debug.Log("Promieñ nie trafi³ w przeciwnika.");
         }
+
+        if (hitCollider != null && hitCollider.CompareTag("Boss"))
+        {
+            BossAbilities boss = hitCollider.GetComponent<BossAbilities>();
+            if (boss != null && (HexDistance(playerHexPos, bossHexPos) <= 1) && !boss.hasTakenDamage)
+            {
+                animator.SetBool("isAttacking", true);
+                StartCoroutine(DelayedDamage3(boss, 5));
+                Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + 5);
+
+            }
+            else
+            {
+                //Debug.Log("Przeciwnik ju¿ otrzyma³ obra¿enia");
+            }
+        }
+        else
+        {
+            //Debug.Log("Promieñ nie trafi³ w przeciwnika.");
+        }
+
 
     }
 
@@ -154,5 +177,20 @@ public class BatMateAbilitiesBoss : MonoBehaviour
         animator.SetBool("isAttacking", false);
 
     }
+
+    IEnumerator DelayedDamage3(BossAbilities boss, int damage)
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (boss != null && !boss.hasTakenDamage)
+        {
+            boss.TakeDamage(damage);
+            //Debug.Log("Przeciwnik otrzyma³ obra¿enia: " + damage);
+        }
+
+        animator.SetBool("isAttacking", false);
+
+    }
+
 
 }
