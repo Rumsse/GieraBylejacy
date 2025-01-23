@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
 
     public float transitionTime = 1f;
     public GameObject optionsPanel;
+    public GameObject tutorialPanel;
 
 
     public void PlayGame()
@@ -45,5 +46,10 @@ public class MainMenu : MonoBehaviour
         optionsPanel.SetActive(false);
     }
 
+    public void ExitTutorialPanel()
+    {
+        audioManager.Buttons(audioManager.buttonClicked);
+        tutorialPanel.SetActive(false);
+    }
 
 }

@@ -1140,6 +1140,7 @@ MonoBehaviour:
   gameManager: {fileID: 1019302423}
   transitionTime: 1
   optionsPanel: {fileID: 760338176}
+  tutorialPanel: {fileID: 0}
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4697,7 +4698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 156012185}
   offset: {x: 0, y: 1, z: 0}
-  characterData: {fileID: 11400000, guid: a2d6b938d56b0264caef972679cac203, type: 2}
+  characterData: {fileID: 11400000, guid: d66a39d3e09028f40834bf86b22bc03d, type: 2}
 --- !u!224 &1617653711
 RectTransform:
   m_ObjectHideFlags: 0

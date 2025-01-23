@@ -212,6 +212,7 @@ public class TurnManagerBoss : MonoBehaviour
         playerAbilities.isAttackMode2 = false;
         enemyAbilities.hasTakenDamage = false;
         enemy2Abilities.hasTakenDamage = false;
+        bossAbilities.hasTakenDamage = false;
 
         playerAbilities.OnOneTurnEnd();
 
@@ -241,6 +242,7 @@ public class TurnManagerBoss : MonoBehaviour
         batMateAbilities.isAttackMode1 = false;
         enemyAbilities.hasTakenDamage = false;
         enemy2Abilities.hasTakenDamage = false;
+        bossAbilities.hasTakenDamage = false;
 
         NextTurn();
 
@@ -415,10 +417,7 @@ public class TurnManagerBoss : MonoBehaviour
             }
 
 
-            if (activeCharacters.Count > 0 && activeCharacters[currentTurnIndex] == deadCharacter)
-            {
-                currentTurnIndex %= activeCharacters.Count;
-            }
+            
 
             if (EnemyCount <= 0)
             {

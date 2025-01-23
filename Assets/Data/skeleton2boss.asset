@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: enemy2boss
   maxHealth: 30
-  health: 5
+  health: 30
   isAlive: 1
