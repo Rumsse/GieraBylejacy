@@ -423,7 +423,7 @@ public class TurnManagerBoss : MonoBehaviour
             if (EnemyCount <= 0)
             {
                 Debug.Log("Wszyscy przeciwnicy zginêli! Przechodzimy do nastêpnej sceny.");
-                SceneManager.LoadScene(6);
+                SceneManager.LoadScene(7);
             }
         }
     }

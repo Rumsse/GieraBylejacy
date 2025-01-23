@@ -52,13 +52,13 @@ public class TriggerTile : MonoBehaviour
     {
         //Animator
         //unlockedGateAnimation.SetTrigger("Unlocked");
-        UnityEngine.SceneManagement.SceneManager.LoadScene(3);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(4);
     }
 
     IEnumerator LoadNextScene()
     {
         yield return new WaitForSeconds(2f);
-        UnityEngine.SceneManagement.SceneManager.LoadScene(3);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(4);
     }
 
     private bool IsPlayerOnHealthTile(GameObject player)
@@ -100,7 +100,7 @@ public class TriggerTile : MonoBehaviour
 
     void NextScene()
     {
-        SceneManager.LoadScene(5);
+        SceneManager.LoadScene(6);
     }
 
 

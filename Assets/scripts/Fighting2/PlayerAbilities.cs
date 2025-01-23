@@ -227,7 +227,7 @@ public class PlayerAbilities : MonoBehaviour
         {
             gameObject.SetActive(false);
             Debug.Log("Gracz zosta³ pokonany!");
-            SceneManager.LoadSceneAsync(7);
+            SceneManager.LoadSceneAsync(8);
         }
     }
 
