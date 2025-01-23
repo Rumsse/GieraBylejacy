@@ -1066,6 +1066,7 @@ GameObject:
   - component: {fileID: 1223157616}
   - component: {fileID: 1223157615}
   - component: {fileID: 1223157618}
+  - component: {fileID: 1223157619}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1164,6 +1165,22 @@ MonoBehaviour:
   gameManager: {fileID: 1703762439}
   transitionTime: 1
   optionsPanel: {fileID: 997318898}
+--- !u!114 &1223157619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223157614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 325adcdd7e3eefc498444c60d9d50ddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorTextureNormal: {fileID: -8328923581568760697, guid: c6dd9e8bd97385447a009504f80058d2, type: 3}
+  cursorTextureClicked: {fileID: -8328923581568760697, guid: b6a1ed41566d4e14f9bfe7372b8008a8, type: 3}
+  hotSpot: {x: 0, y: 0}
+  cursorMode: 0
 --- !u!114 &1238674723 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8553406773051343339, guid: 18b19bfea609d824abc9ffefc64a2021, type: 3}
