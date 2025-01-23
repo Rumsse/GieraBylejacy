@@ -499,6 +499,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 574e6f9be0b523442bec142124589c7c, type: 2}
   - {fileID: 11400000, guid: a2d6b938d56b0264caef972679cac203, type: 2}
   - {fileID: 11400000, guid: d66a39d3e09028f40834bf86b22bc03d, type: 2}
+  - {fileID: 11400000, guid: 0afeea5a1f1c24e4f8350694c77c5af6, type: 2}
+  - {fileID: 11400000, guid: 7a597cd0f0d76ef4db27eb226dd01d21, type: 2}
+  - {fileID: 11400000, guid: eb7b6aa0785175e4ebb7b8a20374aea7, type: 2}
 --- !u!4 &653153781
 Transform:
   m_ObjectHideFlags: 0
@@ -938,7 +941,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1932994686645327094, guid: 1c941f020055eac42a9c594ffcadf872, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6788939268342260301, guid: 1c941f020055eac42a9c594ffcadf872, type: 3}
       propertyPath: m_Pivot.x
@@ -1169,7 +1172,7 @@ GameObject:
   - component: {fileID: 1258790650}
   - component: {fileID: 1258790649}
   m_Layer: 0
-  m_Name: IMG_0939
+  m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1647,9 +1650,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 68176161}
+  - {fileID: 1258790650}
   - {fileID: 1237123577}
   - {fileID: 179225631}
   - {fileID: 1020902474}
   - {fileID: 1020861411}
   - {fileID: 653153781}
-  - {fileID: 1258790650}
